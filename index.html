@@ -757,20 +757,20 @@ footer::before{
     </div>
     <!-- Workflow Mockup -->
     <div class="wf-card rv rd2">
-      <div class="wf-title">Aktive Workflows — Live Status</div>
+      <div class="wf-title">Automatisierte Prozesse</div>
       <div class="wf-row">
         <div class="wf-icon">💬</div>
         <div class="wf-text">
           <div class="wf-name">Kundenanfragen KI-Chatbot</div>
-          <div class="wf-sub">Website + WhatsApp · Letzter Trigger: vor 2 Min.</div>
+          <div class="wf-sub">24/7 aktiv — reagiert sofort auf jede Anfrage</div>
         </div>
       </div>
       <div class="wf-arrow">↓</div>
       <div class="wf-row">
         <div class="wf-icon">📋</div>
         <div class="wf-text">
-          <div class="wf-name">Lead in Notion speichern</div>
-          <div class="wf-sub">Automatisch → CRM-Datenbank</div>
+          <div class="wf-name">Lead-Qualifizierung & Speicherung</div>
+          <div class="wf-sub">Automatisch erfasst und bewertet</div>
         </div>
       </div>
       <div class="wf-arrow">↓</div>
@@ -786,7 +786,7 @@ footer::before{
         <div class="wf-icon">📅</div>
         <div class="wf-text">
           <div class="wf-name">Follow-up nach 48h</div>
-          <div class="wf-sub">Automatische Erinnerung · In Bearbeitung</div>
+          <div class="wf-sub">Automatische Follow-up Sequenz</div>
         </div>
       </div>
     </div>
@@ -802,25 +802,21 @@ footer::before{
       <div class="svc-num">01</div>
       <div class="svc-title">KI-Chatbots & Kundenservice</div>
       <div class="svc-desc">24/7 Kundenanfragen automatisch beantworten. Integration in Website, WhatsApp und Instagram — dein Team spart täglich Stunden.</div>
-      <div class="svc-chips"><span class="chip">Botpress</span><span class="chip">WhatsApp API</span><span class="chip">Claude AI</span></div>
     </div>
     <div class="svc-card rv rd1">
       <div class="svc-num">02</div>
       <div class="svc-title">Workflow-Automatisierung</div>
-      <div class="svc-desc">Von der Anfrage bis zur Rechnung vollautomatisch. n8n verbindet alle deine Tools und eliminiert manuelle Arbeit dauerhaft.</div>
-      <div class="svc-chips"><span class="chip">n8n</span><span class="chip">Notion</span><span class="chip">Google</span><span class="chip">Stripe</span></div>
+      <div class="svc-desc">Von der Anfrage bis zur Rechnung vollautomatisch. Verbindet alle deine Tools und eliminiert manuelle Arbeit dauerhaft.</div>
     </div>
     <div class="svc-card rv rd1">
       <div class="svc-num">03</div>
       <div class="svc-title">Voice-AI Agenten</div>
       <div class="svc-desc">Dein KI-Mitarbeiter telefoniert für dich — Terminvereinbarung, Erstberatung, Rückrufe. Rund um die Uhr, keine Warteschleife.</div>
-      <div class="svc-chips"><span class="chip">Synthflow</span><span class="chip">ElevenLabs</span><span class="chip">Retell</span></div>
     </div>
     <div class="svc-card rv rd2">
       <div class="svc-num">04</div>
       <div class="svc-title">Reporting & Analytics</div>
-      <div class="svc-desc">Live-Dashboard mit allen KPIs. Automatische tägliche Reports — du siehst genau, was dein KI-System gerade für dich arbeitet.</div>
-      <div class="svc-chips"><span class="chip">Notion</span><span class="chip">n8n</span><span class="chip">Custom Dashboard</span></div>
+      <div class="svc-desc">Dashboard mit allen KPIs. Automatische tägliche Reports — du siehst genau, was dein KI-System gerade für dich arbeitet.</div>
     </div>
   </div>
 </section>
@@ -1155,7 +1151,14 @@ function goStep(n){
   document.getElementById('opf').style.width=(n===1?33:n===2?66:100)+'%';
 }
 function submitAnalyse(){
-  const name=document.getElementById('ob-fname')?.value||'';
+  const fname=document.getElementById('ob-fname')?.value||'';
+  const email=document.querySelector('#ob-step-3 input[type="email"]')?.value||'';
+  const tel=document.querySelector('#ob-step-3 input[type="tel"]')?.value||'';
+  const size=document.querySelector('#ob-step-3 select')?.value||'';
+  const branch=document.querySelector('.ob-option.selected')?.dataset?.val||'';
+  const checks=[...document.querySelectorAll('.ob-check.checked .ob-check-label')].map(x=>x.textContent).join(', ');
+  const msg=`🔔 Neuer Lead — Aurion Website\n\n👤 ${fname}\n📧 ${email}\n📞 ${tel||'—'}\n🏢 ${size||'—'}\n🏷 Branche: ${branch}\n⏰ Zeitfresser: ${checks||'—'}`;
+  fetch('https://api.telegram.org/bot8645960987:AAEV9gmHGhEwTZ2zdKUhL4yqN_0IxTesqIw/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:'5560417354',text:msg})}).catch(()=>{});
   document.getElementById('ob-step-3').classList.remove('on');
   document.getElementById('ob-success').style.display='block';
 }
