@@ -2,1213 +2,1756 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="build" content="v3">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aurion Systems — KI-Automatisierung für KMUs</title>
+<title>Aurion Systems — KI-Automatisierung für österreichische Unternehmen</title>
+<meta name="description" content="Aurion Systems automatisiert Ihre Anfragen, Terminbuchungen und Kundenkorrespondenz — maßgeschneidert für Ihr Unternehmen, live in 48 Stunden.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{font-size:16px;scroll-behavior:smooth}
-body{background:var(--bg);color:var(--tx);font-family:'Inter',sans-serif;font-weight:300;overflow-x:hidden;transition:background .35s ease,color .35s ease}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ── DARK MODE (default) ── */
-:root{
-  --g:#C9A84C;--g2:#e8c96a;
-  --b:#4F8EFF;--b2:#7AADFF;--b-bg:rgba(79,142,255,.1);--b-bd:rgba(79,142,255,.2);
-  --bg:#07090f;--s1:#0c0e16;--s2:#11131c;
-  --tx:#e8eaf0;--tx2:#f0f2fa;
-  --bd:rgba(255,255,255,.07);--bd2:rgba(255,255,255,.12);
-  --mu:rgba(232,234,240,.45);
-  --nav-bg:rgba(7,9,15,.82);
-  --serif:'Cormorant Garamond',Georgia,serif;
+:root {
+  --bg: #06060E;
+  --gold: #C9A84C;
+  --gold2: #e8c96a;
+  --surface: #0F0F1A;
+  --surface2: #141414;
+  --text: #F5F5F5;
+  --muted: #888;
+  --border: rgba(201,168,76,0.15);
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
 }
-/* ── LIGHT MODE ── */
-html[data-theme="light"]{
-  --bg:#F7F5F1;--s1:#FFFFFF;--s2:#EDE9E3;
-  --tx:#111118;--tx2:#080810;
-  --bd:rgba(0,0,0,.07);--bd2:rgba(0,0,0,.12);
-  --mu:rgba(17,17,24,.45);
-  --nav-bg:rgba(247,245,241,.88);
-}
-html[data-theme="light"] body{background:var(--bg);color:var(--tx)}
-html[data-theme="light"] #cur{background:var(--g)}
-html[data-theme="light"] .demo-card{box-shadow:0 24px 60px rgba(0,0,0,.12)}
-html[data-theme="light"] .wf-card{box-shadow:0 12px 40px rgba(0,0,0,.1)}
-html[data-theme="light"] h2.sec-h,html[data-theme="light"] h1.headline{color:var(--tx2)}
-html[data-theme="light"] .hp-num,html[data-theme="light"] .stat-n,html[data-theme="light"] .kpi-num,html[data-theme="light"] .pnum-big{color:var(--g)}
-html[data-theme="light"] .pc-price,html[data-theme="light"] .big-saving-val,html[data-theme="light"] .r-roi-val,html[data-theme="light"] .sl-v{color:var(--g)}
-html[data-theme="light"] .svc-card,.svc-card{transition:background .25s,color .25s}
-html[data-theme="light"] nav{border-color:rgba(0,0,0,.08)}
-html[data-theme="light"] .tech-logo{color:rgba(17,17,24,.3)}
-html[data-theme="light"] .tech-logo:hover{color:rgba(17,17,24,.65)}
-html[data-theme="light"] .dmsg.b,.html[data-theme="light"] .cp-h{background:var(--s2)}
-html[data-theme="light"] .cm.b{background:var(--s2)}
-html[data-theme="light"] .ob-opt{background:var(--s2)}
-html[data-theme="light"] .fg input,.fg select{background:var(--s2)}
 
+html { scroll-behavior: smooth; overflow-x: hidden; }
 
-/* NAV */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:500;
-  height:64px;display:flex;align-items:center;justify-content:space-between;
-  padding:0 3rem;
-  border-bottom:1px solid var(--bd);
-  background:var(--nav-bg);
-  backdrop-filter:blur(24px);
-  transition:background .35s ease,border-color .35s ease;
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
 }
-nav::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(201,168,76,.35),transparent);
-  pointer-events:none;
-}
-.logo{display:flex;align-items:center;gap:.5rem;text-decoration:none}
-.logo img{height:42px;width:auto;object-fit:contain}
-.logo-text{font-family:var(--serif);font-size:1.15rem;letter-spacing:.18em;color:var(--tx);line-height:1;text-transform:uppercase}
-.logo-text span{display:block;font-size:.5rem;letter-spacing:.35em;text-transform:uppercase;color:var(--g);font-family:'Inter',sans-serif;font-weight:500;margin-top:2px}
-/* Hamburger */
-#ham{display:none;flex-direction:column;gap:5px;width:28px;cursor:pointer;background:none;border:none;padding:4px}
-#ham span{display:block;height:1.5px;background:var(--tx);transition:all .3s;width:100%}
-#ham.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
-#ham.open span:nth-child(2){opacity:0}
-#ham.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
-.mob-menu{display:none;position:fixed;top:60px;left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd);flex-direction:column;padding:1.25rem 1.5rem;gap:1rem;z-index:499}
-.mob-menu.open{display:flex}
-.mob-menu a{font-size:.9rem;color:var(--mu);text-decoration:none;padding:.5rem 0;border-bottom:1px solid var(--bd)}
-.mob-menu a:last-of-type{border-bottom:none}
-.mob-cta{margin-top:.5rem;width:100%;text-align:center;padding:.75rem;background:var(--g);color:#000;border:none;border-radius:6px;font-size:.85rem;font-weight:600;cursor:pointer}
-.nav-links{display:flex;align-items:center;gap:2rem}
-.nav-links a{font-size:.78rem;color:var(--mu);letter-spacing:.02em;transition:color .2s;text-decoration:none}
-.nav-links a:hover{color:var(--tx)}
-.nav-r{display:flex;align-items:center;gap:.75rem}
-/* Theme toggle */
-#theme-toggle{
-  width:34px;height:34px;border-radius:50%;
-  background:var(--s2);border:1px solid var(--bd2);
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;font-size:.95rem;
-  transition:all .2s;flex-shrink:0;
-}
-#theme-toggle:hover{background:var(--s1);border-color:var(--g);transform:scale(1.08)}
-.badge-live{font-size:.65rem;letter-spacing:.08em;color:#4ade80;border:1px solid rgba(74,222,128,.25);background:rgba(74,222,128,.05);padding:.25rem .7rem;border-radius:100px;display:flex;align-items:center;gap:.35rem}
-.badge-live::before{content:'';width:5px;height:5px;border-radius:50%;background:#4ade80;animation:blink 2s ease infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
-.btn-nav{background:var(--g);color:#000;font-size:.75rem;font-weight:500;padding:.45rem 1.2rem;border-radius:5px;border:none;cursor:pointer;transition:all .2s;letter-spacing:.03em}
-.btn-nav:hover{background:var(--g2);transform:translateY(-1px)}
 
-/* ═══════ HERO ═══════ */
-#hero{
-  min-height:100vh;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  align-items:center;
-  padding:0 3rem;
-  gap:4rem;
-  position:relative;
-  overflow:hidden;
-  background:radial-gradient(ellipse 120% 80% at 50% 60%,rgba(201,168,76,.04) 0%,transparent 60%);
+/* ── TYPOGRAPHY ── */
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; }
+
+/* ── SCROLL REVEAL ── */
+.rv { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.rv.v { opacity: 1; transform: translateY(0); }
+.rv.d1 { transition-delay: 0.1s; }
+.rv.d2 { transition-delay: 0.2s; }
+.rv.d3 { transition-delay: 0.3s; }
+.rv.d4 { transition-delay: 0.4s; }
+.rv.d5 { transition-delay: 0.5s; }
+
+/* ── BUTTONS ── */
+.btn-gold {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gold);
+  color: #06060E;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 14px 28px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
 }
-/* Grid bg */
-#hero::before{
-  content:'';position:absolute;inset:0;
+.btn-gold::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -75%;
+  width: 50%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+  animation: shimmer 2.4s infinite;
+}
+@keyframes shimmer { 0%{left:-75%} 100%{left:125%} }
+.btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(201,168,76,0.35); }
+
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 400;
+  padding: 14px 28px;
+  border-radius: 6px;
+  border: 1px solid rgba(245,245,245,0.2);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+.btn-ghost:hover { border-color: var(--gold); background: rgba(201,168,76,0.06); }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px;
+  height: 68px;
+  background: rgba(6,6,14,0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--text);
+  flex-shrink: 0;
+}
+.nav-logo span { color: var(--gold); }
+.nav-links {
+  display: flex; gap: 36px; list-style: none;
+  position: absolute; left: 50%; transform: translateX(-50%);
+}
+.nav-links a {
+  font-size: 0.875rem;
+  color: var(--muted);
+  transition: color 0.2s;
+  letter-spacing: 0.02em;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-cta { flex-shrink: 0; }
+.hamburger {
+  display: none;
+  flex-direction: column; gap: 5px;
+  cursor: pointer; padding: 8px;
+  background: none; border: none;
+}
+.hamburger span {
+  display: block; width: 24px; height: 1.5px;
+  background: var(--text);
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+/* Mobile overlay */
+.mobile-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 200;
+  background: var(--bg);
+  flex-direction: column; align-items: center; justify-content: center; gap: 40px;
+}
+.mobile-overlay.open { display: flex; }
+.mobile-overlay a {
+  font-family: var(--font-display);
+  font-size: 2rem; font-weight: 400;
+  color: var(--text); transition: color 0.2s;
+}
+.mobile-overlay a:hover { color: var(--gold); }
+.overlay-close {
+  position: absolute; top: 24px; right: 24px;
+  background: none; border: none; cursor: pointer;
+  font-size: 1.8rem; color: var(--muted); transition: color 0.2s;
+}
+.overlay-close:hover { color: var(--text); }
+
+/* ── HERO ── */
+#hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+#particle-canvas {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+.hero-orb {
+  position: absolute;
+  width: 700px; height: 700px;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -55%);
+  background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, rgba(201,168,76,0.04) 40%, transparent 70%);
+  border-radius: 50%;
+  animation: orbPulse 6s ease-in-out infinite;
+  z-index: 0;
+}
+@keyframes orbPulse {
+  0%,100% { transform: translate(-50%,-55%) scale(1); opacity: 0.7; }
+  50% { transform: translate(-50%,-55%) scale(1.15); opacity: 1; }
+}
+.hero-grid {
+  position: absolute; inset: 0; z-index: 0;
   background-image:
-    linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);
-  background-size:72px 72px;
-  mask-image:radial-gradient(ellipse 90% 90% at 50% 50%,black 10%,transparent 100%);
-  pointer-events:none;
+    linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 100%);
 }
-/* Dual glow */
-#hero::after{
-  content:'';position:absolute;
-  top:-150px;right:-50px;
-  width:800px;height:800px;
-  background:
-    radial-gradient(circle at 60% 40%,rgba(201,168,76,.07) 0%,transparent 50%),
-    radial-gradient(circle at 30% 70%,rgba(79,142,255,.05) 0%,transparent 50%);
-  pointer-events:none;
+.hero-content {
+  position: relative; z-index: 2;
+  text-align: center;
+  max-width: 880px;
+  padding: 0 24px;
+  padding-top: 68px;
 }
-/* Logo Wasserzeichen — mix-blend-mode:screen entfernt dunklen PNG-Hintergrund */
-#hero-logo-bg{
-  position:absolute;
-  left:50%;top:50%;
-  transform:translate(-50%,-50%);
-  width:min(680px,80vw);
-  height:auto;
-  opacity:.75;
-  mix-blend-mode:screen;
-  pointer-events:none;
-  z-index:1;
-  user-select:none;
-  filter:saturate(1.3) brightness(1.1);
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: rgba(201,168,76,0.08);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 8px 18px;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  color: var(--gold);
+  margin-bottom: 36px;
+}
+.badge-dot {
+  width: 8px; height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: badgePulse 1.8s ease-in-out infinite;
+}
+@keyframes badgePulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(201,168,76,0.5); }
+  50% { box-shadow: 0 0 0 6px rgba(201,168,76,0); }
+}
+.hero-h1 {
+  font-size: clamp(2.8rem, 6vw, 5.5rem);
+  line-height: 1.1;
+  margin-bottom: 24px;
+  font-weight: 400;
+}
+.hero-h1 .gold-italic {
+  display: block;
+  color: var(--gold);
+  font-style: italic;
+  font-size: clamp(2.2rem, 4.5vw, 4.2rem);
+}
+.hero-sub {
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  color: var(--muted);
+  max-width: 640px;
+  margin: 0 auto 44px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+.hero-ctas {
+  display: flex; align-items: center; justify-content: center;
+  gap: 16px; margin-bottom: 56px; flex-wrap: wrap;
+}
+.trust-row {
+  display: flex; align-items: center; justify-content: center;
+  gap: 28px; flex-wrap: wrap;
+}
+.trust-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.82rem; color: var(--muted);
+}
+.trust-item::before {
+  content: '✓';
+  color: var(--gold); font-weight: 600;
 }
 
-.hero-left{position:relative;z-index:10;padding-top:4rem}
-.hero-tag{display:none}
-@keyframes fin{to{opacity:1}}
+/* ── STATS STRIP ── */
+#stats {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.stats-inner {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  max-width: 1100px; margin: 0 auto;
+}
+.stat-item {
+  padding: 48px 32px;
+  text-align: center;
+  border-right: 1px solid var(--border);
+}
+.stat-item:last-child { border-right: none; }
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 3.2rem;
+  font-weight: 500;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.stat-label {
+  font-size: 0.85rem; color: var(--muted);
+  line-height: 1.4;
+}
 
-h1.headline{
-  font-size:clamp(2.8rem,5.2vw,5.8rem);
-  font-weight:700;
-  line-height:1.02;
-  letter-spacing:-.035em;
-  margin-bottom:1.75rem;
-  color:#f5f5f5;
-  text-shadow:0 0 80px rgba(201,168,76,.08);
+/* ── HOW IT WORKS ── */
+#how {
+  padding: 120px 40px;
+  max-width: 1100px; margin: 0 auto;
 }
-.hl{display:block;overflow:hidden}
-.hw{display:inline-block;transform:translateY(105%);animation:hup 1s cubic-bezier(.16,1,.3,1) forwards}
-.hl:nth-child(1) .hw{animation-delay:.15s}
-.hl:nth-child(2) .hw{animation-delay:.28s}
-.hl:nth-child(3) .hw{animation-delay:.42s}
-.hw em{font-style:italic;color:var(--g);font-family:var(--serif);font-weight:300;font-size:1.1em}
-@keyframes hup{to{transform:translateY(0)}}
+.section-label {
+  font-size: 0.75rem; letter-spacing: 0.15em;
+  color: var(--gold); text-transform: uppercase;
+  margin-bottom: 16px; display: block;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 64px;
+}
+.steps-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.step-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 40px 32px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  cursor: default;
+}
+.step-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0; transition: opacity 0.3s;
+}
+.step-card:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+.step-card:hover::before { opacity: 1; }
+.step-num {
+  font-family: var(--font-display);
+  font-size: 3.5rem; font-weight: 300;
+  color: rgba(201,168,76,0.2);
+  line-height: 1; margin-bottom: 20px;
+}
+.step-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem; font-weight: 500;
+  margin-bottom: 12px;
+}
+.step-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
 
-.hero-p{font-size:1.05rem;color:var(--mu);line-height:1.75;max-width:440px;margin-bottom:2.25rem;opacity:0;animation:fin .8s ease .7s forwards}
+/* ── LEISTUNGEN ── */
+#leistungen {
+  padding: 0 40px 120px;
+  max-width: 1100px; margin: 0 auto;
+}
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: 16px;
+}
+.bento-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 36px;
+  position: relative; overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+.bento-card:hover {
+  border-color: rgba(201,168,76,0.35);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.35);
+}
+.bento-card.wide {
+  grid-column: span 2;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+}
+.bento-icon {
+  font-size: 1.8rem; margin-bottom: 20px;
+  display: block;
+}
+.bento-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem; font-weight: 500;
+  margin-bottom: 12px;
+}
+.bento-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+.bento-tag {
+  display: inline-block; margin-top: 16px;
+  font-size: 0.75rem; letter-spacing: 0.05em;
+  color: var(--gold);
+  border: 1px solid var(--border);
+  border-radius: 4px; padding: 4px 10px;
+}
 
-.hero-btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:2.75rem;opacity:0;animation:fin .8s ease .85s forwards}
-.btn-primary{
-  background:linear-gradient(135deg,#C9A84C,#e8c96a);
-  color:#000;font-size:.83rem;font-weight:700;
-  padding:.8rem 2rem;border-radius:7px;border:none;cursor:pointer;
-  transition:all .25s;letter-spacing:.03em;
-  box-shadow:0 4px 20px rgba(201,168,76,.25);
-  position:relative;overflow:hidden;
+/* Chat mockup */
+.chat-mockup {
+  display: flex; flex-direction: column; gap: 10px;
+  justify-content: center;
 }
-.btn-primary::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);
-  opacity:0;transition:opacity .2s;
+.chat-msg {
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 0.82rem; line-height: 1.5;
+  max-width: 90%;
 }
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(201,168,76,.4)}
-.btn-primary:hover::before{opacity:1}
-.btn-sec{
-  background:rgba(255,255,255,.04);color:#e8eaf0;
-  font-size:.83rem;padding:.8rem 2rem;border-radius:7px;
-  border:1px solid rgba(255,255,255,.12);cursor:pointer;transition:all .25s;
+.chat-msg.incoming {
+  background: rgba(201,168,76,0.1);
+  border: 1px solid var(--border);
+  border-bottom-left-radius: 4px;
+  align-self: flex-start;
+  color: var(--text);
 }
-.btn-sec:hover{background:rgba(255,255,255,.08);border-color:rgba(201,168,76,.3);color:#f5f5f5;transform:translateY(-1px)}
+.chat-msg.outgoing {
+  background: rgba(201,168,76,0.2);
+  border-bottom-right-radius: 4px;
+  align-self: flex-end;
+  color: var(--gold2);
+}
+.chat-sender {
+  font-size: 0.7rem; color: var(--muted);
+  margin-bottom: 4px;
+}
 
-.hero-proof{display:flex;gap:2rem;align-items:center;opacity:0;animation:fin .8s ease 1s forwards}
-.hp-item{display:flex;flex-direction:column;gap:.15rem}
-.hp-num{font-family:var(--serif);font-size:2rem;font-weight:300;color:var(--g);line-height:1;text-shadow:0 0 20px rgba(201,168,76,.3)}
-.hp-lbl{font-size:.68rem;color:var(--mu);letter-spacing:.04em}
-.hp-div{width:1px;height:36px;background:var(--bd2)}
-.hp-item:nth-child(3) .hp-num{color:var(--b)}
-.hp-item:nth-child(5) .hp-num{color:#14B8A6}
+/* ── BRANCHEN ── */
+#branchen {
+  padding: 0 40px 120px;
+  max-width: 1100px; margin: 0 auto;
+}
+.branchen-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.branche-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 32px 28px;
+  transition: border-color 0.3s, transform 0.3s;
+  cursor: default;
+}
+.branche-card:hover {
+  border-color: rgba(201,168,76,0.4);
+  transform: translateY(-3px);
+}
+.branche-emoji { font-size: 2rem; margin-bottom: 14px; display: block; }
+.branche-name {
+  font-family: var(--font-display);
+  font-size: 1.2rem; font-weight: 500;
+  margin-bottom: 8px;
+}
+.branche-desc { font-size: 0.85rem; color: var(--muted); }
 
-/* HERO RIGHT — CHAT DEMO */
-.hero-right{position:relative;z-index:10;padding-top:5rem;display:flex;align-items:center;justify-content:center}
-.demo-card{
-  width:100%;max-width:440px;
-  background:var(--s1);
-  border:1px solid rgba(201,168,76,.15);
-  border-radius:18px;
-  overflow:hidden;
-  box-shadow:0 32px 80px rgba(0,0,0,.7),0 0 0 1px rgba(201,168,76,.08),0 0 60px rgba(201,168,76,.05);
-  opacity:0;animation:cardin 1s cubic-bezier(.16,1,.3,1) .4s forwards;
+/* ── ROI CALCULATOR ── */
+#roi {
+  padding: 0 40px 120px;
+  max-width: 1100px; margin: 0 auto;
 }
-@keyframes cardin{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
-.demo-header{
-  padding:1rem 1.25rem;
-  background:var(--s2);
-  border-bottom:1px solid var(--bd);
-  display:flex;align-items:center;justify-content:space-between;
+.roi-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 48px; align-items: start;
 }
-.demo-agent{display:flex;align-items:center;gap:.65rem}
-.demo-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#C9A84C,#7a5e1c);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#000;flex-shrink:0}
-.demo-name{font-size:.82rem;font-weight:500}
-.demo-status{font-size:.65rem;color:#4ade80;display:flex;align-items:center;gap:.3rem}
-.demo-status::before{content:'';width:5px;height:5px;border-radius:50%;background:#4ade80}
-.demo-tag{font-size:.62rem;letter-spacing:.08em;background:rgba(201,168,76,.1);color:var(--g);border:1px solid rgba(201,168,76,.2);padding:.15rem .55rem;border-radius:100px}
+.roi-left { }
+.slider-group { margin-bottom: 32px; }
+.slider-label {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 10px;
+  font-size: 0.9rem; color: var(--text);
+}
+.slider-val {
+  font-family: var(--font-display);
+  font-size: 1.2rem; color: var(--gold);
+}
+input[type=range] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 4px;
+  background: rgba(201,168,76,0.15);
+  border-radius: 2px; outline: none; cursor: pointer;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--gold);
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+input[type=range]::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 0 6px rgba(201,168,76,0.2);
+}
+.roi-right {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 48px 40px;
+  position: sticky; top: 88px;
+}
+.roi-main-label { font-size: 0.8rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+.roi-main-val {
+  font-family: var(--font-display);
+  font-size: 3.8rem; font-weight: 500;
+  color: var(--gold); line-height: 1;
+  margin-bottom: 32px;
+}
+.roi-metrics {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+  margin-bottom: 36px;
+}
+.roi-metric {
+  background: rgba(201,168,76,0.05);
+  border: 1px solid var(--border);
+  border-radius: 8px; padding: 18px 16px;
+}
+.roi-metric-val {
+  font-family: var(--font-display);
+  font-size: 1.5rem; color: var(--gold2);
+  line-height: 1; margin-bottom: 6px;
+}
+.roi-metric-label { font-size: 0.78rem; color: var(--muted); }
 
-.demo-chat{padding:1.25rem;display:flex;flex-direction:column;gap:.75rem;min-height:280px}
-.dmsg{max-width:82%;padding:.65rem .9rem;border-radius:10px;font-size:.8rem;line-height:1.55;animation:mi .3s ease}
-@keyframes mi{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
-.dmsg.b{background:var(--s2);border-radius:10px 10px 10px 2px}
-.dmsg.u{background:rgba(201,168,76,.12);color:var(--g);border-radius:10px 10px 2px 10px;margin-left:auto;text-align:right}
-.demo-typing{display:flex;gap:3px;padding:.65rem .9rem;background:var(--s2);border-radius:10px 10px 10px 2px;width:fit-content}
-.demo-typing span{width:5px;height:5px;border-radius:50%;background:var(--mu);animation:ty .9s ease infinite}
-.demo-typing span:nth-child(2){animation-delay:.15s}
-.demo-typing span:nth-child(3){animation-delay:.3s}
-@keyframes ty{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-4px)}}
+/* ── PAKETE ── */
+#pakete {
+  padding: 0 40px 120px;
+  max-width: 1100px; margin: 0 auto;
+}
+.pakete-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 20px; margin-bottom: 40px;
+}
+.paket-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 40px 32px;
+  position: relative;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  display: flex; flex-direction: column;
+}
+.paket-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+.paket-card.popular {
+  border-color: rgba(201,168,76,0.5);
+  background: linear-gradient(160deg, rgba(201,168,76,0.07) 0%, var(--surface) 50%);
+}
+.paket-badge {
+  display: inline-block;
+  background: var(--gold);
+  color: #06060E;
+  font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 100px;
+  margin-bottom: 20px;
+}
+.paket-name {
+  font-family: var(--font-display);
+  font-size: 1.6rem; font-weight: 500;
+  margin-bottom: 8px;
+}
+.paket-anfrage {
+  font-size: 0.85rem; color: var(--muted);
+  margin-bottom: 28px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+}
+.paket-features {
+  list-style: none; flex: 1;
+  margin-bottom: 32px;
+}
+.paket-features li {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 0.875rem; color: var(--muted);
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.paket-features li::before { content: '✓'; color: var(--gold); flex-shrink: 0; margin-top: 1px; }
 
-.demo-footer{
-  padding:.85rem 1.25rem;
-  border-top:1px solid var(--bd);
-  background:var(--s2);
-  display:flex;align-items:center;gap:.65rem;
+.guarantee-strip {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px 40px;
+  display: flex; align-items: center; justify-content: center;
+  gap: 48px; flex-wrap: wrap;
 }
-.demo-input{flex:1;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:.5rem .8rem;font-size:.75rem;color:var(--mu);outline:none;font-family:inherit}
-.demo-send{background:var(--g);border:none;border-radius:5px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:.8rem}
+.guarantee-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.85rem; color: var(--muted);
+}
+.guarantee-item::before { content: '✓'; color: var(--gold); font-weight: 600; }
 
-/* KPI strip */
-.kpi-strip{
-  display:flex;border-top:1px solid var(--bd);
-  background:var(--s1);
+/* ── CONTACT FORM ── */
+#kontakt {
+  padding: 0 40px 120px;
+  max-width: 720px; margin: 0 auto;
 }
-.kpi-item{
-  flex:1;padding:1.25rem 1.5rem;
-  border-right:1px solid var(--bd);
-  display:flex;gap:1rem;align-items:center;
+.progress-bar {
+  display: flex; align-items: center; gap: 0;
+  margin-bottom: 48px;
 }
-.kpi-item:last-child{border-right:none}
-.kpi-icon{font-size:1.3rem}
-.kpi-num{font-family:var(--serif);font-size:1.6rem;font-weight:300;color:var(--g);line-height:1}
-.kpi-item:nth-child(2) .kpi-num{color:var(--b)}
-.kpi-item:nth-child(3) .kpi-num{color:#14B8A6}
-.kpi-item:nth-child(4) .kpi-num{color:#a78bfa}
-.kpi-lbl{font-size:.68rem;color:var(--mu);margin-top:.1rem}
+.prog-step {
+  display: flex; align-items: center;
+  flex: 1;
+}
+.prog-dot {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem; color: var(--muted);
+  flex-shrink: 0; transition: all 0.3s;
+}
+.prog-dot.active { border-color: var(--gold); background: var(--gold); color: #06060E; font-weight: 600; }
+.prog-dot.done { border-color: var(--gold); background: rgba(201,168,76,0.15); color: var(--gold); }
+.prog-line {
+  flex: 1; height: 1px;
+  background: var(--border);
+  transition: background 0.3s;
+}
+.prog-line.done { background: var(--gold); }
+.prog-label {
+  font-size: 0.75rem; color: var(--muted);
+  margin-top: 8px; text-align: center;
+}
+.progress-labels {
+  display: flex; justify-content: space-between;
+  margin-bottom: 40px;
+}
 
-/* TECH STRIP */
-.tech-strip{
-  padding:1.25rem 3rem;
-  border-top:1px solid var(--bd);
-  border-bottom:1px solid var(--bd);
-  background:var(--bg);
-  display:flex;align-items:center;gap:2rem;
-  overflow:hidden;
-}
-.tech-label{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--mu);white-space:nowrap;flex-shrink:0}
-.tech-logos{display:flex;align-items:center;gap:2.5rem;overflow:hidden}
-.tech-logo{font-size:.75rem;letter-spacing:.05em;color:rgba(232,234,240,.3);white-space:nowrap;transition:color .2s}
-.tech-logo:hover{color:rgba(232,234,240,.65)}
+.form-step { display: none; }
+.form-step.active { display: block; }
 
-/* ═══════ SECTIONS ═══════ */
-.section{padding:7rem 3rem;border-top:1px solid var(--bd)}
-.tag{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--g);margin-bottom:1rem;display:flex;align-items:center;gap:.55rem}
-.tag::before{content:'';width:1.5rem;height:1px;background:var(--g)}
-.tag.blue{color:var(--b)}
-.tag.blue::before{background:var(--b)}
-h2.sec-h{
-  font-size:clamp(2rem,3.5vw,3.4rem);
-  font-weight:700;letter-spacing:-.03em;line-height:1.08;color:#f5f5f5;
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group {
+  display: flex; flex-direction: column; gap: 8px;
+  margin-bottom: 16px;
 }
-h2.sec-h em{font-style:italic;color:var(--g);font-family:var(--serif);font-weight:300;font-size:1.08em;text-shadow:0 0 30px rgba(201,168,76,.25)}
-.sec-p{font-size:.9rem;color:var(--mu);line-height:1.75;max-width:500px;margin-top:.75rem}
+.form-group.full { grid-column: span 2; }
+label { font-size: 0.85rem; color: var(--muted); letter-spacing: 0.02em; }
+input[type=text], input[type=email], input[type=tel], input[type=url], input[type=date],
+select, textarea {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: rgba(201,168,76,0.5);
+  box-shadow: 0 0 0 3px rgba(201,168,76,0.08);
+}
+select option { background: #0F0F1A; }
+textarea { resize: vertical; min-height: 100px; }
+select { cursor: pointer; }
 
-/* ═══════ HOW IT WORKS ═══════ */
-#how{background:var(--s1)}
-.how-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-top:4rem}
-.steps-list{display:flex;flex-direction:column;gap:0}
-.step-item{
-  display:flex;gap:1.25rem;
-  padding:1.5rem 0;
-  border-bottom:1px solid var(--bd);
-  position:relative;
+.paket-select-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 12px; margin-bottom: 24px;
 }
-.step-item:last-child{border-bottom:none}
-.step-dot{
-  width:36px;height:36px;border-radius:50%;
-  border:1px solid var(--b-bd);
-  background:var(--b-bg);
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--serif);font-size:1rem;color:var(--b);
-  flex-shrink:0;margin-top:.1rem;
-  transition:all .2s;
+.paket-select-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 16px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  text-align: center;
 }
-.step-item:hover .step-dot{background:rgba(79,142,255,.18);border-color:rgba(79,142,255,.4)}
-.step-body{}
-.step-name{font-size:.92rem;font-weight:500;margin-bottom:.3rem;color:#f0f2fa}
-.step-desc{font-size:.78rem;color:var(--mu);line-height:1.6}
+.paket-select-card:hover { border-color: rgba(201,168,76,0.3); }
+.paket-select-card.selected { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+.paket-select-name {
+  font-family: var(--font-display);
+  font-size: 1.2rem; margin-bottom: 6px;
+}
+.paket-select-desc { font-size: 0.78rem; color: var(--muted); }
 
-/* Workflow mockup */
-.wf-card{
-  background:var(--s2);border:1px solid var(--bd2);
-  border-radius:12px;padding:1.75rem;
-  box-shadow:0 20px 60px rgba(0,0,0,.5);
+.form-nav {
+  display: flex; gap: 12px; justify-content: space-between;
+  margin-top: 32px;
 }
-.wf-title{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:1.25rem}
-.wf-row{
-  display:flex;align-items:center;gap:.75rem;
-  padding:.85rem 1rem;
-  background:var(--s1);
-  border:1px solid var(--bd);
-  border-radius:7px;
-  margin-bottom:.4rem;
-  transition:all .2s;
-  cursor:default;
+.form-success {
+  display: none; text-align: center;
+  padding: 80px 40px;
 }
-.wf-row:hover{border-color:rgba(201,168,76,.25);background:rgba(201,168,76,.04)}
-.wf-icon{font-size:1rem;width:28px;text-align:center;flex-shrink:0}
-.wf-text{flex:1}
-.wf-name{font-size:.78rem;font-weight:500;color:#e8eaf0}
-.wf-sub{font-size:.68rem;color:var(--mu)}
-.wf-status{font-size:.62rem;padding:.2rem .55rem;border-radius:100px}
-.wf-status.ok{background:rgba(74,222,128,.1);color:#4ade80;border:1px solid rgba(74,222,128,.2)}
-.wf-status.run{background:rgba(201,168,76,.1);color:var(--g);border:1px solid rgba(201,168,76,.2)}
-.wf-arrow{text-align:center;color:rgba(201,168,76,.3);font-size:.8rem;padding:.1rem 0}
+.form-success.show { display: block; }
+.success-icon {
+  width: 64px; height: 64px;
+  background: rgba(201,168,76,0.12);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem;
+  margin: 0 auto 24px;
+}
+.success-title {
+  font-family: var(--font-display);
+  font-size: 2rem; margin-bottom: 12px;
+}
+.success-sub { color: var(--muted); margin-bottom: 32px; }
 
-/* ═══════ SERVICES ═══════ */
-#services{background:var(--bg)}
-.svc-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:1px;background:var(--bd);
-  border:1px solid var(--bd);border-radius:10px;overflow:hidden;
-  margin-top:3.5rem;
+/* ── FAQ ── */
+#faq {
+  padding: 0 40px 120px;
+  max-width: 800px; margin: 0 auto;
 }
-.svc-card{
-  background:var(--s1);
-  padding:2.5rem;
-  position:relative;overflow:hidden;
-  transition:background .3s,transform .25s,box-shadow .25s;
-  border-top:2px solid transparent;
+.faq-item {
+  border-bottom: 1px solid var(--border);
 }
-.svc-card:hover{transform:translateY(-3px);box-shadow:0 20px 60px rgba(0,0,0,.4)}
-.svc-card:nth-child(1){border-top-color:var(--g)}
-.svc-card:nth-child(2){border-top-color:var(--b)}
-.svc-card:nth-child(3){border-top-color:#14B8A6}
-.svc-card:nth-child(4){border-top-color:#a78bfa}
-.svc-card:hover{background:var(--s2)}
-.svc-card::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(circle at top left,rgba(201,168,76,.05),transparent 55%);
-  opacity:0;transition:opacity .3s;
+.faq-q {
+  width: 100%; background: none; border: none; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 24px 0;
+  font-family: var(--font-display);
+  font-size: 1.15rem; font-weight: 400;
+  color: var(--text); text-align: left;
+  transition: color 0.2s;
 }
-.svc-card:nth-child(2)::before{background:radial-gradient(circle at top left,rgba(79,142,255,.06),transparent 55%)}
-.svc-card:nth-child(3)::before{background:radial-gradient(circle at top left,rgba(20,184,166,.06),transparent 55%)}
-.svc-card:nth-child(4)::before{background:radial-gradient(circle at top left,rgba(167,139,250,.06),transparent 55%)}
-.svc-card:hover::before{opacity:1}
-.svc-card:nth-child(2) .svc-num{color:var(--b)}
-.svc-card:nth-child(3) .svc-num{color:#14B8A6}
-.svc-card:nth-child(4) .svc-num{color:#a78bfa}
-.svc-num{font-family:var(--serif);font-size:.85rem;color:rgba(201,168,76,.4);margin-bottom:1.25rem}
-.svc-title{font-size:1.15rem;font-weight:500;color:#f0f2fa;margin-bottom:.5rem}
-.svc-desc{font-size:.8rem;color:var(--mu);line-height:1.65;margin-bottom:1.25rem}
-.svc-chips{display:flex;gap:.35rem;flex-wrap:wrap}
-.chip{font-size:.62rem;letter-spacing:.04em;padding:.2rem .6rem;border:1px solid var(--bd);border-radius:3px;color:var(--mu)}
+.faq-q:hover { color: var(--gold); }
+.faq-icon {
+  width: 24px; height: 24px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; color: var(--gold);
+  flex-shrink: 0;
+  transition: transform 0.3s;
+}
+.faq-a {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s;
+  font-size: 0.9rem; color: var(--muted); line-height: 1.7;
+}
+.faq-a.open { max-height: 200px; padding-bottom: 24px; }
+.faq-item.open .faq-icon { transform: rotate(45deg); }
 
-/* ═══════ ROI ═══════ */
-#roi{background:var(--s1)}
-.roi-wrap{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:3.5rem;max-width:900px}
-.roi-panel{
-  background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:2.25rem;
+/* ── CTA SECTION ── */
+#cta-section {
+  padding: 160px 40px;
+  text-align: center;
+  position: relative; overflow: hidden;
 }
-.roi-result-panel{
-  background:linear-gradient(145deg,rgba(201,168,76,.07) 0%,transparent 60%);
-  border:1px solid rgba(201,168,76,.18);
-  border-radius:10px;padding:2.25rem;
-  display:flex;flex-direction:column;gap:1.25rem;
+.cta-rings {
+  position: absolute;
+  left: 50%; top: 50%; transform: translate(-50%, -50%);
+  pointer-events: none;
 }
-.sl-group{margin-bottom:1.25rem}
-.sl-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.5rem}
-.sl-lbl{font-size:.73rem;color:var(--mu)}
-.sl-v{font-family:var(--serif);font-size:1.2rem;color:var(--g)}
-input[type=range]{
-  width:100%;-webkit-appearance:none;appearance:none;
-  height:2px;background:rgba(255,255,255,.1);border-radius:2px;outline:none;cursor:pointer;
+.cta-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(201,168,76,0.12);
+  left: 50%; top: 50%;
+  animation: ringPulse 4s ease-in-out infinite;
 }
-input[type=range]::-webkit-slider-thumb{
-  -webkit-appearance:none;width:14px;height:14px;border-radius:50%;
-  background:var(--g);border:2px solid var(--bg);cursor:pointer;
-  box-shadow:0 0 0 3px rgba(201,168,76,.2);
+.cta-ring:nth-child(1) { width: 300px; height: 300px; margin: -150px 0 0 -150px; animation-delay: 0s; }
+.cta-ring:nth-child(2) { width: 500px; height: 500px; margin: -250px 0 0 -250px; animation-delay: 0.5s; }
+.cta-ring:nth-child(3) { width: 700px; height: 700px; margin: -350px 0 0 -350px; animation-delay: 1s; }
+.cta-ring:nth-child(4) { width: 900px; height: 900px; margin: -450px 0 0 -450px; animation-delay: 1.5s; }
+@keyframes ringPulse {
+  0%,100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.03); }
 }
-.big-saving{margin-bottom:.5rem}
-.big-saving-label{font-size:.63rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.6);margin-bottom:.2rem}
-.big-saving-val{font-family:var(--serif);font-size:3.5rem;font-weight:300;color:var(--g);line-height:1}
-.divider{height:1px;background:rgba(201,168,76,.15)}
-.roi-line{display:flex;justify-content:space-between;align-items:baseline}
-.roi-line .ll{font-size:.73rem;color:var(--mu)}
-.roi-line .lv{font-family:var(--serif);font-size:1rem;color:#e8eaf0}
-.roi-box{padding:.75rem 1rem;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);border-radius:6px;display:flex;justify-content:space-between;align-items:center}
-.roi-box .ll{font-size:.78rem;font-weight:500;color:#e8eaf0}
-.roi-box .lv{font-family:var(--serif);font-size:1.8rem;color:var(--g)}
+.cta-inner { position: relative; z-index: 1; }
+.cta-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-weight: 400; margin-bottom: 20px;
+  line-height: 1.15;
+}
+.cta-sub {
+  color: var(--muted); font-size: 1.05rem;
+  max-width: 540px; margin: 0 auto 44px;
+  line-height: 1.7;
+}
 
-/* ═══════ PRICING ═══════ */
-#pricing{background:var(--bg)}
-.price-wrap{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:1px;background:var(--bd);
-  border:1px solid var(--bd);border-radius:10px;overflow:hidden;
-  margin-top:3.5rem;
+/* ── FOOTER ── */
+footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 80px 40px 0;
 }
-.pc{background:var(--s1);padding:2.5rem;position:relative;transition:background .3s,transform .25s,box-shadow .25s}
-.pc:hover{transform:translateY(-3px);box-shadow:0 20px 60px rgba(0,0,0,.4)}
-.pc.hot{background:var(--s2);border-top:2px solid var(--g);box-shadow:0 0 40px rgba(201,168,76,.08)}
-.pc.hot::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top,rgba(201,168,76,.06),transparent 60%);pointer-events:none}
-.pc:hover{background:var(--s2)}
-.pc-badge{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--g);background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);padding:.2rem .65rem;border-radius:100px;display:inline-block;margin-bottom:1.25rem}
-.pc-name{font-size:1.15rem;font-weight:500;color:#f0f2fa;margin-bottom:.75rem}
-.pc-price{font-family:var(--serif);font-size:3rem;font-weight:300;color:var(--g);line-height:1}
-.pc-mo{font-size:.72rem;color:var(--mu);margin:.2rem 0 .4rem}
-.pc-ret{font-size:.72rem;color:var(--mu);padding:.25rem .6rem;border:1px solid var(--bd);border-radius:3px;display:inline-block;margin-bottom:1.75rem}
-.pc-ul{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-bottom:2rem}
-.pc-ul li{font-size:.78rem;color:var(--mu);display:flex;gap:.55rem;align-items:flex-start}
-.pc-ul li::before{content:'✓';color:var(--g);font-size:.7rem;flex-shrink:0;margin-top:.1rem}
-.btn-pc{width:100%;padding:.7rem;border-radius:5px;font-size:.76rem;font-weight:500;letter-spacing:.04em;cursor:pointer;transition:all .2s;border:1px solid var(--bd);background:transparent;color:var(--mu)}
-.btn-pc:hover{color:#e8eaf0;border-color:rgba(255,255,255,.2)}
-.pc.hot .btn-pc{background:var(--g);color:#000;border-color:var(--g)}
-.pc.hot .btn-pc:hover{background:var(--g2)}
-
-/* ═══════ TESTIMONIALS ═══════ */
-#testimonials{background:var(--s1);overflow:hidden;padding-left:0;padding-right:0}
-.testi-inner{padding:0 3rem 3rem}
-.mq{overflow:hidden;border-top:1px solid var(--bd)}
-.mq-track{display:flex;animation:mq 45s linear infinite}
-@keyframes mq{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-.tc{
-  min-width:280px;flex-shrink:0;
-  background:var(--bg);
-  padding:2rem;
-  border-right:1px solid var(--bd);
+.footer-grid {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 60px; padding-bottom: 60px;
 }
-.tc-stars{color:var(--g);letter-spacing:.05em;font-size:.68rem;margin-bottom:.85rem}
-.tc-q{font-size:.82rem;color:var(--mu);line-height:1.65;margin-bottom:1.25rem;font-style:italic}
-.tc-a{font-size:.78rem;font-weight:500;color:#e8eaf0}
-.tc-r{font-size:.7rem;color:var(--mu)}
-
-/* ═══════ ONBOARDING ═══════ */
-#onboarding{background:var(--bg)}
-.ob-wrap{max-width:700px;margin:0 auto;background:var(--s1);border:1px solid var(--bd);border-radius:12px;overflow:hidden;position:relative}
-.ob-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--g),transparent);pointer-events:none}
-.ob-inner{padding:2.5rem}
-.ob-step{display:none}
-.ob-step.on{display:block}
-.ob-step-label{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--g);margin-bottom:.5rem}
-.ob-title{font-family:var(--serif);font-size:1.8rem;font-weight:300;color:#f0f2fa;margin-bottom:.5rem}
-.ob-sub{font-size:.83rem;color:var(--mu);margin-bottom:1.75rem;line-height:1.6}
-.ob-options{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:.5rem}
-.ob-option{background:var(--s2);border:1px solid var(--bd);border-radius:8px;padding:1rem 1.25rem;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:.75rem}
-.ob-option:hover{border-color:rgba(201,168,76,.3);background:rgba(201,168,76,.04)}
-.ob-option.selected{border-color:var(--g);background:rgba(201,168,76,.08)}
-.ob-option-icon{font-size:1.2rem;flex-shrink:0}
-.ob-option-label{font-size:.83rem;color:#e8eaf0;font-weight:400}
-.ob-option-sub{font-size:.72rem;color:var(--mu)}
-.ob-checkboxes{display:flex;flex-direction:column;gap:.6rem;margin-bottom:.5rem}
-.ob-check{display:flex;align-items:center;gap:.75rem;background:var(--s2);border:1px solid var(--bd);border-radius:8px;padding:.9rem 1.25rem;cursor:pointer;transition:all .25s}
-.ob-check:hover{border-color:rgba(201,168,76,.2)}
-.ob-check.checked{border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.06)}
-.ob-check-box{width:18px;height:18px;border:1px solid var(--bd);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s}
-.ob-check.checked .ob-check-box{background:var(--g);border-color:var(--g)}
-.ob-check-mark{color:#000;font-size:.65rem;opacity:0;transition:opacity .2s}
-.ob-check.checked .ob-check-mark{opacity:1}
-.ob-check-label{font-size:.83rem;color:var(--mu)}
-.ob-fields{display:flex;flex-direction:column;gap:.85rem;margin-bottom:.5rem}
-.ob-field label{display:block;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:.35rem}
-.ob-field input,.ob-field select{width:100%;background:var(--s2);border:1px solid var(--bd);border-radius:6px;padding:.7rem 1rem;font-family:'Inter',sans-serif;font-size:.85rem;color:#e8eaf0;outline:none;transition:border .2s}
-.ob-field input:focus,.ob-field select:focus{border-color:rgba(201,168,76,.4)}
-.ob-field input::placeholder{color:var(--mu)}
-.ob-footer-row{display:flex;justify-content:space-between;align-items:center;margin-top:1.75rem;padding-top:1.5rem;border-top:1px solid var(--bd)}
-.ob-back-btn{background:transparent;border:none;color:var(--mu);font-size:.8rem;padding:.5rem;transition:color .2s;cursor:pointer}
-.ob-back-btn:hover{color:#e8eaf0}
-.ob-next-btn{background:linear-gradient(135deg,var(--g),var(--g2));color:#000;border:none;padding:.8rem 1.8rem;border-radius:6px;font-size:.82rem;font-weight:600;transition:all .25s;cursor:pointer}
-.ob-next-btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(201,168,76,.3)}
-.ob-next-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
-.ob-step-counter{font-size:.75rem;color:var(--mu)}
-.ob-success{display:none;text-align:center;padding:4rem 3rem}
-.ob-success-icon{font-size:3rem;margin-bottom:1.5rem}
-.ob-success h3{font-family:var(--serif);font-size:1.8rem;font-weight:300;color:#f0f2fa;margin-bottom:.75rem}
-.ob-success p{font-size:.88rem;color:var(--mu);line-height:1.75}
-.ob-prog{height:2px;background:var(--bd)}<div class="ob-prog"><div class="ob-prog-fill" id="opf"></div></div>
-.ob-pf{height:100%;background:var(--g);transition:width .4s ease;width:33%}
-.ob-top{padding:1.75rem 2rem 0}
-.ob-steps-row{display:flex;gap:0;margin-bottom:1.75rem}
-.ob-si{flex:1;font-size:.67rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mu);padding:.5rem 0;border-bottom:2px solid var(--bd);transition:all .3s;text-align:center}
-.ob-si.on{color:var(--g);border-color:var(--g)}
-.ob-si.ok{color:#4ade80;border-color:rgba(74,222,128,.4)}
-.ob-body{padding:2rem}
-.ob-s{display:none}
-.ob-s.on{display:block}
-.ob-h{font-size:1.5rem;font-weight:500;color:#f0f2fa;margin-bottom:.3rem;letter-spacing:-.01em}
-.ob-d{font-size:.78rem;color:var(--mu);margin-bottom:1.75rem;line-height:1.6}
-.og{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;margin-bottom:1.5rem}
-.ob-opt{
-  display:flex;flex-direction:column;align-items:center;gap:.3rem;
-  padding:1rem .5rem;border:1px solid var(--bd);border-radius:7px;
-  background:var(--bg);font-size:.72rem;color:var(--mu);cursor:pointer;
-  transition:all .2s;text-align:center;
+.footer-brand p {
+  font-size: 0.85rem; color: var(--muted);
+  margin-top: 16px; line-height: 1.7;
+  max-width: 260px;
 }
-.ob-opt .ico{font-size:1.25rem}
-.ob-opt:hover{border-color:rgba(201,168,76,.3);color:#e8eaf0;background:rgba(201,168,76,.04)}
-.ob-opt.on{border-color:var(--g);background:rgba(201,168,76,.08);color:var(--g)}
-.cbl{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1.5rem}
-.cbi{display:flex;align-items:center;gap:.7rem;padding:.8rem 1rem;border:1px solid var(--bd);border-radius:6px;cursor:pointer;transition:all .2s}
-.cbi:hover{border-color:rgba(201,168,76,.25);background:rgba(201,168,76,.03)}
-.cbi input{accent-color:var(--g);cursor:pointer;width:13px;height:13px}
-.cbi label{font-size:.8rem;color:var(--mu);cursor:pointer;flex:1}
-.frow{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.6rem}
-.fg{margin-bottom:.6rem}
-.fg label{display:block;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:.35rem}
-.fg input,.fg select{width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:5px;padding:.65rem .9rem;font-size:.8rem;color:#e8eaf0;font-family:inherit;outline:none;transition:border-color .2s}
-.fg input:focus,.fg select:focus{border-color:rgba(201,168,76,.4)}
-.ob-nav{display:flex;justify-content:space-between;align-items:center;padding-top:1.5rem;border-top:1px solid var(--bd)}
-.btn-bk{background:none;border:1px solid var(--bd);color:var(--mu);padding:.55rem 1.1rem;border-radius:5px;font-size:.75rem;cursor:pointer;transition:all .2s}
-.btn-bk:hover{color:#e8eaf0;border-color:rgba(255,255,255,.2)}
-.btn-nx{background:var(--g);color:#000;padding:.6rem 1.75rem;border-radius:5px;font-size:.78rem;font-weight:600;border:none;cursor:pointer;transition:all .2s}
-.btn-nx:hover{background:var(--g2)}
-.btn-nx:disabled{opacity:.3;pointer-events:none}
-.ob-done{display:none;text-align:center;padding:3.5rem 2rem}
-.ob-done-icon{font-size:2rem;margin-bottom:1.25rem}
-.ob-done-h{font-size:2rem;font-weight:500;color:#f0f2fa;margin-bottom:.65rem;letter-spacing:-.01em}
-.ob-done-p{font-size:.85rem;color:var(--mu);line-height:1.75}
-
-/* ═══════ CHAT ═══════ */
-#ct{position:fixed;bottom:2rem;right:2rem;z-index:600;width:50px;height:50px;border-radius:50%;background:var(--g);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;box-shadow:0 4px 24px rgba(201,168,76,.4);transition:all .25s}
-#ct:hover{background:var(--g2);transform:scale(1.1)}
-.ct-b{position:absolute;top:-3px;right:-3px;width:14px;height:14px;border-radius:50%;background:#f87171;border:2px solid #07090f;font-size:.5rem;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
-#cp{position:fixed;bottom:5.5rem;right:2rem;z-index:599;width:320px;background:var(--s1);border:1px solid var(--bd2);border-radius:12px;overflow:hidden;display:none;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,.7);max-height:480px}
-#cp.open{display:flex}
-.cp-h{padding:.85rem 1.1rem;background:var(--s2);border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between}
-.cp-av{display:flex;align-items:center;gap:.6rem}
-.cp-dot{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--g),#7a5e1c);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#000}
-.cp-name{font-size:.8rem;font-weight:500}
-.cp-on{font-size:.63rem;color:#4ade80}
-.cp-x{background:none;border:none;color:var(--mu);cursor:pointer;font-size:.9rem;padding:.2rem;transition:color .2s}
-.cp-x:hover{color:#e8eaf0}
-#cm{flex:1;overflow-y:auto;padding:.85rem;display:flex;flex-direction:column;gap:.5rem;min-height:180px}
-#cm::-webkit-scrollbar{width:3px}
-#cm::-webkit-scrollbar-thumb{background:var(--bd);border-radius:2px}
-.cm{max-width:88%;padding:.55rem .8rem;border-radius:8px;font-size:.78rem;line-height:1.5;animation:ci .2s ease}
-@keyframes ci{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
-.cm.b{background:var(--s2);border-radius:8px 8px 8px 2px}
-.cm.u{background:rgba(201,168,76,.12);color:var(--g);border-radius:8px 8px 2px 8px;margin-left:auto}
-.cty{display:flex;gap:3px;padding:.55rem .8rem;background:var(--s2);border-radius:8px 8px 8px 2px;width:fit-content}
-.cty span{width:5px;height:5px;border-radius:50%;background:var(--mu);animation:ty .8s ease infinite}
-.cty span:nth-child(2){animation-delay:.13s}
-.cty span:nth-child(3){animation-delay:.26s}
-#co{display:flex;flex-direction:column;gap:.3rem;padding:.4rem .85rem .85rem}
-.co{background:transparent;border:1px solid var(--bd);color:var(--mu);font-size:.72rem;padding:.42rem .8rem;border-radius:5px;cursor:pointer;text-align:left;transition:all .2s}
-.co:hover{border-color:rgba(201,168,76,.3);color:var(--g);background:rgba(201,168,76,.04)}
-
-/* FOOTER */
-footer{
-  padding:2.5rem 3rem;
-  border-top:1px solid var(--bd);
-  display:flex;align-items:center;justify-content:space-between;
-  background:var(--bg);
-  position:relative;
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 1.2rem; letter-spacing: 0.06em;
 }
-footer::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(201,168,76,.3),transparent);
+.footer-logo span { color: var(--gold); }
+.footer-col h4 {
+  font-family: var(--font-body);
+  font-size: 0.78rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 20px; font-weight: 500;
 }
-.fl{font-family:var(--serif);font-size:.95rem;letter-spacing:.1em}
-.fl em{color:var(--g);font-style:italic}
-.fl2{display:flex;gap:2rem}
-.fl2 a{font-size:.7rem;letter-spacing:.04em;color:var(--mu);transition:color .2s;text-decoration:none}
-.fl2 a:hover{color:#e8eaf0}
-.fc{font-size:.68rem;color:var(--mu)}
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 12px; }
+.footer-col a {
+  font-size: 0.88rem; color: var(--muted);
+  transition: color 0.2s;
+}
+.footer-col a:hover { color: var(--gold); }
+.footer-bar {
+  max-width: 1100px; margin: 0 auto;
+  padding: 24px 0;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px;
+}
+.footer-bar p { font-size: 0.8rem; color: var(--muted); }
 
-/* REVEAL */
-.rv{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
-.rv.v{opacity:1;transform:translateY(0)}
-.rd1{transition-delay:.1s}.rd2{transition-delay:.2s}.rd3{transition-delay:.3s}
+/* ── FLOATING CHAT ── */
+#chat-widget { position: fixed; bottom: 28px; right: 28px; z-index: 999; }
+#chat-toggle {
+  width: 60px; height: 60px;
+  background: var(--gold);
+  border-radius: 50%;
+  border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 32px rgba(201,168,76,0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+  font-size: 1.5rem;
+}
+#chat-toggle:hover { transform: scale(1.08); box-shadow: 0 12px 40px rgba(201,168,76,0.5); }
+#chat-panel {
+  display: none;
+  position: absolute; bottom: 76px; right: 0;
+  width: 320px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+}
+#chat-panel.open { display: block; }
+.chat-header {
+  background: linear-gradient(135deg, rgba(201,168,76,0.15), rgba(201,168,76,0.05));
+  border-bottom: 1px solid var(--border);
+  padding: 16px 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.chat-avatar {
+  width: 36px; height: 36px;
+  background: var(--gold);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; font-weight: 700; color: #06060E;
+}
+.chat-header-info strong { display: block; font-size: 0.9rem; }
+.chat-header-info span { font-size: 0.75rem; color: var(--muted); }
+.chat-body { padding: 20px; }
+.chat-greeting { font-size: 0.88rem; color: var(--muted); margin-bottom: 16px; line-height: 1.5; }
+.chat-options { display: flex; flex-direction: column; gap: 8px; }
+.chat-opt {
+  background: rgba(201,168,76,0.06);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.83rem; color: var(--text);
+  cursor: pointer; text-align: left;
+  transition: border-color 0.2s, background 0.2s;
+}
+.chat-opt:hover { border-color: rgba(201,168,76,0.4); background: rgba(201,168,76,0.1); }
+.chat-answer {
+  font-size: 0.85rem; color: var(--muted);
+  margin-top: 12px; padding: 14px;
+  background: rgba(201,168,76,0.05);
+  border: 1px solid var(--border);
+  border-radius: 8px; line-height: 1.6;
+  display: none;
+}
+.chat-answer.show { display: block; }
 
-@media(max-width:880px){
-  #hero{grid-template-columns:1fr;padding:5rem 1.5rem 2rem;gap:3rem}
-  .hero-right{justify-content:flex-start}
-  .kpi-strip{flex-wrap:wrap}
-  .kpi-item{min-width:50%;border-bottom:1px solid var(--bd)}
-  .tech-strip{gap:1.25rem;padding:1rem 1.5rem}
-  .section{padding:4rem 1.5rem}
-  .how-grid,.roi-wrap{grid-template-columns:1fr}
-  .svc-grid{grid-template-columns:1fr}
-  .price-wrap{grid-template-columns:1fr}
-  nav{padding:0 1.25rem}
-  .nav-links{display:none}
-  #ham{display:flex}
-  .logo img{height:36px}
-  .og{grid-template-columns:repeat(2,1fr)}
-  footer{flex-direction:column;gap:1.5rem;text-align:center}
+/* ── UTILITIES ── */
+.section-wrap { padding: 120px 40px; max-width: 1100px; margin: 0 auto; }
+.gold { color: var(--gold); }
+.text-center { text-align: center; }
+.mt-4 { margin-top: 16px; }
+.mt-8 { margin-top: 32px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .nav-cta .btn-gold { display: none; }
+  .hamburger { display: flex; }
+
+  .stats-inner { grid-template-columns: repeat(2, 1fr); }
+  .stat-item:nth-child(2) { border-right: none; }
+  .stat-item:nth-child(3) { border-top: 1px solid var(--border); }
+  .stat-item:nth-child(4) { border-top: 1px solid var(--border); border-right: none; }
+
+  .steps-grid { grid-template-columns: 1fr; }
+  .bento-grid { grid-template-columns: 1fr; }
+  .bento-card.wide { grid-column: span 1; grid-template-columns: 1fr; }
+  .branchen-grid { grid-template-columns: 1fr 1fr; }
+  .roi-grid { grid-template-columns: 1fr; }
+  .roi-right { position: static; }
+  .pakete-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+  #how, #leistungen, #branchen, #roi, #pakete { padding-left: 20px; padding-right: 20px; }
+  #faq { padding-left: 20px; padding-right: 20px; }
+  #cta-section { padding: 100px 20px; }
+  footer { padding: 60px 20px 0; }
+  .section-wrap { padding: 80px 20px; }
+}
+
+@media (max-width: 600px) {
+  .hero-ctas { flex-direction: column; align-items: stretch; }
+  .hero-ctas .btn-gold, .hero-ctas .btn-ghost { width: 100%; justify-content: center; }
+  .trust-row { flex-direction: column; gap: 12px; }
+  .branchen-grid { grid-template-columns: 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .form-group.full { grid-column: span 1; }
+  .paket-select-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .guarantee-strip { gap: 20px; flex-direction: column; align-items: flex-start; padding: 24px 20px; }
+  .footer-bar { flex-direction: column; text-align: center; }
+  #chat-widget { bottom: 16px; right: 16px; }
+  #chat-panel { width: calc(100vw - 32px); right: -4px; }
+  .cta-ring:nth-child(3), .cta-ring:nth-child(4) { display: none; }
+  .roi-metrics { grid-template-columns: 1fr; }
+  .progress-labels { display: none; }
 }
 </style>
 </head>
 <body>
 
-
-<!-- NAV -->
+<!-- ── NAV ── -->
 <nav>
-  <a href="#" class="logo">
-    <div class="logo-text">AURION<span>Systems</span></div>
-  </a>
-  <div class="nav-links">
-    <a href="#how">So funktioniert's</a>
-    <a href="#services">Leistungen</a>
-    <a href="#pricing">Preise</a>
-    <a href="#roi">ROI</a>
+  <a href="#" class="nav-logo">AURION <span>/</span> SYSTEMS</a>
+  <ul class="nav-links">
+    <li><a href="#leistungen">Leistungen</a></li>
+    <li><a href="#branchen">Branchen</a></li>
+    <li><a href="#roi">ROI</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="#kontakt" class="btn-gold">Jetzt anfragen</a>
   </div>
-  <div class="nav-r">
-    <button id="theme-toggle" onclick="toggleTheme()" title="Hell/Dunkel wechseln">🌙</button>
-    <button class="btn-nav" onclick="document.getElementById('onboarding').scrollIntoView({behavior:'smooth'})">Kostenlose Analyse</button>
-    <button id="ham" onclick="toggleMob()" aria-label="Menü">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
+  <button class="hamburger" id="hamburgerBtn" aria-label="Menü öffnen">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
-<!-- Mobile Menu -->
-<div class="mob-menu" id="mobMenu">
-  <a href="#how" onclick="closeMob()">So funktioniert's</a>
-  <a href="#services" onclick="closeMob()">Leistungen</a>
-  <a href="#pricing" onclick="closeMob()">Preise</a>
-  <a href="#roi" onclick="closeMob()">ROI Rechner</a>
-  <button class="mob-cta" onclick="closeMob();document.getElementById('onboarding').scrollIntoView({behavior:'smooth'})">Kostenlose Analyse starten →</button>
+
+<!-- Mobile Overlay -->
+<div class="mobile-overlay" id="mobileOverlay">
+  <button class="overlay-close" id="overlayClose">✕</button>
+  <a href="#leistungen" class="overlay-link">Leistungen</a>
+  <a href="#branchen" class="overlay-link">Branchen</a>
+  <a href="#roi" class="overlay-link">ROI</a>
+  <a href="#kontakt" class="overlay-link">Kontakt</a>
+  <a href="#kontakt" class="btn-gold" style="margin-top:16px;">Jetzt anfragen</a>
 </div>
 
-<!-- ═══════ HERO ═══════ -->
+<!-- ── HERO ── -->
 <section id="hero">
-  <img id="hero-logo-bg" src="aurion-logo.png" alt="">
-  <div class="hero-left">
-    <h1 class="headline">
-      <div class="hl"><span class="hw">KI übernimmt.</span></div>
-      <div class="hl"><span class="hw">Du <em>gewinnst.</em></span></div>
-      <div class="hl"><span class="hw">Zeit zurück.</span></div>
+  <canvas id="particle-canvas"></canvas>
+  <div class="hero-orb"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge rv"><div class="badge-dot"></div>KI-Automatisierung · Wien, Österreich</div>
+    <h1 class="hero-h1 rv d1">
+      Kein Kunde verloren.
+      <span class="gold-italic">Kein Anruf. Kein Termin. Kein Umsatz.</span>
     </h1>
-    <p class="hero-p">Wir automatisieren Kundenanfragen, Terminbuchungen und Arbeitsabläufe deines Betriebs — mit KI, die nie schläft. Go-Live in 48 Stunden.</p>
-    <div class="hero-btns">
-      <button class="btn-primary" onclick="document.getElementById('onboarding').scrollIntoView({behavior:'smooth'})">Kostenlose Analyse starten →</button>
-      <button class="btn-sec" onclick="document.getElementById('roi').scrollIntoView({behavior:'smooth'})">ROI berechnen</button>
+    <p class="hero-sub rv d2">Aurion Systems automatisiert Ihre Anfragen, Terminbuchungen und Kundenkorrespondenz — maßgeschneidert für Ihr Unternehmen, live in 48 Stunden.</p>
+    <div class="hero-ctas rv d3">
+      <a href="#kontakt" class="btn-gold">Jetzt anfragen →</a>
+      <a href="#leistungen" class="btn-ghost">Leistungen ansehen</a>
     </div>
-    <div class="hero-proof">
-      <div class="hp-item">
-        <div class="hp-num">48h</div>
-        <div class="hp-lbl">bis Go-Live</div>
+    <div class="trust-row rv d4">
+      <span class="trust-item">48h Setup</span>
+      <span class="trust-item">DSGVO-konform</span>
+      <span class="trust-item">30 Tage Garantie</span>
+      <span class="trust-item">Kein Techniker nötig</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── STATS STRIP ── -->
+<section id="stats">
+  <div class="stats-inner">
+    <div class="stat-item rv">
+      <div class="stat-num">60%</div>
+      <div class="stat-label">weniger verpasste Anfragen</div>
+    </div>
+    <div class="stat-item rv d1">
+      <div class="stat-num">15h</div>
+      <div class="stat-label">gesparte Arbeitszeit / Woche</div>
+    </div>
+    <div class="stat-item rv d2">
+      <div class="stat-num">2 Min</div>
+      <div class="stat-label">Antwortzeit, 24/7</div>
+    </div>
+    <div class="stat-item rv d3">
+      <div class="stat-num">48h</div>
+      <div class="stat-label">bis Ihr System live ist</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ── -->
+<section>
+  <div id="how">
+    <span class="section-label rv">Ablauf</span>
+    <h2 class="section-title rv d1">So funktioniert es</h2>
+    <div class="steps-grid">
+      <div class="step-card rv d1">
+        <div class="step-num">01</div>
+        <div class="step-title">KI-Audit (kostenlos)</div>
+        <p class="step-desc">In einem kostenlosen 30-Minuten-Gespräch analysieren wir Ihre Abläufe, Engpässe und Potenziale — ohne Verkaufsdruck, mit echtem Mehrwert.</p>
       </div>
-      <div class="hp-div"></div>
-      <div class="hp-item">
-        <div class="hp-num">€ 42k</div>
-        <div class="hp-lbl">Ø Einsparung/Jahr</div>
+      <div class="step-card rv d2">
+        <div class="step-num">02</div>
+        <div class="step-title">Maßgeschneiderte Einrichtung</div>
+        <p class="step-desc">Wir entwickeln Ihr individuelles KI-System und richten alles ein. Innerhalb von 48 Stunden ist Ihre Automatisierung live — ohne technisches Vorwissen Ihrerseits.</p>
       </div>
-      <div class="hp-div"></div>
-      <div class="hp-item">
-        <div class="hp-num">97 %</div>
-        <div class="hp-lbl">Verfügbarkeit</div>
+      <div class="step-card rv d3">
+        <div class="step-num">03</div>
+        <div class="step-title">Ergebnisse messbar erleben</div>
+        <p class="step-desc">Monatliche Performance-Reports zeigen Ihnen genau, wie viel Zeit und Anfragen Ihr System gewonnen hat. Kontinuierliche Optimierung inklusive.</p>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- CHAT DEMO MOCKUP -->
-  <div class="hero-right">
-    <div class="demo-card">
-      <div class="demo-header">
-        <div class="demo-agent">
-          <div class="demo-av">A</div>
+<!-- ── LEISTUNGEN ── -->
+<section>
+  <div id="leistungen">
+    <span class="section-label rv">Leistungen</span>
+    <h2 class="section-title rv d1">Was wir für Sie automatisieren</h2>
+    <div class="bento-grid">
+
+      <!-- Wide card: Chatbot with mockup -->
+      <div class="bento-card wide rv d1">
+        <div>
+          <span class="bento-icon">💬</span>
+          <div class="bento-title">WhatsApp & Website Chatbot</div>
+          <p class="bento-desc">Ein KI-Assistent, der rund um die Uhr Fragen beantwortet, Interessenten qualifiziert und Termine vorschlägt — sowohl auf Ihrer Website als auch direkt via WhatsApp. Kein Anruf entgeht Ihnen mehr.</p>
+          <span class="bento-tag">24/7 verfügbar</span>
+        </div>
+        <div class="chat-mockup">
           <div>
-            <div class="demo-name">Aurion KI-Agent</div>
+            <div class="chat-sender">Interessent · gerade eben</div>
+            <div class="chat-msg incoming">Hallo, ich benötige dringend einen Termin für nächste Woche.</div>
+          </div>
+          <div>
+            <div class="chat-sender">Aurion KI · sofort</div>
+            <div class="chat-msg outgoing">Guten Tag! Ich finde für Sie den nächsten freien Termin. Welcher Wochentag passt Ihnen am besten?</div>
+          </div>
+          <div>
+            <div class="chat-sender">Interessent · 10 Sek.</div>
+            <div class="chat-msg incoming">Dienstag oder Donnerstag wäre ideal.</div>
           </div>
         </div>
       </div>
-      <div class="demo-chat" id="demo-chat">
-        <!-- Animated in by JS -->
+
+      <div class="bento-card rv d2">
+        <span class="bento-icon">📅</span>
+        <div class="bento-title">Automatische Terminbuchung</div>
+        <p class="bento-desc">Die KI prüft Ihre Verfügbarkeit, schlägt passende Termine vor und versendet Bestätigungen automatisch — ohne Ihr Zutun.</p>
+        <span class="bento-tag">Kalender-Integration</span>
       </div>
-      <div class="demo-footer">
-        <div class="demo-input">Schreib eine Nachricht…</div>
-        <button class="demo-send">↑</button>
+
+      <div class="bento-card rv d3">
+        <span class="bento-icon">🎯</span>
+        <div class="bento-title">Lead-Scoring (BANT 1–10)</div>
+        <p class="bento-desc">Jeder neue Kontakt wird nach Budget, Authority, Need und Timing bewertet. Sie sehen auf einen Blick, welche Leads Priorität verdienen.</p>
+        <span class="bento-tag">Automatische Qualifizierung</span>
+      </div>
+
+      <div class="bento-card rv d2">
+        <span class="bento-icon">📞</span>
+        <div class="bento-title">Anruf-Vorbereitung KI</div>
+        <p class="bento-desc">Vor jedem Kundengespräch erhalten Sie ein automatisches Briefing: Gesprächshistorie, Schmerzpunkte und maßgeschneiderte Gesprächsleitfäden.</p>
+        <span class="bento-tag">Immer gut vorbereitet</span>
+      </div>
+
+      <div class="bento-card rv d3">
+        <span class="bento-icon">⭐</span>
+        <div class="bento-title">Bewertungs-Management</div>
+        <p class="bento-desc">Das System fordert zufriedene Kunden automatisch zur Google-Bewertung auf — zum richtigen Zeitpunkt, mit der richtigen Nachricht.</p>
+        <span class="bento-tag">Mehr 5-Sterne</span>
+      </div>
+
+      <div class="bento-card rv d4">
+        <span class="bento-icon">📱</span>
+        <div class="bento-title">Täglicher Status-Report per Telegram</div>
+        <p class="bento-desc">Jeden Morgen erhalten Sie eine kompakte Zusammenfassung: neue Leads, gebuchte Termine, offene Anfragen — direkt auf Ihr Handy.</p>
+        <span class="bento-tag">Tägliche Insights</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── BRANCHEN ── -->
+<section>
+  <div id="branchen">
+    <span class="section-label rv">Branchen</span>
+    <h2 class="section-title rv d1">Für welche Unternehmen</h2>
+    <div class="branchen-grid">
+      <div class="branche-card rv d1">
+        <span class="branche-emoji">🦷</span>
+        <div class="branche-name">Zahnarztpraxen</div>
+        <p class="branche-desc">Terminanfragen, Erinnerungen und Bewertungsmanagement vollautomatisiert.</p>
+      </div>
+      <div class="branche-card rv d2">
+        <span class="branche-emoji">⚖️</span>
+        <div class="branche-name">Anwaltskanzleien</div>
+        <p class="branche-desc">Mandantenanfragen vorqualifizieren und Erstgespräche automatisch buchen.</p>
+      </div>
+      <div class="branche-card rv d3">
+        <span class="branche-emoji">🔧</span>
+        <div class="branche-name">Handwerksbetriebe</div>
+        <p class="branche-desc">Keine Anrufe mehr verpassen — KI nimmt Anfragen auf, auch außerhalb der Arbeitszeit.</p>
+      </div>
+      <div class="branche-card rv d1">
+        <span class="branche-emoji">🏠</span>
+        <div class="branche-name">Immobilienmakler</div>
+        <p class="branche-desc">Interessentenqualifizierung und automatische Besichtigungsbuchungen.</p>
+      </div>
+      <div class="branche-card rv d2">
+        <span class="branche-emoji">🍽️</span>
+        <div class="branche-name">Gastronomie</div>
+        <p class="branche-desc">Tischreservierungen, Veranstaltungsanfragen und Bewertungen automatisch managen.</p>
+      </div>
+      <div class="branche-card rv d3">
+        <span class="branche-emoji">💪</span>
+        <div class="branche-name">Fitnessstudios</div>
+        <p class="branche-desc">Trial-Buchungen, Mitgliederbetreuung und Churn-Prävention durch KI.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- KPI STRIP -->
-<div class="kpi-strip">
-  <div class="kpi-item">
-    <div class="kpi-icon">🤖</div>
-    <div><div class="kpi-num">200+</div><div class="kpi-lbl">Anfragen/Tag automatisiert</div></div>
-  </div>
-  <div class="kpi-item">
-    <div class="kpi-icon">⚡</div>
-    <div><div class="kpi-num">3 h</div><div class="kpi-lbl">Zeit eingespart täglich</div></div>
-  </div>
-  <div class="kpi-item">
-    <div class="kpi-icon">📈</div>
-    <div><div class="kpi-num">300%</div><div class="kpi-lbl">durchschnittlicher ROI</div></div>
-  </div>
-  <div class="kpi-item">
-    <div class="kpi-icon">🇦🇹</div>
-    <div><div class="kpi-num">12+</div><div class="kpi-lbl">Kunden in Wien & DACH</div></div>
-  </div>
-</div>
-
-
-<!-- HOW IT WORKS -->
-<section id="how" class="section" style="background:var(--s1)">
-  <div class="tag blue rv">So funktioniert's</div>
-  <h2 class="sec-h rv">Von der Anfrage bis zur <em>Lösung</em> — automatisch</h2>
-  <div class="how-grid">
-    <div class="steps-list rv rd1">
-      <div class="step-item">
-        <div class="step-dot">1</div>
-        <div class="step-body">
-          <div class="step-name">Analyse deines Betriebs</div>
-          <div class="step-desc">Im kostenlosen 30-Min. Call analysieren wir, wo dein Betrieb Zeit verliert und welche Prozesse am meisten kosten.</div>
+<!-- ── ROI CALCULATOR ── -->
+<section>
+  <div id="roi">
+    <span class="section-label rv">Kalkulator</span>
+    <h2 class="section-title rv d1">Ihr persönlicher ROI</h2>
+    <div class="roi-grid">
+      <div class="roi-left rv d1">
+        <div class="slider-group">
+          <div class="slider-label">
+            <span>Stunden für Anrufe / Woche</span>
+            <span class="slider-val" id="val-hours">8 Std.</span>
+          </div>
+          <input type="range" id="sl-hours" min="1" max="20" value="8">
+        </div>
+        <div class="slider-group">
+          <div class="slider-label">
+            <span>Verpasste Anfragen / Monat</span>
+            <span class="slider-val" id="val-missed">15</span>
+          </div>
+          <input type="range" id="sl-missed" min="0" max="50" value="15">
+        </div>
+        <div class="slider-group">
+          <div class="slider-label">
+            <span>Umsatz pro Neukunde</span>
+            <span class="slider-val" id="val-revenue">2.000 €</span>
+          </div>
+          <input type="range" id="sl-revenue" min="500" max="10000" step="100" value="2000">
+        </div>
+        <div class="slider-group">
+          <div class="slider-label">
+            <span>Ihr Stundensatz</span>
+            <span class="slider-val" id="val-rate">60 €</span>
+          </div>
+          <input type="range" id="sl-rate" min="30" max="150" step="5" value="60">
         </div>
       </div>
-      <div class="step-item">
-        <div class="step-dot">2</div>
-        <div class="step-body">
-          <div class="step-name">Setup & Integration</div>
-          <div class="step-desc">Wir bauen dein KI-System und integrieren es in deine bestehenden Tools — ohne Unterbrechung deines Betriebs.</div>
+      <div class="roi-right rv d2">
+        <div class="roi-main-label">Monatliche Ersparnis</div>
+        <div class="roi-main-val" id="roi-main">—</div>
+        <div class="roi-metrics">
+          <div class="roi-metric">
+            <div class="roi-metric-val" id="roi-time">—</div>
+            <div class="roi-metric-label">Zeitersparnis / Monat</div>
+          </div>
+          <div class="roi-metric">
+            <div class="roi-metric-val" id="roi-leads">—</div>
+            <div class="roi-metric-label">Gewonnene Leads / Jahr</div>
+          </div>
+          <div class="roi-metric">
+            <div class="roi-metric-val" id="roi-6mo">—</div>
+            <div class="roi-metric-label">ROI nach 6 Monaten</div>
+          </div>
+          <div class="roi-metric">
+            <div class="roi-metric-val" id="roi-amort">—</div>
+            <div class="roi-metric-label">Amortisationszeit</div>
+          </div>
         </div>
-      </div>
-      <div class="step-item">
-        <div class="step-dot">3</div>
-        <div class="step-body">
-          <div class="step-name">Go-Live in 48 Stunden</div>
-          <div class="step-desc">Dein KI-System geht live. Wir testen alles gründlich — du siehst sofort die ersten Ergebnisse.</div>
-        </div>
-      </div>
-      <div class="step-item">
-        <div class="step-dot">4</div>
-        <div class="step-body">
-          <div class="step-name">Laufende Optimierung</div>
-          <div class="step-desc">Monatliches Monitoring, automatische Reports und kontinuierliche Verbesserung durch dein Aurion-Team.</div>
-        </div>
-      </div>
-    </div>
-    <!-- Workflow Mockup -->
-    <div class="wf-card rv rd2">
-      <div class="wf-title">Automatisierte Prozesse</div>
-      <div class="wf-row">
-        <div class="wf-icon">💬</div>
-        <div class="wf-text">
-          <div class="wf-name">Kundenanfragen KI-Chatbot</div>
-          <div class="wf-sub">24/7 aktiv — reagiert sofort auf jede Anfrage</div>
-        </div>
-      </div>
-      <div class="wf-arrow">↓</div>
-      <div class="wf-row">
-        <div class="wf-icon">📋</div>
-        <div class="wf-text">
-          <div class="wf-name">Lead-Qualifizierung & Speicherung</div>
-          <div class="wf-sub">Automatisch erfasst und bewertet</div>
-        </div>
-      </div>
-      <div class="wf-arrow">↓</div>
-      <div class="wf-row">
-        <div class="wf-icon">📧</div>
-        <div class="wf-text">
-          <div class="wf-name">Angebot automatisch versenden</div>
-          <div class="wf-sub">PDF-Angebot per E-Mail · Innerhalb 30 Sek.</div>
-        </div>
-      </div>
-      <div class="wf-arrow">↓</div>
-      <div class="wf-row">
-        <div class="wf-icon">📅</div>
-        <div class="wf-text">
-          <div class="wf-name">Follow-up nach 48h</div>
-          <div class="wf-sub">Automatische Follow-up Sequenz</div>
-        </div>
+        <a href="#kontakt" class="btn-gold" style="width:100%;justify-content:center;">Jetzt Ihr System konfigurieren</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
-<section id="services" class="section">
-  <div class="tag rv">Leistungen</div>
-  <h2 class="sec-h rv">Was wir für dich bauen</h2>
-  <div class="svc-grid">
-    <div class="svc-card rv">
-      <div class="svc-num">01</div>
-      <div class="svc-title">KI-Chatbots & Kundenservice</div>
-      <div class="svc-desc">24/7 Kundenanfragen automatisch beantworten. Integration in Website, WhatsApp und Instagram — dein Team spart täglich Stunden.</div>
+<!-- ── PAKETE ── -->
+<section>
+  <div id="pakete">
+    <span class="section-label rv">Angebote</span>
+    <h2 class="section-title rv d1">Unsere Pakete</h2>
+    <div class="pakete-grid">
+      <div class="paket-card rv d1">
+        <div class="paket-name">Starter</div>
+        <div class="paket-anfrage">Auf Anfrage · monatlich kündbar</div>
+        <ul class="paket-features">
+          <li>KI-Chatbot (Website)</li>
+          <li>Automatische Terminbuchung</li>
+          <li>WhatsApp-Integration</li>
+          <li>E-Mail Support</li>
+          <li>Monatlicher Performance-Report</li>
+        </ul>
+        <a href="#kontakt" class="btn-ghost" style="width:100%;justify-content:center;">Jetzt anfragen</a>
+      </div>
+      <div class="paket-card popular rv d2">
+        <div class="paket-badge">Beliebteste Wahl</div>
+        <div class="paket-name">Professional</div>
+        <div class="paket-anfrage">Auf Anfrage · monatlich kündbar</div>
+        <ul class="paket-features">
+          <li>Alles aus Starter</li>
+          <li>Lead-Scoring (BANT 1–10)</li>
+          <li>Anruf-Vorbereitung KI</li>
+          <li>Bewertungsmanagement</li>
+          <li>Priority Support</li>
+          <li>Wöchentliche Reports</li>
+          <li>Dedizierter Account Manager</li>
+        </ul>
+        <a href="#kontakt" class="btn-gold" style="width:100%;justify-content:center;">Jetzt anfragen</a>
+      </div>
+      <div class="paket-card rv d3">
+        <div class="paket-name">Enterprise</div>
+        <div class="paket-anfrage">Auf Anfrage · individuelle Konditionen</div>
+        <ul class="paket-features">
+          <li>Alles aus Professional</li>
+          <li>Custom KI-Modell</li>
+          <li>CRM-Integration</li>
+          <li>SLA 99.9% Uptime</li>
+          <li>Vollständig individuelle Lösung</li>
+          <li>Dedizierter Manager + Team</li>
+        </ul>
+        <a href="#kontakt" class="btn-ghost" style="width:100%;justify-content:center;">Anfragen</a>
+      </div>
     </div>
-    <div class="svc-card rv rd1">
-      <div class="svc-num">02</div>
-      <div class="svc-title">Workflow-Automatisierung</div>
-      <div class="svc-desc">Von der Anfrage bis zur Rechnung vollautomatisch. Verbindet alle deine Tools und eliminiert manuelle Arbeit dauerhaft.</div>
-    </div>
-    <div class="svc-card rv rd1">
-      <div class="svc-num">03</div>
-      <div class="svc-title">Voice-AI Agenten</div>
-      <div class="svc-desc">Dein KI-Mitarbeiter telefoniert für dich — Terminvereinbarung, Erstberatung, Rückrufe. Rund um die Uhr, keine Warteschleife.</div>
-    </div>
-    <div class="svc-card rv rd2">
-      <div class="svc-num">04</div>
-      <div class="svc-title">Reporting & Analytics</div>
-      <div class="svc-desc">Dashboard mit allen KPIs. Automatische tägliche Reports — du siehst genau, was dein KI-System gerade für dich arbeitet.</div>
+    <div class="guarantee-strip rv">
+      <span class="guarantee-item">30 Tage Zufriedenheitsgarantie</span>
+      <span class="guarantee-item">48h Setup-Garantie</span>
+      <span class="guarantee-item">DSGVO-konform</span>
+      <span class="guarantee-item">Monatlich kündbar</span>
     </div>
   </div>
 </section>
 
-<!-- ROI -->
-<section id="roi" class="section" style="background:var(--s1)">
-  <div class="tag rv">ROI-Rechner</div>
-  <h2 class="sec-h rv">Was bringt dir KI <em>konkret?</em></h2>
-  <p class="sec-p rv rd1">Stelle die Regler auf deine Situation ein — wir rechnen dir aus, was du gewinnst.</p>
-  <div class="roi-wrap">
-    <div class="roi-panel rv rd1">
-      <div class="sl-group">
-        <div class="sl-top"><span class="sl-lbl">Mitarbeiter im Support/Büro</span><span class="sl-v" id="re">3</span></div>
-        <input type="range" id="sle" min="1" max="20" value="3">
-      </div>
-      <div class="sl-group">
-        <div class="sl-top"><span class="sl-lbl">Stundenlohn brutto (€)</span><span class="sl-v" id="rw">€ 22</span></div>
-        <input type="range" id="slw" min="15" max="80" value="22">
-      </div>
-      <div class="sl-group">
-        <div class="sl-top"><span class="sl-lbl">Stunden/Woche für Admin & Anfragen</span><span class="sl-v" id="rh">10 h</span></div>
-        <input type="range" id="slh" min="1" max="40" value="10">
-      </div>
-      <div class="sl-group">
-        <div class="sl-top"><span class="sl-lbl">Neue Anfragen pro Monat</span><span class="sl-v" id="rl">20</span></div>
-        <input type="range" id="sll" min="0" max="100" value="20">
-      </div>
-    </div>
-    <div class="roi-result-panel rv rd2">
-      <div class="big-saving">
-        <div class="big-saving-label">Jährliche Einsparung</div>
-        <div class="big-saving-val" id="rsav">€ 0</div>
-      </div>
-      <div class="divider"></div>
-      <div class="roi-line"><span class="ll">Arbeitskosten aktuell/Jahr</span><span class="lv" id="rac">€ 0</span></div>
-      <div class="roi-line"><span class="ll">Lead-Umsatzpotenzial/Jahr</span><span class="lv" id="rlv">€ 0</span></div>
-      <div class="roi-line"><span class="ll">Investment Professional-Paket</span><span class="lv">€ 12.600</span></div>
-      <div class="roi-box"><span class="ll">Ihr ROI</span><span class="lv" id="rroi">—</span></div>
-      <button class="btn-primary" style="width:100%" onclick="document.getElementById('onboarding').scrollIntoView({behavior:'smooth'})">Individuellen ROI berechnen lassen →</button>
-    </div>
-  </div>
-</section>
+<!-- ── CONTACT FORM ── -->
+<section>
+  <div id="kontakt" style="padding: 0 40px 120px; max-width: 720px; margin: 0 auto;">
+    <span class="section-label rv">Kontakt</span>
+    <h2 class="section-title rv d1">Ihr erstes KI-System anfragen</h2>
 
-<!-- PRICING -->
-<section id="pricing" class="section">
-  <div class="tag rv">Pakete</div>
-  <h2 class="sec-h rv">Transparent. Fixpreis. <em>Keine Überraschungen.</em></h2>
-  <div class="price-wrap">
-    <div class="pc rv">
-      <div class="pc-name">Starter</div>
-      <div class="pc-price">€ 1.500</div>
-      <div class="pc-mo">einmalig · Setup & Integration</div>
-      <div class="pc-ret">+ € 300 / Monat</div>
-      <ul class="pc-ul">
-        <li>1 KI-Chatbot (Website)</li>
-        <li>FAQ-Automatisierung</li>
-        <li>WhatsApp-Weiterleitung</li>
-        <li>E-Mail-Benachrichtigung</li>
-        <li>1 Monat Support inklusive</li>
-      </ul>
-      <button class="btn-pc" onclick="document.getElementById('onboarding').scrollIntoView({behavior:'smooth'})">Starten</button>
+    <div class="progress-bar rv d2">
+      <div class="prog-step">
+        <div class="prog-dot active" id="dot1">1</div>
+        <div class="prog-line" id="line1"></div>
+      </div>
+      <div class="prog-step">
+        <div class="prog-dot" id="dot2">2</div>
+        <div class="prog-line" id="line2"></div>
+      </div>
+      <div class="prog-step" style="flex:0;">
+        <div class="prog-dot" id="dot3">3</div>
+      </div>
     </div>
-    <div class="pc hot rv rd1">
-      <div class="pc-badge">Beliebteste Wahl</div>
-      <div class="pc-name">Professional</div>
-      <div class="pc-price">€ 3.000</div>
-      <div class="pc-mo">einmalig · komplettes System</div>
-      <div class="pc-ret">+ € 800 / Monat</div>
-      <ul class="pc-ul">
-        <li>Chatbot + Voice-AI Agent</li>
-        <li>n8n-Workflows (unbegrenzt)</li>
-        <li>CRM-Integration (Notion)</li>
-        <li>Automatisches Reporting</li>
-        <li>WhatsApp + Instagram Bot</li>
-        <li>Prioritäts-Support</li>
-      </ul>
-      <button class="btn-pc" onclick="document.getElementById('onboarding').scrollIntoView({behavior:'smooth'})">Analyse starten →</button>
+    <div class="progress-labels rv d2">
+      <span style="font-size:0.75rem;color:var(--muted);">Kontaktdaten</span>
+      <span style="font-size:0.75rem;color:var(--muted);margin-left:auto;margin-right:auto;">Ihr Unternehmen</span>
+      <span style="font-size:0.75rem;color:var(--muted);">Paket & Start</span>
     </div>
-    <div class="pc rv rd2">
-      <div class="pc-name">Enterprise</div>
-      <div class="pc-price">ab € 8.000</div>
-      <div class="pc-mo">individuell nach Anforderung</div>
-      <div class="pc-ret">+ ab € 2.500 / Monat</div>
-      <ul class="pc-ul">
-        <li>Vollständige KI-Infrastruktur</li>
-        <li>Custom AI-Agents & Training</li>
-        <li>Beliebige API-Integrationen</li>
-        <li>Dedizierter KI-Techniker</li>
-        <li>SLA & 24/7 Monitoring</li>
-      </ul>
-      <button class="btn-pc" onclick="document.getElementById('onboarding').scrollIntoView({behavior:'smooth'})">Anfragen</button>
-    </div>
-  </div>
-</section>
 
-<!-- TESTIMONIALS -->
-<section id="testimonials" class="section" style="padding-left:0;padding-right:0;background:var(--s1)">
-  <div class="testi-inner rv tag">Kundenstimmen</div>
-  <div class="mq"><div class="mq-track" id="mqt"></div></div>
-</section>
-
-<!-- ONBOARDING -->
-<section id="onboarding" class="section">
-  <div style="text-align:center;max-width:560px;margin:0 auto 3.5rem">
-    <div class="tag rv" style="justify-content:center">Kostenlose Analyse</div>
-    <h2 class="sec-h rv">In 3 Schritten zum <em>KI-System</em></h2>
-    <p class="sec-p rv rd1" style="margin:0 auto">Keine Kreditkarte. Kein Risiko. Nur ein ehrliches Gespräch.</p>
-  </div>
-  <div class="ob-wrap rv rd2">
-    <div class="ob-prog"><div class="ob-pf" id="opf" style="width:33%"></div></div>
-    <div class="ob-inner">
-
+    <form id="contactForm">
       <!-- Step 1 -->
-      <div class="ob-step on" id="ob-step-1">
-        <div class="ob-step-label">Schritt 1 von 3</div>
-        <h3 class="ob-title">Welche Branche?</h3>
-        <p class="ob-sub">Damit wir die richtigen KI-Lösungen für dich empfehlen können.</p>
-        <div class="ob-options" id="branch-options">
-          <div class="ob-option" data-val="handwerk" onclick="selectOpt(this,'branch-options')">
-            <div class="ob-option-icon">🔧</div>
-            <div><div class="ob-option-label">Handwerk & Bau</div><div class="ob-option-sub">Elektriker, Installateure, Maler...</div></div>
-          </div>
-          <div class="ob-option" data-val="gesundheit" onclick="selectOpt(this,'branch-options')">
-            <div class="ob-option-icon">🏥</div>
-            <div><div class="ob-option-label">Gesundheit & Praxen</div><div class="ob-option-sub">Ärzte, Physiotherapie, Dental...</div></div>
-          </div>
-          <div class="ob-option" data-val="dienstleister" onclick="selectOpt(this,'branch-options')">
-            <div class="ob-option-icon">💼</div>
-            <div><div class="ob-option-label">Dienstleister & Beratung</div><div class="ob-option-sub">Anwälte, Steuerberater, Coaches...</div></div>
-          </div>
-          <div class="ob-option" data-val="gastro" onclick="selectOpt(this,'branch-options')">
-            <div class="ob-option-icon">🍽️</div>
-            <div><div class="ob-option-label">Gastronomie & Hotel</div><div class="ob-option-sub">Restaurants, Cafés, Hotels...</div></div>
-          </div>
-          <div class="ob-option" data-val="ecommerce" onclick="selectOpt(this,'branch-options')">
-            <div class="ob-option-icon">🛒</div>
-            <div><div class="ob-option-label">E-Commerce & Handel</div><div class="ob-option-sub">Online-Shops, Einzelhandel...</div></div>
-          </div>
-          <div class="ob-option" data-val="other" onclick="selectOpt(this,'branch-options')">
-            <div class="ob-option-icon">✨</div>
-            <div><div class="ob-option-label">Andere Branche</div><div class="ob-option-sub">Nicht gelistet? Kein Problem.</div></div>
-          </div>
+      <div class="form-step active" id="step1">
+        <div class="form-grid">
+          <div class="form-group"><label>Vorname *</label><input type="text" name="vorname" required placeholder="Max"></div>
+          <div class="form-group"><label>Nachname *</label><input type="text" name="nachname" required placeholder="Mustermann"></div>
+          <div class="form-group"><label>E-Mail *</label><input type="email" name="email" required placeholder="max@firma.at"></div>
+          <div class="form-group"><label>Telefon</label><input type="tel" name="telefon" placeholder="+43 1 234 5678"></div>
+          <div class="form-group full"><label>Website</label><input type="url" name="website" placeholder="https://ihre-firma.at"></div>
         </div>
-        <div class="ob-footer-row">
-          <span class="ob-step-counter">1 / 3</span>
-          <button class="ob-next-btn" id="ob-next-1" onclick="goStep(2)" disabled>Weiter →</button>
+        <div class="form-nav">
+          <div></div>
+          <button type="button" class="btn-gold" onclick="nextStep(1)">Weiter →</button>
         </div>
       </div>
 
       <!-- Step 2 -->
-      <div class="ob-step" id="ob-step-2">
-        <div class="ob-step-label">Schritt 2 von 3</div>
-        <h3 class="ob-title">Was kostet dich am meisten Zeit?</h3>
-        <p class="ob-sub">Wähle alle zutreffenden Punkte — je mehr, desto besser können wir helfen.</p>
-        <div class="ob-checkboxes">
-          <div class="ob-check" onclick="toggleChk(this)">
-            <div class="ob-check-box"><span class="ob-check-mark">✓</span></div>
-            <span class="ob-check-label">Terminbuchungen & -bestätigungen per Telefon/E-Mail</span>
+      <div class="form-step" id="step2">
+        <div class="form-grid">
+          <div class="form-group full"><label>Firmenname *</label><input type="text" name="firma" required placeholder="Musterfirma GmbH"></div>
+          <div class="form-group full">
+            <label>Branche *</label>
+            <select name="branche" required>
+              <option value="">Bitte wählen…</option>
+              <option>Zahnarzt / Arztpraxis</option>
+              <option>Anwalt / Kanzlei</option>
+              <option>Handwerk / Bau</option>
+              <option>Immobilien</option>
+              <option>Gastronomie / Hotel</option>
+              <option>Fitness / Gesundheit</option>
+              <option>Andere</option>
+            </select>
           </div>
-          <div class="ob-check" onclick="toggleChk(this)">
-            <div class="ob-check-box"><span class="ob-check-mark">✓</span></div>
-            <span class="ob-check-label">Kundenanfragen manuell beantworten</span>
-          </div>
-          <div class="ob-check" onclick="toggleChk(this)">
-            <div class="ob-check-box"><span class="ob-check-mark">✓</span></div>
-            <span class="ob-check-label">Angebote, Rechnungen & Dokumente erstellen</span>
-          </div>
-          <div class="ob-check" onclick="toggleChk(this)">
-            <div class="ob-check-box"><span class="ob-check-mark">✓</span></div>
-            <span class="ob-check-label">Daten zwischen Tools übertragen (CRM, Excel etc.)</span>
-          </div>
-          <div class="ob-check" onclick="toggleChk(this)">
-            <div class="ob-check-box"><span class="ob-check-mark">✓</span></div>
-            <span class="ob-check-label">Reporting & Auswertungen zusammenstellen</span>
-          </div>
-          <div class="ob-check" onclick="toggleChk(this)">
-            <div class="ob-check-box"><span class="ob-check-mark">✓</span></div>
-            <span class="ob-check-label">Leads qualifizieren & nachfassen</span>
-          </div>
+          <div class="form-group full"><label>Größte Herausforderung</label><textarea name="herausforderung" placeholder="z.B. Wir verpassen täglich Anfragen nach Geschäftsschluss…"></textarea></div>
+          <div class="form-group full"><label>Weitere Anmerkungen</label><textarea name="anmerkungen" placeholder="Was sollten wir noch wissen?"></textarea></div>
         </div>
-        <div class="ob-footer-row">
-          <button class="ob-back-btn" onclick="goStep(1)">← Zurück</button>
-          <span class="ob-step-counter">2 / 3</span>
-          <button class="ob-next-btn" onclick="goStep(3)">Weiter →</button>
+        <div class="form-nav">
+          <button type="button" class="btn-ghost" onclick="prevStep(2)">← Zurück</button>
+          <button type="button" class="btn-gold" onclick="nextStep(2)">Weiter →</button>
         </div>
       </div>
 
       <!-- Step 3 -->
-      <div class="ob-step" id="ob-step-3">
-        <div class="ob-step-label">Schritt 3 von 3</div>
-        <h3 class="ob-title">Fast geschafft!</h3>
-        <p class="ob-sub">Wir melden uns innerhalb von 24h mit einem konkreten Vorschlag.</p>
-        <div class="ob-fields">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
-            <div class="ob-field"><label>Vorname</label><input type="text" id="ob-fname" placeholder="Max" required></div>
-            <div class="ob-field"><label>Nachname</label><input type="text" placeholder="Mustermann" required></div>
+      <div class="form-step" id="step3">
+        <p style="font-size:0.9rem;color:var(--muted);margin-bottom:16px;">Welches Paket interessiert Sie?</p>
+        <div class="paket-select-grid">
+          <div class="paket-select-card" onclick="selectPaket(this,'Starter')">
+            <div class="paket-select-name">Starter</div>
+            <div class="paket-select-desc">Chatbot, Terminbuchung, WhatsApp</div>
           </div>
-          <div class="ob-field"><label>E-Mail</label><input type="email" placeholder="max@firma.at" required></div>
-          <div class="ob-field"><label>Telefon (optional)</label><input type="tel" placeholder="+43 664 ..."></div>
-          <div class="ob-field">
-            <label>Mitarbeiteranzahl</label>
-            <select>
-              <option value="">Bitte wählen</option>
-              <option>1–5 Mitarbeiter</option>
-              <option>6–20 Mitarbeiter</option>
-              <option>21–50 Mitarbeiter</option>
-              <option>50+ Mitarbeiter</option>
-            </select>
+          <div class="paket-select-card" onclick="selectPaket(this,'Professional')">
+            <div class="paket-select-name">Professional</div>
+            <div class="paket-select-desc">+ Lead-Scoring, Reporting</div>
+          </div>
+          <div class="paket-select-card" onclick="selectPaket(this,'Enterprise')">
+            <div class="paket-select-name">Enterprise</div>
+            <div class="paket-select-desc">Individuell, CRM, SLA</div>
           </div>
         </div>
-        <div class="ob-footer-row">
-          <button class="ob-back-btn" onclick="goStep(2)">← Zurück</button>
-          <span class="ob-step-counter">3 / 3</span>
-          <button class="ob-next-btn" onclick="submitAnalyse()">Jetzt absenden ✓</button>
+        <input type="hidden" name="paket" id="selectedPaket">
+        <div class="form-group" style="margin-top:16px;"><label>Gewünschtes Startdatum</label><input type="date" name="startdatum"></div>
+        <div class="form-nav">
+          <button type="button" class="btn-ghost" onclick="prevStep(3)">← Zurück</button>
+          <button type="submit" class="btn-gold">Anfrage absenden →</button>
         </div>
       </div>
+    </form>
 
-      <!-- Success -->
-      <div class="ob-success" id="ob-success">
-        <div class="ob-success-icon">🎉</div>
-        <h3>Danke! Wir melden uns.</h3>
-        <p>Du erhältst innerhalb von 24h eine Nachricht von uns — mit einem konkreten Vorschlag für deinen Betrieb.</p>
-      </div>
-
+    <div class="form-success" id="formSuccess">
+      <div class="success-icon">✓</div>
+      <div class="success-title">Vielen Dank!</div>
+      <p class="success-sub">Wir melden uns innerhalb von 24 Stunden bei Ihnen — persönlich, direkt und ohne Umwege.</p>
+      <a href="https://wa.me/43XXXXXXXXX" class="btn-gold" target="_blank" rel="noopener">💬 Via WhatsApp kontaktieren</a>
     </div>
   </div>
 </section>
 
+<!-- ── FAQ ── -->
+<section>
+  <div id="faq">
+    <span class="section-label rv">FAQ</span>
+    <h2 class="section-title rv d1">Häufige Fragen</h2>
+    <div class="faq-item rv d1">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Brauche ich technisches Vorwissen?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">Nein, überhaupt nicht. Wir übernehmen die gesamte technische Einrichtung. Sie brauchen lediglich ein Gespräch mit uns und Ihre Geschäftsinformationen. Alles andere erledigen wir — inklusive Einschulung und laufendem Support.</div>
+    </div>
+    <div class="faq-item rv d2">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Wie schnell ist mein System live?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">In der Regel innerhalb von 48 Stunden nach unserem Kick-off-Gespräch. Komplexere Enterprise-Lösungen können 5–7 Werktage in Anspruch nehmen. Wir halten Sie transparent über jeden Schritt informiert.</div>
+    </div>
+    <div class="faq-item rv d3">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Ist das DSGVO-konform?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">Ja, vollständig. Alle Daten werden auf europäischen Servern verarbeitet und gespeichert. Wir stellen Ihnen eine vollständige Datenschutzdokumentation sowie einen Auftragsverarbeitungsvertrag (AVV) bereit. Für österreichische Unternehmen selbstverständlich konform mit DSG 2018.</div>
+    </div>
+    <div class="faq-item rv d4">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Welche Sprachen unterstützt das KI-System?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">Deutsch und Englisch werden vollständig unterstützt. Auf Wunsch können wir weitere Sprachen integrieren — ideal für internationale Kunden oder mehrsprachige Regionen wie Wien, Südtirol oder die Schweiz.</div>
+    </div>
+    <div class="faq-item rv d5">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Wie lange ist die Mindestlaufzeit?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">Es gibt keine Mindestlaufzeit. Alle unsere Pakete sind monatlich kündbar. Wir sind überzeugt, dass unsere Ergebnisse für sich sprechen — daher brauchen wir keine Vertragsbindung, um Sie als Kunde zu halten.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA SECTION ── -->
+<section id="cta-section">
+  <div class="cta-rings">
+    <div class="cta-ring"></div>
+    <div class="cta-ring"></div>
+    <div class="cta-ring"></div>
+    <div class="cta-ring"></div>
+  </div>
+  <div class="cta-inner rv">
+    <h2 class="cta-title">Bereit für Ihr erstes KI-System?</h2>
+    <p class="cta-sub">Buchen Sie Ihr kostenloses 30-Minuten-Gespräch — wir zeigen Ihnen genau, was in Ihrem Unternehmen möglich ist.</p>
+    <a href="#kontakt" class="btn-gold">Kostenloses Gespräch buchen →</a>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
 <footer>
-  <div class="fl">Aurion <em>Systems</em></div>
-  <div class="fl2"><a href="#">Impressum</a><a href="#">Datenschutz</a><a href="mailto:office@aurion.systems">Kontakt</a></div>
-  <div class="fc">© 2026 Aurion Systems · Wien, Österreich</div>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">AURION <span>/</span> SYSTEMS</div>
+      <p>KI-Automatisierung für österreichische Unternehmen — mehr Anfragen, weniger Aufwand, messbares Wachstum.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Leistungen</h4>
+      <ul>
+        <li><a href="#leistungen">Chatbot</a></li>
+        <li><a href="#leistungen">Terminbuchung</a></li>
+        <li><a href="#leistungen">Lead-Scoring</a></li>
+        <li><a href="#leistungen">Anruf-Vorbereitung</a></li>
+        <li><a href="#leistungen">Bewertungsmanagement</a></li>
+        <li><a href="#leistungen">Status-Reports</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Branchen</h4>
+      <ul>
+        <li><a href="#branchen">Zahnarztpraxen</a></li>
+        <li><a href="#branchen">Anwaltskanzleien</a></li>
+        <li><a href="#branchen">Handwerk</a></li>
+        <li><a href="#branchen">Immobilien</a></li>
+        <li><a href="#branchen">Gastronomie</a></li>
+        <li><a href="#branchen">Fitness</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Rechtliches</h4>
+      <ul>
+        <li><a href="#">Impressum</a></li>
+        <li><a href="#">Datenschutz</a></li>
+        <li><a href="#">AGB</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bar">
+    <p>© 2026 Aurion Systems · Wien, Österreich · DSGVO-konform</p>
+    <p style="color:var(--muted);font-size:0.75rem;">Alle Preise exkl. 20% MwSt.</p>
+  </div>
 </footer>
 
-<!-- CHAT -->
-<button id="ct" onclick="toggleChat()">💬<div class="ct-b">1</div></button>
-<div id="cp">
-  <div class="cp-h">
-    <div class="cp-av"><div class="cp-dot">A</div><div><div class="cp-name">Aurion Assistant</div><div class="cp-on">● Online</div></div></div>
-    <button class="cp-x" onclick="toggleChat()">✕</button>
+<!-- ── FLOATING CHAT WIDGET ── -->
+<div id="chat-widget">
+  <div id="chat-panel">
+    <div class="chat-header">
+      <div class="chat-avatar">A</div>
+      <div class="chat-header-info">
+        <strong>Aurion Assistent</strong>
+        <span>Antwortet sofort</span>
+      </div>
+    </div>
+    <div class="chat-body">
+      <p class="chat-greeting">Hallo! Ich beantworte gerne Ihre Fragen zu unseren KI-Lösungen. Was möchten Sie wissen?</p>
+      <div class="chat-options" id="chatOptions">
+        <button class="chat-opt" onclick="chatAnswer(0)">Was kostet das?</button>
+        <button class="chat-opt" onclick="chatAnswer(1)">Wie schnell bin ich live?</button>
+        <button class="chat-opt" onclick="chatAnswer(2)">Ist das DSGVO-konform?</button>
+        <button class="chat-opt" onclick="chatAnswer(3)">Termin vereinbaren</button>
+      </div>
+      <div class="chat-answer" id="chatAnswerBox"></div>
+    </div>
   </div>
-  <div id="cm"></div>
-  <div id="co"></div>
+  <button id="chat-toggle" onclick="toggleChat()" aria-label="Chat öffnen">💬</button>
 </div>
 
 <script>
-// THEME TOGGLE
-function toggleTheme(){
-  const html=document.documentElement;
-  const isDark=html.getAttribute('data-theme')!=='light';
-  html.setAttribute('data-theme',isDark?'light':'dark');
-  document.getElementById('theme-toggle').textContent=isDark?'🌙':'☀️';
-}
+// ── PARTICLE CANVAS ──
+(function() {
+  const canvas = document.getElementById('particle-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [], mouse = { x: -999, y: -999 };
+  const COUNT = 60;
+  const GOLD = 'rgba(201,168,76,';
 
-
-// DEMO CHAT ANIMATION
-const demoConvo=[
-  {t:'b',m:'Guten Tag! Ich bin der KI-Assistent von Muster GmbH. Wie kann ich helfen?'},
-  {t:'u',m:'Ich möchte einen Termin vereinbaren'},
-  {t:'b',m:'Natürlich! Ich habe folgende freie Termine: Mo 10:00, Di 14:30 oder Do 11:00. Welcher passt dir?'},
-  {t:'u',m:'Montag 10 Uhr bitte'},
-  {t:'b',m:'✓ Termin bestätigt: Montag 10:00 Uhr. Du erhältst eine Bestätigungs-E-Mail. Noch etwas?'},
-];
-const dc=document.getElementById('demo-chat');
-let di=0;
-function showNext(){
-  if(di>=demoConvo.length){setTimeout(()=>{dc.innerHTML='';di=0;showNext()},3000);return}
-  const msg=demoConvo[di];
-  if(msg.t==='b'){
-    const ty=document.createElement('div');ty.className='demo-typing';ty.innerHTML='<span></span><span></span><span></span>';
-    dc.appendChild(ty);dc.scrollTop=9999;
-    setTimeout(()=>{
-      ty.remove();
-      const m=document.createElement('div');m.className='dmsg b';m.textContent=msg.m;
-      dc.appendChild(m);dc.scrollTop=9999;di++;
-      setTimeout(showNext,msg.t==='b'?1200:800);
-    },700);
-  } else {
-    const m=document.createElement('div');m.className='dmsg u';m.textContent=msg.m;
-    dc.appendChild(m);dc.scrollTop=9999;di++;
-    setTimeout(showNext,900);
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
   }
-}
-setTimeout(showNext,1200);
 
-// TESTIMONIALS
-const ts=[
-  {q:'"Seit dem KI-Chatbot sind 80% unserer Anfragen automatisiert. Spart täglich 2 Stunden."',a:'Thomas K.',r:'Sanitär Wien'},
-  {q:'"In 48h war alles live. Terminbuchung läuft vollautomatisch."',a:'Sarah M.',r:'Beautystudio'},
-  {q:'"ROI von 300%+ im ersten Jahr. Hätte ich nicht gedacht."',a:'Michael B.',r:'CEO, Logistik GmbH'},
-  {q:'"Der Voice-Agent beantwortet alle Anrufe nach Feierabend."',a:'Andrea L.',r:'Physiotherapie'},
-  {q:'"Keine manuelle Angebotserstellung mehr. In Sekunden fertig."',a:'Klaus R.',r:'Elektro-Handwerk'},
-  {q:'"Leads werden direkt qualifiziert und ins CRM übergeben."',a:'Julia W.',r:'Sales Managerin'},
-];
-const mqt=document.getElementById('mqt');
-[...ts,...ts].forEach(t=>{
-  const d=document.createElement('div');d.className='tc';
-  d.innerHTML=`<div class="tc-stars">★★★★★</div><div class="tc-q">${t.q}</div><div class="tc-a">${t.a}</div><div class="tc-r">${t.r}</div>`;
-  mqt.appendChild(d);
+  function rand(a, b) { return a + Math.random() * (b - a); }
+
+  function Particle() {
+    this.reset();
+  }
+  Particle.prototype.reset = function() {
+    this.x = rand(0, W);
+    this.y = rand(0, H);
+    this.r = rand(1, 2.5);
+    this.vx = rand(-0.3, 0.3);
+    this.vy = rand(-0.4, -0.1);
+    this.a = rand(0.2, 0.7);
+    this.life = rand(0, 1);
+    this.speed = rand(0.003, 0.007);
+  };
+
+  for (let i = 0; i < COUNT; i++) {
+    particles.push(new Particle());
+  }
+
+  window.addEventListener('mousemove', function(e) {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+  });
+
+  function animate() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(function(p) {
+      p.life += p.speed;
+      if (p.life > 1) p.reset();
+
+      // Mouse repulsion
+      const dx = p.x - mouse.x, dy = p.y - mouse.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 120) {
+        const force = (120 - dist) / 120;
+        p.x += dx / dist * force * 1.5;
+        p.y += dy / dist * force * 1.5;
+      }
+
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < 0) p.x = W;
+      if (p.x > W) p.x = 0;
+      if (p.y < -10) { p.y = H + 5; p.x = rand(0, W); }
+
+      const alpha = p.a * (1 - Math.abs(p.life * 2 - 1));
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = GOLD + alpha + ')';
+      ctx.fill();
+    });
+    requestAnimationFrame(animate);
+  }
+
+  window.addEventListener('resize', function() { resize(); });
+  resize();
+  animate();
+})();
+
+// ── SCROLL REVEAL ──
+(function() {
+  const els = document.querySelectorAll('.rv');
+  const io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('v');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(function(el) { io.observe(el); });
+})();
+
+// ── HAMBURGER ──
+document.getElementById('hamburgerBtn').addEventListener('click', function() {
+  document.getElementById('mobileOverlay').classList.add('open');
+});
+document.getElementById('overlayClose').addEventListener('click', function() {
+  document.getElementById('mobileOverlay').classList.remove('open');
+});
+document.querySelectorAll('.overlay-link').forEach(function(a) {
+  a.addEventListener('click', function() {
+    document.getElementById('mobileOverlay').classList.remove('open');
+  });
 });
 
-// ROI
-function calcR(){
-  const e=+document.getElementById('sle').value,w=+document.getElementById('slw').value,h=+document.getElementById('slh').value,l=+document.getElementById('sll').value;
-  document.getElementById('re').textContent=e;
-  document.getElementById('rw').textContent='€ '+w;
-  document.getElementById('rh').textContent=h+' h';
-  document.getElementById('rl').textContent=l;
-  const ac=e*w*h*52,lv=l*12*80,sav=(ac+lv)*.7,roi=Math.round((sav-12600)/12600*100);
-  document.getElementById('rac').textContent='€ '+ac.toLocaleString('de-AT');
-  document.getElementById('rlv').textContent='€ '+lv.toLocaleString('de-AT');
-  document.getElementById('rsav').textContent='€ '+Math.round(sav).toLocaleString('de-AT');
-  document.getElementById('rroi').textContent=(roi>=0?'+':'')+roi+' %';
+// ── ROI CALCULATOR ──
+function fmtEuro(n) {
+  return n.toLocaleString('de-AT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
 }
-['sle','slw','slh','sll'].forEach(id=>document.getElementById(id).addEventListener('input',calcR));
-calcR();
+function calcROI() {
+  const hours = +document.getElementById('sl-hours').value;
+  const missed = +document.getElementById('sl-missed').value;
+  const revenue = +document.getElementById('sl-revenue').value;
+  const rate = +document.getElementById('sl-rate').value;
 
-// REVEAL
-const rv=new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting)e.target.classList.add('v')})},{threshold:.08,rootMargin:'0px 0px -30px 0px'});
-document.querySelectorAll('.rv').forEach(el=>rv.observe(el));
+  document.getElementById('val-hours').textContent = hours + ' Std.';
+  document.getElementById('val-missed').textContent = missed;
+  document.getElementById('val-revenue').textContent = revenue.toLocaleString('de-AT') + ' €';
+  document.getElementById('val-rate').textContent = rate + ' €';
 
-// ONBOARDING
-function selectOpt(el,groupId){
-  document.querySelectorAll('#'+groupId+' .ob-option').forEach(x=>x.classList.remove('selected'));
+  const convRate = 0.3;
+  const timeSavedMonth = hours * 4 * 0.7; // 70% time saved
+  const timeSavingEuro = timeSavedMonth * rate;
+  const leadsGainedMonth = missed * convRate;
+  const revenueGained = leadsGainedMonth * revenue;
+  const totalMonthly = timeSavingEuro + revenueGained;
+
+  document.getElementById('roi-main').textContent = fmtEuro(totalMonthly);
+  document.getElementById('roi-time').textContent = Math.round(timeSavedMonth) + ' Std.';
+  document.getElementById('roi-leads').textContent = Math.round(leadsGainedMonth * 12);
+  document.getElementById('roi-6mo').textContent = '+' + fmtEuro(totalMonthly * 6);
+  document.getElementById('roi-amort').textContent = '< 4 Wo.';
+}
+['sl-hours','sl-missed','sl-revenue','sl-rate'].forEach(function(id) {
+  document.getElementById(id).addEventListener('input', calcROI);
+});
+calcROI();
+
+// ── MULTI-STEP FORM ──
+function nextStep(current) {
+  const step = document.getElementById('step' + current);
+  const inputs = step.querySelectorAll('[required]');
+  let valid = true;
+  inputs.forEach(function(inp) {
+    if (!inp.value.trim()) {
+      inp.style.borderColor = 'rgba(255,80,80,0.5)';
+      valid = false;
+    } else {
+      inp.style.borderColor = '';
+    }
+  });
+  if (!valid) return;
+
+  document.getElementById('step' + current).classList.remove('active');
+  document.getElementById('step' + (current + 1)).classList.add('active');
+
+  document.getElementById('dot' + current).classList.remove('active');
+  document.getElementById('dot' + current).classList.add('done');
+  document.getElementById('dot' + current).textContent = '✓';
+  if (document.getElementById('line' + current)) {
+    document.getElementById('line' + current).classList.add('done');
+  }
+  document.getElementById('dot' + (current + 1)).classList.add('active');
+}
+
+function prevStep(current) {
+  document.getElementById('step' + current).classList.remove('active');
+  document.getElementById('step' + (current - 1)).classList.add('active');
+  document.getElementById('dot' + (current - 1)).classList.remove('done');
+  document.getElementById('dot' + (current - 1)).classList.add('active');
+  document.getElementById('dot' + (current - 1)).textContent = current - 1;
+  if (document.getElementById('line' + (current - 1))) {
+    document.getElementById('line' + (current - 1)).classList.remove('done');
+  }
+  document.getElementById('dot' + current).classList.remove('active');
+}
+
+function selectPaket(el, name) {
+  document.querySelectorAll('.paket-select-card').forEach(function(c) { c.classList.remove('selected'); });
   el.classList.add('selected');
-  document.getElementById('ob-next-1').disabled=false;
-}
-function toggleChk(el){el.classList.toggle('checked')}
-function goStep(n){
-  document.querySelectorAll('.ob-step').forEach(s=>s.classList.remove('on'));
-  document.getElementById('ob-step-'+n).classList.add('on');
-  document.getElementById('opf').style.width=(n===1?33:n===2?66:100)+'%';
-}
-function submitAnalyse(){
-  const fname=document.getElementById('ob-fname')?.value||'';
-  const email=document.querySelector('#ob-step-3 input[type="email"]')?.value||'';
-  const tel=document.querySelector('#ob-step-3 input[type="tel"]')?.value||'';
-  const size=document.querySelector('#ob-step-3 select')?.value||'';
-  const branch=document.querySelector('.ob-option.selected')?.dataset?.val||'';
-  const checks=[...document.querySelectorAll('.ob-check.checked .ob-check-label')].map(x=>x.textContent).join(', ');
-  const msg=`🔔 Neuer Lead — Aurion Website\n\n👤 ${fname}\n📧 ${email}\n📞 ${tel||'—'}\n🏢 ${size||'—'}\n🏷 Branche: ${branch}\n⏰ Zeitfresser: ${checks||'—'}`;
-  fetch('https://api.telegram.org/bot8645960987:AAEV9gmHGhEwTZ2zdKUhL4yqN_0IxTesqIw/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:'5560417354',text:msg})}).catch(()=>{});
-  document.getElementById('ob-step-3').classList.remove('on');
-  document.getElementById('ob-success').style.display='block';
+  document.getElementById('selectedPaket').value = name;
 }
 
-// CHAT
-const flow={
-  __s:{m:'Hallo 👋 Ich bin der Aurion-Assistent. Wie kann ich helfen?',o:['Was kostet ein KI-System?','Wie schnell geht die Umsetzung?','Für welche Branchen?','Demo anfragen']},
-  'Was kostet ein KI-System?':{m:'Pakete: Starter ab <strong>€ 1.500</strong> + €300/Mo · Professional <strong>€ 3.000</strong> + €800/Mo · Enterprise ab €8.000.',o:['Was ist im Professional?','Lohnt sich das — ROI?','Termin vereinbaren']},
-  'Was ist im Professional?':{m:'Chatbot + Voice-AI + n8n-Workflows + CRM + Reporting + WhatsApp/Instagram + Prioritäts-Support.',o:['Termin vereinbaren','← Start']},
-  'Lohnt sich das — ROI?':{m:'Ø ROI unserer Kunden: <strong>200–400%</strong> im ersten Jahr. Nutze den ROI-Rechner oben — oder wir rechnen es im kostenlosen Call durch.',o:['Termin vereinbaren','← Start']},
-  'Wie schnell geht die Umsetzung?':{m:'Standardpakete: <strong>48 Stunden</strong> bis Go-Live. Komplexere Systeme 1–2 Wochen. Immer pünktlich.',o:['Was kostet ein KI-System?','Termin vereinbaren']},
-  'Für welche Branchen?':{m:'Handwerk · Gastronomie · Gesundheit · Immobilien · E-Commerce · Kanzleien · Dienstleister · Transport. Jede Branche hat eigene Vorlagen.',o:['Termin vereinbaren','← Start']},
-  'Demo anfragen':{m:'Füll das Formular auf der Seite aus oder schreib an <strong>office@aurion.systems</strong>. Wir melden uns innerhalb 24h.',o:['← Start']},
-  'Termin vereinbaren':{m:'Perfekt! Formular oben ausfüllen oder direkt: <strong>office@aurion.systems</strong> 🎯',o:['← Start']},
-  '← Start':{m:'Womit kann ich noch helfen?',o:['Was kostet ein KI-System?','Wie schnell geht die Umsetzung?','Für welche Branchen?','Demo anfragen']},
-};
-let chatOpen=false,chatInit=false;
-function toggleChat(){
-  chatOpen=!chatOpen;
-  document.getElementById('cp').classList.toggle('open',chatOpen);
-  document.querySelector('.ct-b').style.display='none';
-  if(chatOpen&&!chatInit){chatInit=true;setTimeout(()=>showMsg('__s'),300)}
+// ── FORM SUBMIT + TELEGRAM ──
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const fd = new FormData(this);
+  const data = {};
+  fd.forEach(function(v, k) { data[k] = v; });
+
+  const msg = `🚀 Neue Aurion-Anfrage!\n\n` +
+    `👤 ${data.vorname} ${data.nachname}\n` +
+    `📧 ${data.email}\n` +
+    `📞 ${data.telefon || '–'}\n` +
+    `🌐 ${data.website || '–'}\n\n` +
+    `🏢 ${data.firma}\n` +
+    `📂 ${data.branche}\n` +
+    `📦 Paket: ${data.paket || '–'}\n` +
+    `📅 Start: ${data.startdatum || '–'}\n\n` +
+    `💬 Herausforderung:\n${data.herausforderung || '–'}\n\n` +
+    `📝 Anmerkungen:\n${data.anmerkungen || '–'}`;
+
+  fetch('https://api.telegram.org/bot8645960987:AAEV9gmHGhEwTZ2zdKUhL4yqN_0IxTesqIw/sendMessage', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ chat_id: '5560417354', text: msg })
+  }).catch(function() {});
+
+  document.getElementById('contactForm').style.display = 'none';
+  document.getElementById('formSuccess').classList.add('show');
+  document.querySelector('.progress-bar').style.display = 'none';
+  document.querySelector('.progress-labels').style.display = 'none';
+});
+
+// ── FAQ ACCORDION ──
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const ans = item.querySelector('.faq-a');
+  const isOpen = item.classList.contains('open');
+
+  document.querySelectorAll('.faq-item').forEach(function(fi) {
+    fi.classList.remove('open');
+    fi.querySelector('.faq-a').classList.remove('open');
+  });
+
+  if (!isOpen) {
+    item.classList.add('open');
+    ans.classList.add('open');
+  }
 }
-function showMsg(key){
-  const n=flow[key];if(!n)return;
-  const cm=document.getElementById('cm'),co=document.getElementById('co');
-  co.innerHTML='';
-  const ty=document.createElement('div');ty.className='cty';ty.innerHTML='<span></span><span></span><span></span>';
-  cm.appendChild(ty);cm.scrollTop=9999;
-  setTimeout(()=>{
-    ty.remove();
-    const m=document.createElement('div');m.className='cm b';m.innerHTML=n.m;cm.appendChild(m);cm.scrollTop=9999;
-    n.o.forEach(opt=>{
-      const b=document.createElement('button');b.className='co';b.textContent=opt;
-      b.onclick=()=>{co.innerHTML='';const u=document.createElement('div');u.className='cm u';u.textContent=opt;cm.appendChild(u);cm.scrollTop=9999;setTimeout(()=>showMsg(opt),500)};
-      co.appendChild(b);
-    });
-  },750);
+
+// ── CHAT WIDGET ──
+var chatOpen = false;
+function toggleChat() {
+  chatOpen = !chatOpen;
+  const panel = document.getElementById('chat-panel');
+  const btn = document.getElementById('chat-toggle');
+  if (chatOpen) {
+    panel.classList.add('open');
+    btn.textContent = '✕';
+  } else {
+    panel.classList.remove('open');
+    btn.textContent = '💬';
+  }
 }
-function toggleMob(){
-  const m=document.getElementById('mobMenu');
-  const h=document.getElementById('ham');
-  m.classList.toggle('open');
-  h.classList.toggle('open');
+
+var chatAnswers = [
+  'Unsere Pakete sind auf Anfrage — individuell kalkuliert nach Ihrem Unternehmen und Ihren Zielen. Ein kurzes Gespräch reicht, um Ihnen ein konkretes Angebot zu machen.',
+  'In der Regel ist Ihr System innerhalb von 48 Stunden live — nach einem kurzen Kick-off-Gespräch. Kein Aufwand auf Ihrer Seite.',
+  'Ja, vollständig DSGVO-konform. Alle Daten auf europäischen Servern, mit AVV und vollständiger Datenschutzdokumentation.',
+  'Perfekt! <a href="#kontakt" style="color:var(--gold);">Klicken Sie hier</a> für unser Kontaktformular — oder schreiben Sie uns direkt auf <a href="https://wa.me/43XXXXXXXXX" target="_blank" style="color:var(--gold);">WhatsApp</a>.'
+];
+
+function chatAnswer(idx) {
+  const box = document.getElementById('chatAnswerBox');
+  box.innerHTML = chatAnswers[idx];
+  box.classList.add('show');
+  document.getElementById('chatOptions').style.opacity = '0.4';
 }
-function closeMob(){
-  document.getElementById('mobMenu').classList.remove('open');
-  document.getElementById('ham').classList.remove('open');
-}
+
+// Smooth scroll for all anchor links
+document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
 </script>
 </body>
 </html>
