@@ -9,7 +9,7 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:16px;scroll-behavior:smooth}
-body{background:var(--bg);color:var(--tx);font-family:'Inter',sans-serif;font-weight:300;overflow-x:hidden;cursor:none;transition:background .35s ease,color .35s ease}
+body{background:var(--bg);color:var(--tx);font-family:'Inter',sans-serif;font-weight:300;overflow-x:hidden;transition:background .35s ease,color .35s ease}
 
 /* ── DARK MODE (default) ── */
 :root{
@@ -46,9 +46,6 @@ html[data-theme="light"] .cm.b{background:var(--s2)}
 html[data-theme="light"] .ob-opt{background:var(--s2)}
 html[data-theme="light"] .fg input,.fg select{background:var(--s2)}
 
-/* CURSOR */
-#cur{position:fixed;width:7px;height:7px;background:var(--g);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
-#cur2{position:fixed;width:34px;height:34px;border:1px solid rgba(201,168,76,.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .14s ease}
 
 /* NAV */
 nav{
@@ -70,7 +67,7 @@ nav::after{
 .logo-text{font-family:var(--serif);font-size:1.15rem;letter-spacing:.18em;color:var(--tx);line-height:1;text-transform:uppercase}
 .logo-text span{display:block;font-size:.5rem;letter-spacing:.35em;text-transform:uppercase;color:var(--g);font-family:'Inter',sans-serif;font-weight:500;margin-top:2px}
 /* Hamburger */
-#ham{display:none;flex-direction:column;gap:5px;width:28px;cursor:none;background:none;border:none;padding:4px}
+#ham{display:none;flex-direction:column;gap:5px;width:28px;cursor:pointer;background:none;border:none;padding:4px}
 #ham span{display:block;height:1.5px;background:var(--tx);transition:all .3s;width:100%}
 #ham.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
 #ham.open span:nth-child(2){opacity:0}
@@ -79,7 +76,7 @@ nav::after{
 .mob-menu.open{display:flex}
 .mob-menu a{font-size:.9rem;color:var(--mu);text-decoration:none;padding:.5rem 0;border-bottom:1px solid var(--bd)}
 .mob-menu a:last-of-type{border-bottom:none}
-.mob-cta{margin-top:.5rem;width:100%;text-align:center;padding:.75rem;background:var(--g);color:#000;border:none;border-radius:6px;font-size:.85rem;font-weight:600;cursor:none}
+.mob-cta{margin-top:.5rem;width:100%;text-align:center;padding:.75rem;background:var(--g);color:#000;border:none;border-radius:6px;font-size:.85rem;font-weight:600;cursor:pointer}
 .nav-links{display:flex;align-items:center;gap:2rem}
 .nav-links a{font-size:.78rem;color:var(--mu);letter-spacing:.02em;transition:color .2s;text-decoration:none}
 .nav-links a:hover{color:var(--tx)}
@@ -89,14 +86,14 @@ nav::after{
   width:34px;height:34px;border-radius:50%;
   background:var(--s2);border:1px solid var(--bd2);
   display:flex;align-items:center;justify-content:center;
-  cursor:none;font-size:.95rem;
+  cursor:pointer;font-size:.95rem;
   transition:all .2s;flex-shrink:0;
 }
 #theme-toggle:hover{background:var(--s1);border-color:var(--g);transform:scale(1.08)}
 .badge-live{font-size:.65rem;letter-spacing:.08em;color:#4ade80;border:1px solid rgba(74,222,128,.25);background:rgba(74,222,128,.05);padding:.25rem .7rem;border-radius:100px;display:flex;align-items:center;gap:.35rem}
 .badge-live::before{content:'';width:5px;height:5px;border-radius:50%;background:#4ade80;animation:blink 2s ease infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
-.btn-nav{background:var(--g);color:#000;font-size:.75rem;font-weight:500;padding:.45rem 1.2rem;border-radius:5px;border:none;cursor:none;transition:all .2s;letter-spacing:.03em}
+.btn-nav{background:var(--g);color:#000;font-size:.75rem;font-weight:500;padding:.45rem 1.2rem;border-radius:5px;border:none;cursor:pointer;transition:all .2s;letter-spacing:.03em}
 .btn-nav:hover{background:var(--g2);transform:translateY(-1px)}
 
 /* ═══════ HERO ═══════ */
@@ -138,7 +135,7 @@ nav::after{
   transform:translate(-50%,-50%);
   width:min(680px,80vw);
   height:auto;
-  opacity:.55;
+  opacity:.75;
   mix-blend-mode:screen;
   pointer-events:none;
   z-index:1;
@@ -173,7 +170,7 @@ h1.headline{
 .btn-primary{
   background:linear-gradient(135deg,#C9A84C,#e8c96a);
   color:#000;font-size:.83rem;font-weight:700;
-  padding:.8rem 2rem;border-radius:7px;border:none;cursor:none;
+  padding:.8rem 2rem;border-radius:7px;border:none;cursor:pointer;
   transition:all .25s;letter-spacing:.03em;
   box-shadow:0 4px 20px rgba(201,168,76,.25);
   position:relative;overflow:hidden;
@@ -188,7 +185,7 @@ h1.headline{
 .btn-sec{
   background:rgba(255,255,255,.04);color:#e8eaf0;
   font-size:.83rem;padding:.8rem 2rem;border-radius:7px;
-  border:1px solid rgba(255,255,255,.12);cursor:none;transition:all .25s;
+  border:1px solid rgba(255,255,255,.12);cursor:pointer;transition:all .25s;
 }
 .btn-sec:hover{background:rgba(255,255,255,.08);border-color:rgba(201,168,76,.3);color:#f5f5f5;transform:translateY(-1px)}
 
@@ -243,7 +240,7 @@ h1.headline{
   display:flex;align-items:center;gap:.65rem;
 }
 .demo-input{flex:1;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:.5rem .8rem;font-size:.75rem;color:var(--mu);outline:none;font-family:inherit}
-.demo-send{background:var(--g);border:none;border-radius:5px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:none;flex-shrink:0;font-size:.8rem}
+.demo-send{background:var(--g);border:none;border-radius:5px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:.8rem}
 
 /* KPI strip */
 .kpi-strip{
@@ -330,7 +327,7 @@ h2.sec-h em{font-style:italic;color:var(--g);font-family:var(--serif);font-weigh
   border-radius:7px;
   margin-bottom:.4rem;
   transition:all .2s;
-  cursor:none;
+  cursor:default;
 }
 .wf-row:hover{border-color:rgba(201,168,76,.25);background:rgba(201,168,76,.04)}
 .wf-icon{font-size:1rem;width:28px;text-align:center;flex-shrink:0}
@@ -439,7 +436,7 @@ input[type=range]::-webkit-slider-thumb{
 .pc-ul{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-bottom:2rem}
 .pc-ul li{font-size:.78rem;color:var(--mu);display:flex;gap:.55rem;align-items:flex-start}
 .pc-ul li::before{content:'✓';color:var(--g);font-size:.7rem;flex-shrink:0;margin-top:.1rem}
-.btn-pc{width:100%;padding:.7rem;border-radius:5px;font-size:.76rem;font-weight:500;letter-spacing:.04em;cursor:none;transition:all .2s;border:1px solid var(--bd);background:transparent;color:var(--mu)}
+.btn-pc{width:100%;padding:.7rem;border-radius:5px;font-size:.76rem;font-weight:500;letter-spacing:.04em;cursor:pointer;transition:all .2s;border:1px solid var(--bd);background:transparent;color:var(--mu)}
 .btn-pc:hover{color:#e8eaf0;border-color:rgba(255,255,255,.2)}
 .pc.hot .btn-pc{background:var(--g);color:#000;border-color:var(--g)}
 .pc.hot .btn-pc:hover{background:var(--g2)}
@@ -463,7 +460,46 @@ input[type=range]::-webkit-slider-thumb{
 
 /* ═══════ ONBOARDING ═══════ */
 #onboarding{background:var(--bg)}
-.ob-wrap{max-width:720px;margin:3.5rem auto 0;background:var(--s1);border:1px solid var(--bd);border-radius:10px;overflow:hidden}
+.ob-wrap{max-width:700px;margin:0 auto;background:var(--s1);border:1px solid var(--bd);border-radius:12px;overflow:hidden;position:relative}
+.ob-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--g),transparent);pointer-events:none}
+.ob-inner{padding:2.5rem}
+.ob-step{display:none}
+.ob-step.on{display:block}
+.ob-step-label{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--g);margin-bottom:.5rem}
+.ob-title{font-family:var(--serif);font-size:1.8rem;font-weight:300;color:#f0f2fa;margin-bottom:.5rem}
+.ob-sub{font-size:.83rem;color:var(--mu);margin-bottom:1.75rem;line-height:1.6}
+.ob-options{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:.5rem}
+.ob-option{background:var(--s2);border:1px solid var(--bd);border-radius:8px;padding:1rem 1.25rem;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:.75rem}
+.ob-option:hover{border-color:rgba(201,168,76,.3);background:rgba(201,168,76,.04)}
+.ob-option.selected{border-color:var(--g);background:rgba(201,168,76,.08)}
+.ob-option-icon{font-size:1.2rem;flex-shrink:0}
+.ob-option-label{font-size:.83rem;color:#e8eaf0;font-weight:400}
+.ob-option-sub{font-size:.72rem;color:var(--mu)}
+.ob-checkboxes{display:flex;flex-direction:column;gap:.6rem;margin-bottom:.5rem}
+.ob-check{display:flex;align-items:center;gap:.75rem;background:var(--s2);border:1px solid var(--bd);border-radius:8px;padding:.9rem 1.25rem;cursor:pointer;transition:all .25s}
+.ob-check:hover{border-color:rgba(201,168,76,.2)}
+.ob-check.checked{border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.06)}
+.ob-check-box{width:18px;height:18px;border:1px solid var(--bd);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.ob-check.checked .ob-check-box{background:var(--g);border-color:var(--g)}
+.ob-check-mark{color:#000;font-size:.65rem;opacity:0;transition:opacity .2s}
+.ob-check.checked .ob-check-mark{opacity:1}
+.ob-check-label{font-size:.83rem;color:var(--mu)}
+.ob-fields{display:flex;flex-direction:column;gap:.85rem;margin-bottom:.5rem}
+.ob-field label{display:block;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:.35rem}
+.ob-field input,.ob-field select{width:100%;background:var(--s2);border:1px solid var(--bd);border-radius:6px;padding:.7rem 1rem;font-family:'Inter',sans-serif;font-size:.85rem;color:#e8eaf0;outline:none;transition:border .2s}
+.ob-field input:focus,.ob-field select:focus{border-color:rgba(201,168,76,.4)}
+.ob-field input::placeholder{color:var(--mu)}
+.ob-footer-row{display:flex;justify-content:space-between;align-items:center;margin-top:1.75rem;padding-top:1.5rem;border-top:1px solid var(--bd)}
+.ob-back-btn{background:transparent;border:none;color:var(--mu);font-size:.8rem;padding:.5rem;transition:color .2s;cursor:pointer}
+.ob-back-btn:hover{color:#e8eaf0}
+.ob-next-btn{background:linear-gradient(135deg,var(--g),var(--g2));color:#000;border:none;padding:.8rem 1.8rem;border-radius:6px;font-size:.82rem;font-weight:600;transition:all .25s;cursor:pointer}
+.ob-next-btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(201,168,76,.3)}
+.ob-next-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.ob-step-counter{font-size:.75rem;color:var(--mu)}
+.ob-success{display:none;text-align:center;padding:4rem 3rem}
+.ob-success-icon{font-size:3rem;margin-bottom:1.5rem}
+.ob-success h3{font-family:var(--serif);font-size:1.8rem;font-weight:300;color:#f0f2fa;margin-bottom:.75rem}
+.ob-success p{font-size:.88rem;color:var(--mu);line-height:1.75}
 .ob-prog{height:2px;background:var(--bd)}<div class="ob-prog"><div class="ob-prog-fill" id="opf"></div></div>
 .ob-pf{height:100%;background:var(--g);transition:width .4s ease;width:33%}
 .ob-top{padding:1.75rem 2rem 0}
@@ -480,14 +516,14 @@ input[type=range]::-webkit-slider-thumb{
 .ob-opt{
   display:flex;flex-direction:column;align-items:center;gap:.3rem;
   padding:1rem .5rem;border:1px solid var(--bd);border-radius:7px;
-  background:var(--bg);font-size:.72rem;color:var(--mu);cursor:none;
+  background:var(--bg);font-size:.72rem;color:var(--mu);cursor:pointer;
   transition:all .2s;text-align:center;
 }
 .ob-opt .ico{font-size:1.25rem}
 .ob-opt:hover{border-color:rgba(201,168,76,.3);color:#e8eaf0;background:rgba(201,168,76,.04)}
 .ob-opt.on{border-color:var(--g);background:rgba(201,168,76,.08);color:var(--g)}
 .cbl{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1.5rem}
-.cbi{display:flex;align-items:center;gap:.7rem;padding:.8rem 1rem;border:1px solid var(--bd);border-radius:6px;cursor:none;transition:all .2s}
+.cbi{display:flex;align-items:center;gap:.7rem;padding:.8rem 1rem;border:1px solid var(--bd);border-radius:6px;cursor:pointer;transition:all .2s}
 .cbi:hover{border-color:rgba(201,168,76,.25);background:rgba(201,168,76,.03)}
 .cbi input{accent-color:var(--g);cursor:pointer;width:13px;height:13px}
 .cbi label{font-size:.8rem;color:var(--mu);cursor:pointer;flex:1}
@@ -497,9 +533,9 @@ input[type=range]::-webkit-slider-thumb{
 .fg input,.fg select{width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:5px;padding:.65rem .9rem;font-size:.8rem;color:#e8eaf0;font-family:inherit;outline:none;transition:border-color .2s}
 .fg input:focus,.fg select:focus{border-color:rgba(201,168,76,.4)}
 .ob-nav{display:flex;justify-content:space-between;align-items:center;padding-top:1.5rem;border-top:1px solid var(--bd)}
-.btn-bk{background:none;border:1px solid var(--bd);color:var(--mu);padding:.55rem 1.1rem;border-radius:5px;font-size:.75rem;cursor:none;transition:all .2s}
+.btn-bk{background:none;border:1px solid var(--bd);color:var(--mu);padding:.55rem 1.1rem;border-radius:5px;font-size:.75rem;cursor:pointer;transition:all .2s}
 .btn-bk:hover{color:#e8eaf0;border-color:rgba(255,255,255,.2)}
-.btn-nx{background:var(--g);color:#000;padding:.6rem 1.75rem;border-radius:5px;font-size:.78rem;font-weight:600;border:none;cursor:none;transition:all .2s}
+.btn-nx{background:var(--g);color:#000;padding:.6rem 1.75rem;border-radius:5px;font-size:.78rem;font-weight:600;border:none;cursor:pointer;transition:all .2s}
 .btn-nx:hover{background:var(--g2)}
 .btn-nx:disabled{opacity:.3;pointer-events:none}
 .ob-done{display:none;text-align:center;padding:3.5rem 2rem}
@@ -508,7 +544,7 @@ input[type=range]::-webkit-slider-thumb{
 .ob-done-p{font-size:.85rem;color:var(--mu);line-height:1.75}
 
 /* ═══════ CHAT ═══════ */
-#ct{position:fixed;bottom:2rem;right:2rem;z-index:600;width:50px;height:50px;border-radius:50%;background:var(--g);border:none;cursor:none;display:flex;align-items:center;justify-content:center;font-size:1.1rem;box-shadow:0 4px 24px rgba(201,168,76,.4);transition:all .25s}
+#ct{position:fixed;bottom:2rem;right:2rem;z-index:600;width:50px;height:50px;border-radius:50%;background:var(--g);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;box-shadow:0 4px 24px rgba(201,168,76,.4);transition:all .25s}
 #ct:hover{background:var(--g2);transform:scale(1.1)}
 .ct-b{position:absolute;top:-3px;right:-3px;width:14px;height:14px;border-radius:50%;background:#f87171;border:2px solid #07090f;font-size:.5rem;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
 #cp{position:fixed;bottom:5.5rem;right:2rem;z-index:599;width:320px;background:var(--s1);border:1px solid var(--bd2);border-radius:12px;overflow:hidden;display:none;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,.7);max-height:480px}
@@ -518,7 +554,7 @@ input[type=range]::-webkit-slider-thumb{
 .cp-dot{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--g),#7a5e1c);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#000}
 .cp-name{font-size:.8rem;font-weight:500}
 .cp-on{font-size:.63rem;color:#4ade80}
-.cp-x{background:none;border:none;color:var(--mu);cursor:none;font-size:.9rem;padding:.2rem;transition:color .2s}
+.cp-x{background:none;border:none;color:var(--mu);cursor:pointer;font-size:.9rem;padding:.2rem;transition:color .2s}
 .cp-x:hover{color:#e8eaf0}
 #cm{flex:1;overflow-y:auto;padding:.85rem;display:flex;flex-direction:column;gap:.5rem;min-height:180px}
 #cm::-webkit-scrollbar{width:3px}
@@ -532,7 +568,7 @@ input[type=range]::-webkit-slider-thumb{
 .cty span:nth-child(2){animation-delay:.13s}
 .cty span:nth-child(3){animation-delay:.26s}
 #co{display:flex;flex-direction:column;gap:.3rem;padding:.4rem .85rem .85rem}
-.co{background:transparent;border:1px solid var(--bd);color:var(--mu);font-size:.72rem;padding:.42rem .8rem;border-radius:5px;cursor:none;text-align:left;transition:all .2s}
+.co{background:transparent;border:1px solid var(--bd);color:var(--mu);font-size:.72rem;padding:.42rem .8rem;border-radius:5px;cursor:pointer;text-align:left;transition:all .2s}
 .co:hover{border-color:rgba(201,168,76,.3);color:var(--g);background:rgba(201,168,76,.04)}
 
 /* FOOTER */
@@ -580,8 +616,6 @@ footer::before{
 </head>
 <body>
 
-<div id="cur"></div>
-<div id="cur2"></div>
 
 <!-- NAV -->
 <nav>
@@ -596,7 +630,6 @@ footer::before{
   </div>
   <div class="nav-r">
     <button id="theme-toggle" onclick="toggleTheme()" title="Hell/Dunkel wechseln">🌙</button>
-    <div class="badge-live">Live</div>
     <button class="btn-nav" onclick="document.getElementById('onboarding').scrollIntoView({behavior:'smooth'})">Kostenlose Analyse</button>
     <button id="ham" onclick="toggleMob()" aria-label="Menü">
       <span></span><span></span><span></span>
@@ -652,10 +685,8 @@ footer::before{
           <div class="demo-av">A</div>
           <div>
             <div class="demo-name">Aurion KI-Agent</div>
-            <div class="demo-status">Aktiv</div>
           </div>
         </div>
-        <div class="demo-tag">Live Demo</div>
       </div>
       <div class="demo-chat" id="demo-chat">
         <!-- Animated in by JS -->
@@ -688,20 +719,6 @@ footer::before{
   </div>
 </div>
 
-<!-- TECH STRIP -->
-<div class="tech-strip">
-  <div class="tech-label">Powered by</div>
-  <div class="tech-logos">
-    <div class="tech-logo">Claude AI</div>
-    <div class="tech-logo">n8n</div>
-    <div class="tech-logo">Botpress</div>
-    <div class="tech-logo">Synthflow</div>
-    <div class="tech-logo">ElevenLabs</div>
-    <div class="tech-logo">WhatsApp API</div>
-    <div class="tech-logo">Notion</div>
-    <div class="tech-logo">GPT-4o</div>
-  </div>
-</div>
 
 <!-- HOW IT WORKS -->
 <section id="how" class="section" style="background:var(--s1)">
@@ -747,7 +764,6 @@ footer::before{
           <div class="wf-name">Kundenanfragen KI-Chatbot</div>
           <div class="wf-sub">Website + WhatsApp · Letzter Trigger: vor 2 Min.</div>
         </div>
-        <div class="wf-status ok">Aktiv</div>
       </div>
       <div class="wf-arrow">↓</div>
       <div class="wf-row">
@@ -756,7 +772,6 @@ footer::before{
           <div class="wf-name">Lead in Notion speichern</div>
           <div class="wf-sub">Automatisch → CRM-Datenbank</div>
         </div>
-        <div class="wf-status ok">Aktiv</div>
       </div>
       <div class="wf-arrow">↓</div>
       <div class="wf-row">
@@ -765,7 +780,6 @@ footer::before{
           <div class="wf-name">Angebot automatisch versenden</div>
           <div class="wf-sub">PDF-Angebot per E-Mail · Innerhalb 30 Sek.</div>
         </div>
-        <div class="wf-status ok">Aktiv</div>
       </div>
       <div class="wf-arrow">↓</div>
       <div class="wf-row">
@@ -774,7 +788,6 @@ footer::before{
           <div class="wf-name">Follow-up nach 48h</div>
           <div class="wf-sub">Automatische Erinnerung · In Bearbeitung</div>
         </div>
-        <div class="wf-status run">Läuft</div>
       </div>
     </div>
   </div>
@@ -911,62 +924,127 @@ footer::before{
 
 <!-- ONBOARDING -->
 <section id="onboarding" class="section">
-  <div class="tag rv">Kostenlose Analyse</div>
-  <h2 class="sec-h rv">Dein individuelles KI-Konzept — <em>gratis</em></h2>
-  <p class="sec-p rv rd1">In 3 Minuten zum maßgeschneiderten Angebot. Wir melden uns innerhalb von 24 Stunden.</p>
+  <div style="text-align:center;max-width:560px;margin:0 auto 3.5rem">
+    <div class="tag rv" style="justify-content:center">Kostenlose Analyse</div>
+    <h2 class="sec-h rv">In 3 Schritten zum <em>KI-System</em></h2>
+    <p class="sec-p rv rd1" style="margin:0 auto">Keine Kreditkarte. Kein Risiko. Nur ein ehrliches Gespräch.</p>
+  </div>
   <div class="ob-wrap rv rd2">
-    <div class="ob-prog"><div class="ob-pf" id="opf"></div></div>
-    <div class="ob-top">
-      <div class="ob-steps-row">
-        <div class="ob-si on" id="osi1">01 · Branche</div>
-        <div class="ob-si" id="osi2">02 · Bedarf</div>
-        <div class="ob-si" id="osi3">03 · Kontakt</div>
-      </div>
-    </div>
-    <div class="ob-body">
-      <div class="ob-s on" id="os1">
-        <div class="ob-h">Deine Branche?</div>
-        <div class="ob-d">Wähle deine Branche — wir kennen die typischen Herausforderungen bereits.</div>
-        <div class="og" id="og">
-          <button class="ob-opt" data-v="handwerk"><span class="ico">🔨</span>Handwerk</button>
-          <button class="ob-opt" data-v="gastronomie"><span class="ico">🍕</span>Gastronomie</button>
-          <button class="ob-opt" data-v="gesundheit"><span class="ico">🏥</span>Gesundheit</button>
-          <button class="ob-opt" data-v="immobilien"><span class="ico">🏠</span>Immobilien</button>
-          <button class="ob-opt" data-v="ecommerce"><span class="ico">🛒</span>E-Commerce</button>
-          <button class="ob-opt" data-v="dienstleister"><span class="ico">💼</span>Dienstleister</button>
-          <button class="ob-opt" data-v="kanzlei"><span class="ico">⚖️</span>Kanzlei</button>
-          <button class="ob-opt" data-v="transport"><span class="ico">🚛</span>Transport</button>
-          <button class="ob-opt" data-v="andere"><span class="ico">🔄</span>Andere</button>
+    <div class="ob-prog"><div class="ob-pf" id="opf" style="width:33%"></div></div>
+    <div class="ob-inner">
+
+      <!-- Step 1 -->
+      <div class="ob-step on" id="ob-step-1">
+        <div class="ob-step-label">Schritt 1 von 3</div>
+        <h3 class="ob-title">Welche Branche?</h3>
+        <p class="ob-sub">Damit wir die richtigen KI-Lösungen für dich empfehlen können.</p>
+        <div class="ob-options" id="branch-options">
+          <div class="ob-option" data-val="handwerk" onclick="selectOpt(this,'branch-options')">
+            <div class="ob-option-icon">🔧</div>
+            <div><div class="ob-option-label">Handwerk & Bau</div><div class="ob-option-sub">Elektriker, Installateure, Maler...</div></div>
+          </div>
+          <div class="ob-option" data-val="gesundheit" onclick="selectOpt(this,'branch-options')">
+            <div class="ob-option-icon">🏥</div>
+            <div><div class="ob-option-label">Gesundheit & Praxen</div><div class="ob-option-sub">Ärzte, Physiotherapie, Dental...</div></div>
+          </div>
+          <div class="ob-option" data-val="dienstleister" onclick="selectOpt(this,'branch-options')">
+            <div class="ob-option-icon">💼</div>
+            <div><div class="ob-option-label">Dienstleister & Beratung</div><div class="ob-option-sub">Anwälte, Steuerberater, Coaches...</div></div>
+          </div>
+          <div class="ob-option" data-val="gastro" onclick="selectOpt(this,'branch-options')">
+            <div class="ob-option-icon">🍽️</div>
+            <div><div class="ob-option-label">Gastronomie & Hotel</div><div class="ob-option-sub">Restaurants, Cafés, Hotels...</div></div>
+          </div>
+          <div class="ob-option" data-val="ecommerce" onclick="selectOpt(this,'branch-options')">
+            <div class="ob-option-icon">🛒</div>
+            <div><div class="ob-option-label">E-Commerce & Handel</div><div class="ob-option-sub">Online-Shops, Einzelhandel...</div></div>
+          </div>
+          <div class="ob-option" data-val="other" onclick="selectOpt(this,'branch-options')">
+            <div class="ob-option-icon">✨</div>
+            <div><div class="ob-option-label">Andere Branche</div><div class="ob-option-sub">Nicht gelistet? Kein Problem.</div></div>
+          </div>
         </div>
-        <div class="ob-nav"><span></span><button class="btn-nx" id="nx1" disabled onclick="toStep(2)">Weiter →</button></div>
-      </div>
-      <div class="ob-s" id="os2">
-        <div class="ob-h">Wo verlierst du Zeit?</div>
-        <div class="ob-d">Mehrfachauswahl — alles was auf dich zutrifft.</div>
-        <div class="cbl">
-          <div class="cbi"><input type="checkbox" id="c1"><label for="c1">Kundenanfragen manuell beantworten</label></div>
-          <div class="cbi"><input type="checkbox" id="c2"><label for="c2">Termine telefonisch vereinbaren</label></div>
-          <div class="cbi"><input type="checkbox" id="c3"><label for="c3">Angebote & Rechnungen manuell erstellen</label></div>
-          <div class="cbi"><input type="checkbox" id="c4"><label for="c4">Daten in verschiedene Systeme übertragen</label></div>
-          <div class="cbi"><input type="checkbox" id="c5"><label for="c5">Lead-Qualifizierung & Follow-up</label></div>
-          <div class="cbi"><input type="checkbox" id="c6"><label for="c6">Social Media Anfragen & Kommentare</label></div>
+        <div class="ob-footer-row">
+          <span class="ob-step-counter">1 / 3</span>
+          <button class="ob-next-btn" id="ob-next-1" onclick="goStep(2)" disabled>Weiter →</button>
         </div>
-        <div class="ob-nav"><button class="btn-bk" onclick="toStep(1)">← Zurück</button><button class="btn-nx" onclick="toStep(3)">Weiter →</button></div>
       </div>
-      <div class="ob-s" id="os3">
-        <div class="ob-h">Deine Kontaktdaten</div>
-        <div class="ob-d">Wir melden uns innerhalb von 24h mit deinem individuellen Konzept.</div>
-        <div class="frow"><div class="fg"><label>Vorname</label><input type="text" id="fn" placeholder="Max"></div><div class="fg"><label>Nachname</label><input placeholder="Mustermann"></div></div>
-        <div class="fg"><label>Firma</label><input placeholder="Muster GmbH"></div>
-        <div class="frow"><div class="fg"><label>E-Mail</label><input type="email" placeholder="max@firma.at"></div><div class="fg"><label>Telefon</label><input type="tel" placeholder="+43 ..."></div></div>
-        <div class="fg"><label>Unternehmensgröße</label><select><option value="">Bitte wählen…</option><option>1–5 MA</option><option>6–20 MA</option><option>21–50 MA</option><option>50+ MA</option></select></div>
-        <div class="ob-nav"><button class="btn-bk" onclick="toStep(2)">← Zurück</button><button class="btn-nx" onclick="submitOB()">Analyse anfordern ✓</button></div>
+
+      <!-- Step 2 -->
+      <div class="ob-step" id="ob-step-2">
+        <div class="ob-step-label">Schritt 2 von 3</div>
+        <h3 class="ob-title">Was kostet dich am meisten Zeit?</h3>
+        <p class="ob-sub">Wähle alle zutreffenden Punkte — je mehr, desto besser können wir helfen.</p>
+        <div class="ob-checkboxes">
+          <div class="ob-check" onclick="toggleChk(this)">
+            <div class="ob-check-box"><span class="ob-check-mark">✓</span></div>
+            <span class="ob-check-label">Terminbuchungen & -bestätigungen per Telefon/E-Mail</span>
+          </div>
+          <div class="ob-check" onclick="toggleChk(this)">
+            <div class="ob-check-box"><span class="ob-check-mark">✓</span></div>
+            <span class="ob-check-label">Kundenanfragen manuell beantworten</span>
+          </div>
+          <div class="ob-check" onclick="toggleChk(this)">
+            <div class="ob-check-box"><span class="ob-check-mark">✓</span></div>
+            <span class="ob-check-label">Angebote, Rechnungen & Dokumente erstellen</span>
+          </div>
+          <div class="ob-check" onclick="toggleChk(this)">
+            <div class="ob-check-box"><span class="ob-check-mark">✓</span></div>
+            <span class="ob-check-label">Daten zwischen Tools übertragen (CRM, Excel etc.)</span>
+          </div>
+          <div class="ob-check" onclick="toggleChk(this)">
+            <div class="ob-check-box"><span class="ob-check-mark">✓</span></div>
+            <span class="ob-check-label">Reporting & Auswertungen zusammenstellen</span>
+          </div>
+          <div class="ob-check" onclick="toggleChk(this)">
+            <div class="ob-check-box"><span class="ob-check-mark">✓</span></div>
+            <span class="ob-check-label">Leads qualifizieren & nachfassen</span>
+          </div>
+        </div>
+        <div class="ob-footer-row">
+          <button class="ob-back-btn" onclick="goStep(1)">← Zurück</button>
+          <span class="ob-step-counter">2 / 3</span>
+          <button class="ob-next-btn" onclick="goStep(3)">Weiter →</button>
+        </div>
       </div>
-      <div class="ob-done" id="ob-done">
-        <div class="ob-done-icon">✦</div>
-        <div class="ob-done-h">Danke, <span id="dn"></span>!</div>
-        <div class="ob-done-p">Wir haben deine Anfrage erhalten.<br>Innerhalb von <strong style="color:var(--g)">24 Stunden</strong> melden wir uns mit deinem individuellen KI-Konzept.</div>
+
+      <!-- Step 3 -->
+      <div class="ob-step" id="ob-step-3">
+        <div class="ob-step-label">Schritt 3 von 3</div>
+        <h3 class="ob-title">Fast geschafft!</h3>
+        <p class="ob-sub">Wir melden uns innerhalb von 24h mit einem konkreten Vorschlag.</p>
+        <div class="ob-fields">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+            <div class="ob-field"><label>Vorname</label><input type="text" id="ob-fname" placeholder="Max" required></div>
+            <div class="ob-field"><label>Nachname</label><input type="text" placeholder="Mustermann" required></div>
+          </div>
+          <div class="ob-field"><label>E-Mail</label><input type="email" placeholder="max@firma.at" required></div>
+          <div class="ob-field"><label>Telefon (optional)</label><input type="tel" placeholder="+43 664 ..."></div>
+          <div class="ob-field">
+            <label>Mitarbeiteranzahl</label>
+            <select>
+              <option value="">Bitte wählen</option>
+              <option>1–5 Mitarbeiter</option>
+              <option>6–20 Mitarbeiter</option>
+              <option>21–50 Mitarbeiter</option>
+              <option>50+ Mitarbeiter</option>
+            </select>
+          </div>
+        </div>
+        <div class="ob-footer-row">
+          <button class="ob-back-btn" onclick="goStep(2)">← Zurück</button>
+          <span class="ob-step-counter">3 / 3</span>
+          <button class="ob-next-btn" onclick="submitAnalyse()">Jetzt absenden ✓</button>
+        </div>
       </div>
+
+      <!-- Success -->
+      <div class="ob-success" id="ob-success">
+        <div class="ob-success-icon">🎉</div>
+        <h3>Danke! Wir melden uns.</h3>
+        <p>Du erhältst innerhalb von 24h eine Nachricht von uns — mit einem konkreten Vorschlag für deinen Betrieb.</p>
+      </div>
+
     </div>
   </div>
 </section>
@@ -997,13 +1075,6 @@ function toggleTheme(){
   document.getElementById('theme-toggle').textContent=isDark?'🌙':'☀️';
 }
 
-// CURSOR
-const C=document.getElementById('cur'),C2=document.getElementById('cur2');
-document.addEventListener('mousemove',e=>{C.style.left=e.clientX+'px';C.style.top=e.clientY+'px';C2.style.left=e.clientX+'px';C2.style.top=e.clientY+'px'});
-document.querySelectorAll('a,button,.ob-opt,.cbi,.svc-card,.pc,.wf-row').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{C2.style.transform='translate(-50%,-50%) scale(1.8)';C2.style.borderColor='rgba(201,168,76,.8)'});
-  el.addEventListener('mouseleave',()=>{C2.style.transform='translate(-50%,-50%) scale(1)';C2.style.borderColor='rgba(201,168,76,.45)'});
-});
 
 // DEMO CHAT ANIMATION
 const demoConvo=[
@@ -1072,27 +1143,21 @@ const rv=new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting)e.targ
 document.querySelectorAll('.rv').forEach(el=>rv.observe(el));
 
 // ONBOARDING
-let step=1;
-document.querySelectorAll('#og .ob-opt').forEach(b=>{
-  b.addEventListener('click',()=>{
-    document.querySelectorAll('#og .ob-opt').forEach(x=>x.classList.remove('on'));
-    b.classList.add('on');document.getElementById('nx1').disabled=false;
-  });
-});
-function toStep(n){
-  document.getElementById('os'+step).classList.remove('on');
-  document.getElementById('osi'+step).classList.remove('on');
-  document.getElementById('osi'+step).classList.add('ok');
-  step=n;
-  document.getElementById('os'+step).classList.add('on');
-  document.getElementById('osi'+step).classList.add('on');
-  document.getElementById('opf').style.width=(step===1?33:step===2?66:100)+'%';
+function selectOpt(el,groupId){
+  document.querySelectorAll('#'+groupId+' .ob-option').forEach(x=>x.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('ob-next-1').disabled=false;
 }
-function submitOB(){
-  const name=document.getElementById('fn').value||'';
-  document.getElementById('os3').style.display='none';
-  document.getElementById('ob-done').style.display='block';
-  document.getElementById('dn').textContent=name?name:'dort';
+function toggleChk(el){el.classList.toggle('checked')}
+function goStep(n){
+  document.querySelectorAll('.ob-step').forEach(s=>s.classList.remove('on'));
+  document.getElementById('ob-step-'+n).classList.add('on');
+  document.getElementById('opf').style.width=(n===1?33:n===2?66:100)+'%';
+}
+function submitAnalyse(){
+  const name=document.getElementById('ob-fname')?.value||'';
+  document.getElementById('ob-step-3').classList.remove('on');
+  document.getElementById('ob-success').style.display='block';
 }
 
 // CHAT
