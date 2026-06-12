@@ -60,23 +60,25 @@ nav {
   letter-spacing: .14em; text-transform: uppercase; color: var(--text);
 }
 .nav-logo em { color: var(--gold); font-style: normal; }
-.nav-links { display: flex; gap: 32px; }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links li { display: flex; align-items: center; gap: 10px; }
+.nav-links li::before { content: '·'; color: var(--gold); font-size: .9rem; opacity: .7; }
 .nav-links a { font-size: .78rem; letter-spacing: .06em; color: var(--muted); transition: color .2s; }
 .nav-links a:hover { color: var(--text); }
 .nav-cta {
-  font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  font-size: .75rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
   padding: 10px 22px; border-radius: 4px;
-  background: var(--gold); color: var(--void);
-  border: none; transition: all .2s; position: relative; overflow: hidden;
+  background: transparent; color: var(--text);
+  border: 1px solid rgba(201,168,76,0.5); transition: all .2s; position: relative; overflow: hidden;
 }
 .nav-cta::after {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent);
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,.08), transparent);
   transform: translateX(-100%);
   animation: shimmer 2.8s infinite;
 }
 @keyframes shimmer { to { transform: translateX(200%); } }
-.nav-cta:hover { background: var(--gold2); transform: translateY(-1px); }
+.nav-cta:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); transform: translateY(-1px); }
 
 /* Hamburger */
 .ham { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 6px; }
