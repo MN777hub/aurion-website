@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aurion Systems — KI-Automatisierung, Wien</title>
-<meta name="description" content="Aurion Systems automatisiert Kundenanfragen, Terminbuchungen und Workflows österreichischer Unternehmen. Live in 48 Stunden.">
+<meta name="description" content="Aurion Systems automatisiert Kundenanfragen, Terminbuchungen und Workflows österreichischer Unternehmen. Maßgeschneidert für Wien und den DACH-Raum.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Figtree:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -123,7 +123,17 @@ nav {
   mask-image: radial-gradient(ellipse 65% 55% at 50% 50%, black 0%, transparent 100%);
   opacity: .3;
 }
-.hero-inner { position: relative; z-index: 2; max-width: var(--max); margin: 0 auto; width: 100%; padding: 80px 0 80px; }
+.hero-inner { position: relative; z-index: 2; max-width: var(--max); margin: 0 auto; width: 100%; padding: 80px 0 80px; display: flex; align-items: center; gap: 48px; }
+.hero-text { flex: 0 0 auto; max-width: 540px; }
+.hero-planet-wrap { flex: 1; min-height: 520px; display: flex; align-items: center; justify-content: center; }
+#threejs-planet { width: 100%; height: 520px; overflow: visible; }
+@media (max-width: 900px) {
+  .hero-inner { flex-direction: column-reverse; gap: 0; padding-top: 100px; }
+  .hero-text { max-width: 100%; }
+  .hero-planet-wrap { width: 100%; min-height: 280px; }
+  #threejs-planet { height: 280px; }
+  .hero-h1 { font-size: clamp(3rem, 12vw, 5rem); }
+}
 .hero-eyebrow {
   display: inline-flex; align-items: center; gap: 10px; margin-bottom: 40px;
   font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold);
@@ -287,6 +297,59 @@ nav {
 .chat-msg.bot { background: var(--surface2); color: var(--text); align-self: flex-start; border: 1px solid var(--subtle); }
 .chat-msg.user { background: var(--gold-dim); color: var(--gold); align-self: flex-end; border: 1px solid var(--gold-border); text-align: right; }
 .bcard-wide-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+/* ── Visual Mockups ── */
+.mock { border-radius: 8px; overflow: hidden; background: var(--void); border: 1px solid var(--subtle); font-size: .75rem; }
+/* Chat mock */
+.mock-chat { padding: 14px; display: flex; flex-direction: column; gap: 8px; }
+.mc { padding: 8px 12px; border-radius: 10px; max-width: 80%; line-height: 1.45; font-size: .73rem; }
+.mc.b { background: #1e1e2a; color: var(--text); align-self: flex-start; border: 1px solid var(--subtle); }
+.mc.u { background: rgba(201,168,76,.15); color: var(--gold2); align-self: flex-end; border: 1px solid var(--gold-border); }
+.mc-time { font-size: .6rem; color: var(--muted); text-align: center; margin: 2px 0; }
+.mc-status { font-size: .62rem; color: #4ade80; align-self: flex-end; padding-right: 4px; }
+/* Calendar mock */
+.mock-cal { padding: 16px; }
+.mock-cal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); }
+.mock-cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+.cal-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: .62rem; color: var(--muted); border-radius: 4px; }
+.cal-day.booked { background: rgba(201,168,76,.18); color: var(--gold); font-weight: 600; border: 1px solid var(--gold-border); }
+.cal-day.today { border: 1px solid var(--gold); color: var(--text); }
+.cal-notif { margin-top: 10px; background: rgba(74,222,128,.08); border: 1px solid rgba(74,222,128,.2); border-radius: 6px; padding: 8px 10px; font-size: .65rem; color: #4ade80; display: flex; align-items: center; gap: 6px; }
+/* Lead score mock */
+.mock-leads { padding: 14px; display: flex; flex-direction: column; gap: 8px; }
+.lead-row { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 6px; background: var(--surface2); border: 1px solid transparent; }
+.lead-row.hot { border-color: var(--gold-border); background: rgba(201,168,76,.07); }
+.lead-name { font-size: .72rem; color: var(--text); flex: 1; font-weight: 500; }
+.lead-bar-wrap { width: 60px; height: 4px; background: var(--subtle); border-radius: 2px; }
+.lead-bar { height: 100%; border-radius: 2px; background: var(--gold); }
+.lead-score { font-size: .68rem; font-family: var(--serif); color: var(--gold); min-width: 24px; text-align: right; }
+.lead-tag { font-size: .55rem; letter-spacing: .08em; text-transform: uppercase; padding: 2px 6px; border-radius: 2px; }
+.lead-tag.hot-tag { background: rgba(201,168,76,.15); color: var(--gold); }
+.lead-tag.warm-tag { background: rgba(107,103,98,.15); color: var(--muted); }
+/* Briefing mock */
+.mock-brief { padding: 14px; }
+.brief-label { font-size: .58rem; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+.brief-name { font-family: var(--serif); font-size: 1.1rem; color: var(--text); margin-bottom: 10px; }
+.brief-row { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 6px; font-size: .68rem; color: var(--muted); line-height: 1.4; }
+.brief-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); margin-top: 5px; flex-shrink: 0; }
+.brief-opener { margin-top: 10px; padding: 8px 10px; background: rgba(201,168,76,.07); border-left: 2px solid var(--gold); font-size: .66rem; color: var(--text); line-height: 1.5; font-style: italic; border-radius: 0 4px 4px 0; }
+/* Stars mock */
+.mock-stars { padding: 14px; text-align: center; }
+.stars-row { display: flex; justify-content: center; gap: 4px; margin-bottom: 8px; }
+.star { font-size: 1.1rem; color: var(--gold); }
+.star.dim { color: var(--subtle); }
+.stars-num { font-family: var(--serif); font-size: 2.2rem; color: var(--gold); font-weight: 300; line-height: 1; }
+.stars-label { font-size: .62rem; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; margin-top: 4px; }
+.stars-reviews { margin-top: 10px; display: flex; flex-direction: column; gap: 5px; }
+.stars-rev-row { display: flex; align-items: center; gap: 6px; font-size: .62rem; color: var(--muted); }
+.stars-rev-bar { flex: 1; height: 3px; background: var(--subtle); border-radius: 2px; overflow: hidden; }
+.stars-rev-fill { height: 100%; background: var(--gold); border-radius: 2px; }
+/* Dashboard mock */
+.mock-dash { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 16px; }
+.dash-cell { background: var(--surface2); border: 1px solid var(--subtle); border-radius: 6px; padding: 14px 16px; }
+.dash-cell.highlight { border-color: var(--gold-border); background: rgba(201,168,76,.06); }
+.dash-val { font-family: var(--serif); font-size: 1.6rem; color: var(--gold); font-weight: 300; line-height: 1; }
+.dash-key { font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-top: 5px; }
+.dash-delta { font-size: .65rem; color: #4ade80; margin-top: 4px; }
 
 /* ═══════════════════════════════════
    BRANCHEN
@@ -548,8 +611,20 @@ footer {
 .chat-bubble.bot { background: var(--void); border: 1px solid var(--subtle); color: var(--text); align-self: flex-start; }
 .chat-bubble.usr { background: var(--gold-dim); color: var(--gold); align-self: flex-end; border: 1px solid var(--gold-border); }
 .chat-opts { padding: 0 16px 16px; display: flex; flex-direction: column; gap: 6px; }
-.chat-opt { background: transparent; border: 1px solid var(--subtle); color: var(--muted); font-size: .75rem; padding: 9px 14px; border-radius: 5px; text-align: left; transition: all .2s; }
+.chat-opt { background: transparent; border: 1px solid var(--subtle); color: var(--muted); font-size: .75rem; padding: 9px 14px; border-radius: 5px; text-align: left; transition: all .2s; cursor: pointer; }
 .chat-opt:hover { border-color: var(--gold-border); color: var(--gold); }
+.chat-input-wrap { padding: 12px 14px; border-top: 1px solid var(--subtle); display: flex; gap: 8px; background: var(--void); }
+.chat-input { flex: 1; background: var(--surface); border: 1px solid var(--subtle); border-radius: 6px; padding: 9px 12px; color: var(--text); font-family: var(--sans); font-size: .78rem; outline: none; transition: border-color .2s; }
+.chat-input:focus { border-color: var(--gold-border); }
+.chat-input::placeholder { color: var(--muted); }
+.chat-send { background: var(--gold); border: none; border-radius: 6px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background .2s; flex-shrink: 0; }
+.chat-send:hover { background: var(--gold2); }
+.chat-send svg { width: 16px; height: 16px; fill: var(--void); }
+.chat-typing { display: flex; align-items: center; gap: 4px; padding: 8px 12px; }
+.chat-typing span { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); animation: typingDot 1.2s infinite; }
+.chat-typing span:nth-child(2) { animation-delay: .2s; }
+.chat-typing span:nth-child(3) { animation-delay: .4s; }
+@keyframes typingDot { 0%,60%,100%{opacity:.3;transform:scale(1)} 30%{opacity:1;transform:scale(1.3)} }
 
 /* ═══════════════════════════════════
    RESPONSIVE
@@ -602,7 +677,6 @@ footer {
   <ul class="nav-links">
     <li><a href="#leistungen">Leistungen</a></li>
     <li><a href="#branchen">Branchen</a></li>
-    <li><a href="#roi">ROI</a></li>
     <li><a href="#kontakt">Kontakt</a></li>
   </ul>
   <button class="nav-cta" onclick="document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">Jetzt anfragen</button>
@@ -614,7 +688,6 @@ footer {
   <button class="mob-close" id="mobClose">✕</button>
   <a href="#leistungen" onclick="closeMob()">Leistungen</a>
   <a href="#branchen" onclick="closeMob()">Branchen</a>
-  <a href="#roi" onclick="closeMob()">ROI</a>
   <a href="#kontakt" onclick="closeMob()">Kontakt</a>
   <a href="#kontakt" style="background:var(--gold);color:var(--void);padding:14px 36px;border-radius:4px;font-size:.85rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;" onclick="closeMob()">Jetzt anfragen</a>
 </div>
@@ -626,24 +699,29 @@ footer {
   <div class="hero-noise"></div>
   <div class="hero-gold-grid"></div>
   <div class="hero-inner">
-    <div class="hero-eyebrow rv">
-      <span class="eyebrow-dot"></span>
-      KI-Automatisierung · Wien, Österreich
+    <div class="hero-text">
+      <div class="hero-eyebrow rv">
+        <span class="eyebrow-dot"></span>
+        KI-Automatisierung · Wien, Österreich
+      </div>
+      <h1 class="hero-h1 rv d1">
+        Ihr Betrieb.<br>
+        <span class="line-gold">Automatisiert.</span>
+      </h1>
+      <p class="hero-sub rv d2">Weniger Aufwand. Mehr Kunden. Kein Chaos. — Wir bauen KI-Systeme, die für Sie arbeiten, während Sie schlafen.</p>
+      <div class="hero-actions rv d3">
+        <button class="btn-primary" onclick="document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">Jetzt anfragen →</button>
+        <button class="btn-secondary" onclick="document.getElementById('leistungen').scrollIntoView({behavior:'smooth'})">Leistungen ansehen</button>
+      </div>
+      <div class="trust-row rv d4">
+        <span class="trust-item"><span class="trust-check">✓</span> Schneller Start</span>
+        <span class="trust-item"><span class="trust-check">✓</span> DSGVO-konform</span>
+        <span class="trust-item"><span class="trust-check">✓</span> 30 Tage Garantie</span>
+        <span class="trust-item"><span class="trust-check">✓</span> Kein Techniker nötig</span>
+      </div>
     </div>
-    <h1 class="hero-h1 rv d1">
-      Kein Kunde<br>verloren.
-      <span class="line-gold">Kein Anruf. Kein Termin.<br>Kein Umsatz.</span>
-    </h1>
-    <p class="hero-sub rv d2">Aurion Systems automatisiert Ihre Anfragen, Terminbuchungen und Kundenkorrespondenz — maßgeschneidert für Ihr Unternehmen, live in 48 Stunden.</p>
-    <div class="hero-actions rv d3">
-      <button class="btn-primary" onclick="document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">Jetzt anfragen →</button>
-      <button class="btn-secondary" onclick="document.getElementById('leistungen').scrollIntoView({behavior:'smooth'})">Leistungen ansehen</button>
-    </div>
-    <div class="trust-row rv d4">
-      <span class="trust-item"><span class="trust-check">✓</span> 48h Setup</span>
-      <span class="trust-item"><span class="trust-check">✓</span> DSGVO-konform</span>
-      <span class="trust-item"><span class="trust-check">✓</span> 30 Tage Garantie</span>
-      <span class="trust-item"><span class="trust-check">✓</span> Kein Techniker nötig</span>
+    <div class="hero-planet-wrap rv d1">
+      <div id="threejs-planet"></div>
     </div>
   </div>
 </section>
@@ -658,7 +736,7 @@ footer {
     <div class="ticker-item">Gastronomie <span class="ticker-sep"></span></div>
     <div class="ticker-item">Fitnessstudios <span class="ticker-sep"></span></div>
     <div class="ticker-item">24/7 aktiv <span class="ticker-sep"></span></div>
-    <div class="ticker-item">48h Go-Live <span class="ticker-sep"></span></div>
+    <div class="ticker-item">KI-Automatisierung <span class="ticker-sep"></span></div>
     <div class="ticker-item">DSGVO-konform <span class="ticker-sep"></span></div>
     <div class="ticker-item">Wien, Österreich <span class="ticker-sep"></span></div>
     <div class="ticker-item">Zahnarztpraxen <span class="ticker-sep"></span></div>
@@ -668,7 +746,7 @@ footer {
     <div class="ticker-item">Gastronomie <span class="ticker-sep"></span></div>
     <div class="ticker-item">Fitnessstudios <span class="ticker-sep"></span></div>
     <div class="ticker-item">24/7 aktiv <span class="ticker-sep"></span></div>
-    <div class="ticker-item">48h Go-Live <span class="ticker-sep"></span></div>
+    <div class="ticker-item">KI-Automatisierung <span class="ticker-sep"></span></div>
     <div class="ticker-item">DSGVO-konform <span class="ticker-sep"></span></div>
     <div class="ticker-item">Wien, Österreich <span class="ticker-sep"></span></div>
   </div>
@@ -689,8 +767,8 @@ footer {
     <div class="stat-label">Antwortzeit, 24/7</div>
   </div>
   <div class="stat-cell rv d3">
-    <div class="stat-num">48h</div>
-    <div class="stat-label">bis Ihr System live ist</div>
+    <div class="stat-num">24/7</div>
+    <div class="stat-label">immer aktiv für Sie</div>
   </div>
 </div>
 
@@ -708,7 +786,7 @@ footer {
     <div class="step-card rv d2">
       <div class="step-num">02</div>
       <div class="step-title">Maßgeschneiderte Einrichtung</div>
-      <p class="step-desc">Wir entwickeln Ihr individuelles KI-System und richten alles ein. Innerhalb von 48 Stunden ist Ihre Automatisierung live — ohne technisches Vorwissen Ihrerseits.</p>
+      <p class="step-desc">Wir entwickeln Ihr individuelles KI-System und richten alles ein — maßgeschneidert auf Ihre Abläufe, ohne technisches Vorwissen Ihrerseits.</p>
     </div>
     <div class="step-card rv d3">
       <div class="step-num">03</div>
@@ -722,67 +800,159 @@ footer {
 <div class="section section-border" id="leistungen">
   <div class="eyebrow-tag rv">Leistungen</div>
   <h2 class="sec-h2 rv d1">Was wir für Sie <em>bauen</em></h2>
-  <p class="sec-p rv d2">Sechs Bausteine, die zusammen ein System ergeben, das nie schläft.</p>
+  <p class="sec-p rv d2">Kein Tech-Kauderwelsch — nur Ergebnisse, die Sie täglich spüren.</p>
   <div class="bento">
+
+    <!-- 1 · CHATBOT — wide left -->
     <div class="bcard bcard-1 rv">
       <div class="bcard-wide-inner">
         <div>
-          <span class="bcard-icon">💬</span>
-          <div class="bcard-title">WhatsApp & Website Chatbot</div>
-          <p class="bcard-desc">Ihr KI-Assistent beantwortet Kundenanfragen rund um die Uhr — auf Ihrer Website und per WhatsApp. Präzise, natürlich klingend, immer verfügbar.</p>
-          <span class="bcard-chip">24/7 verfügbar</span>
+          <div class="bcard-title">Kein Anruf geht verloren</div>
+          <p class="bcard-desc">Ihr KI-Assistent antwortet sofort — auf Ihrer Website und per WhatsApp. Um 3 Uhr nachts. Am Feiertag. Ohne Pause. Kunden buchen, während Sie schlafen.</p>
+          <span class="bcard-chip">24/7 · WhatsApp & Website</span>
         </div>
-        <div class="chat-preview">
-          <div class="chat-msg bot">Guten Tag! Ich bin der KI-Assistent von Aurion. Wie kann ich Ihnen helfen?</div>
-          <div class="chat-msg user">Ich möchte einen Termin vereinbaren.</div>
-          <div class="chat-msg bot">Gerne! Wann passt es Ihnen? Dienstag oder Donnerstag wäre ideal.</div>
-          <div class="chat-msg user">Donnerstag um 14 Uhr bitte.</div>
-          <div class="chat-msg bot">✓ Termin bestätigt. Sie erhalten eine E-Mail-Bestätigung.</div>
+        <div class="mock">
+          <div style="background:var(--surface);padding:8px 12px;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--subtle);display:flex;align-items:center;gap:8px;">
+            <span style="width:8px;height:8px;border-radius:50%;background:#4ade80;display:inline-block;"></span>
+            Dr. Müller Zahnarztpraxis · KI-Assistent
+          </div>
+          <div class="mock-chat">
+            <div class="mc-time">Heute, 22:47 Uhr</div>
+            <div class="mc b">Guten Abend! Wie kann ich Ihnen helfen?</div>
+            <div class="mc u">Ich hätte gern einen Termin zur Kontrolle.</div>
+            <div class="mc b">Gerne! Für eine Routinekontrolle haben wir Mittwoch 10:00 Uhr oder Freitag 14:30 Uhr frei. Was passt Ihnen besser?</div>
+            <div class="mc u">Freitag 14:30 bitte.</div>
+            <div class="mc b">✓ Termin gebucht. Sie erhalten gleich eine Bestätigung per E-Mail. Bis Freitag!</div>
+            <div class="mc-status">✓✓ Gelesen</div>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- 2 · TERMINBUCHUNG -->
     <div class="bcard bcard-2 rv d1">
-      <span class="bcard-icon">📅</span>
-      <div class="bcard-title">Automatische Terminbuchung</div>
-      <p class="bcard-desc">Die KI bucht Termine direkt in Ihren Kalender, versendet Bestätigungen und erinnert automatisch — ohne einen einzigen manuellen Schritt.</p>
-      <span class="bcard-chip">Kalender-Integration</span>
-    </div>
-    <div class="bcard bcard-3 rv">
-      <span class="bcard-icon">🎯</span>
-      <div class="bcard-title">Lead-Scoring (BANT 1–10)</div>
-      <p class="bcard-desc">Jeder neue Kontakt wird nach Budget, Authority, Need und Timing bewertet. Sie sehen auf einen Blick, welche Leads Priorität verdienen.</p>
-      <span class="bcard-chip">Automatische Qualifizierung</span>
-    </div>
-    <div class="bcard bcard-4 rv d1">
-      <span class="bcard-icon">📞</span>
-      <div class="bcard-title">Anruf-Vorbereitung KI</div>
-      <p class="bcard-desc">Vor jedem Kundengespräch erhalten Sie ein automatisches Briefing: Gesprächshistorie, Schmerzpunkte und maßgeschneiderte Gesprächsleitfäden.</p>
-      <span class="bcard-chip">Immer gut vorbereitet</span>
-    </div>
-    <div class="bcard bcard-5 rv d2">
-      <span class="bcard-icon">⭐</span>
-      <div class="bcard-title">Bewertungs-Management</div>
-      <p class="bcard-desc">Das System fordert zufriedene Kunden automatisch zur Google-Bewertung auf — zum richtigen Zeitpunkt, mit der richtigen Nachricht.</p>
-      <span class="bcard-chip">Mehr 5-Sterne</span>
-    </div>
-    <div class="bcard bcard-6 rv">
-      <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;">
-        <div style="flex:1;min-width:220px;">
-          <span class="bcard-icon">📊</span>
-          <div class="bcard-title">Täglicher Status-Report per Telegram</div>
-          <p class="bcard-desc">Jeden Morgen erhalten Sie eine kompakte Zusammenfassung: neue Leads, gebuchte Termine, offene Anfragen — direkt auf Ihr Handy.</p>
-          <span class="bcard-chip">Tägliche Insights</span>
-        </div>
-        <div style="flex:1;min-width:220px;background:var(--void);border:1px solid var(--subtle);border-radius:6px;padding:20px;font-size:.78rem;color:var(--muted);line-height:1.8;font-weight:300;">
-          <div style="color:var(--gold);font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px;">Beispiel Report — Heute</div>
-          📥 <strong style="color:var(--text)">12 neue Anfragen</strong> eingegangen<br>
-          📅 <strong style="color:var(--text)">7 Termine</strong> automatisch gebucht<br>
-          🎯 <strong style="color:var(--text)">4 Leads</strong> mit Score 8+ qualifiziert<br>
-          ⭐ <strong style="color:var(--text)">2 Bewertungen</strong> angefordert<br>
-          ⚡ Systemauslastung: <strong style="color:#4ade80">100% online</strong>
+      <div class="bcard-title">Voller Kalender.<br>Ohne Aufwand.</div>
+      <p class="bcard-desc">Kunden buchen selbst — rund um die Uhr. Sie öffnen Ihren Kalender und finden fertig geplante Termine. Inklusive automatischer Erinnerung.</p>
+      <span class="bcard-chip">Keine Hin-und-her-Telefonate</span>
+      <div class="mock" style="margin-top:20px;">
+        <div class="mock-cal">
+          <div class="mock-cal-head">
+            <span>Juni 2025</span><span style="color:var(--muted);">12 Termine</span>
+          </div>
+          <div class="mock-cal-grid">
+            <div class="cal-day" style="color:var(--subtle);font-size:.55rem;">Mo</div><div class="cal-day" style="color:var(--subtle);font-size:.55rem;">Di</div><div class="cal-day" style="color:var(--subtle);font-size:.55rem;">Mi</div><div class="cal-day" style="color:var(--subtle);font-size:.55rem;">Do</div><div class="cal-day" style="color:var(--subtle);font-size:.55rem;">Fr</div><div class="cal-day" style="color:var(--subtle);font-size:.55rem;">Sa</div><div class="cal-day" style="color:var(--subtle);font-size:.55rem;">So</div>
+            <div class="cal-day">2</div><div class="cal-day booked">3</div><div class="cal-day booked">4</div><div class="cal-day">5</div><div class="cal-day booked">6</div><div class="cal-day">7</div><div class="cal-day">8</div>
+            <div class="cal-day booked">9</div><div class="cal-day booked">10</div><div class="cal-day today">11</div><div class="cal-day booked">12</div><div class="cal-day booked">13</div><div class="cal-day">14</div><div class="cal-day">15</div>
+            <div class="cal-day booked">16</div><div class="cal-day">17</div><div class="cal-day booked">18</div><div class="cal-day booked">19</div><div class="cal-day booked">20</div><div class="cal-day">21</div><div class="cal-day">22</div>
+          </div>
+          <div class="cal-notif">✓ Neuer Termin: Maria K. · Fr. 14:30 Uhr</div>
         </div>
       </div>
     </div>
+
+    <!-- 3 · LEAD-SCORING -->
+    <div class="bcard bcard-3 rv">
+      <div class="bcard-title">Wissen, wer kauft.</div>
+      <p class="bcard-desc">Jede Anfrage wird automatisch bewertet. Sie sehen sofort: wer ist bereit, wer braucht noch Zeit — und verschwenden keine Energie mehr an die Falschen.</p>
+      <span class="bcard-chip">Automatische Priorisierung</span>
+      <div class="mock" style="margin-top:20px;">
+        <div class="mock-leads">
+          <div class="lead-row hot">
+            <div class="lead-name">Thomas B.</div>
+            <div class="lead-bar-wrap"><div class="lead-bar" style="width:90%"></div></div>
+            <div class="lead-score">9/10</div>
+            <div class="lead-tag hot-tag">Heiß</div>
+          </div>
+          <div class="lead-row">
+            <div class="lead-name">Sandra M.</div>
+            <div class="lead-bar-wrap"><div class="lead-bar" style="width:65%;background:var(--muted)"></div></div>
+            <div class="lead-score" style="color:var(--muted)">6/10</div>
+            <div class="lead-tag warm-tag">Warm</div>
+          </div>
+          <div class="lead-row">
+            <div class="lead-name">Klaus W.</div>
+            <div class="lead-bar-wrap"><div class="lead-bar" style="width:30%;background:var(--subtle)"></div></div>
+            <div class="lead-score" style="color:var(--subtle)">3/10</div>
+            <div class="lead-tag warm-tag">Abwarten</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 · ANRUF-VORBEREITUNG -->
+    <div class="bcard bcard-4 rv d1">
+      <div class="bcard-title">Jedes Gespräch. Perfekt vorbereitet.</div>
+      <p class="bcard-desc">Bevor Sie anrufen, kennen Sie bereits die Geschichte des Kunden. Ihr Gesprächspartner spürt den Unterschied — und kauft lieber bei jemandem, der zuhört.</p>
+      <span class="bcard-chip">Automatisches Briefing</span>
+      <div class="mock" style="margin-top:20px;">
+        <div class="mock-brief">
+          <div class="brief-label">Briefing · Heute 09:00</div>
+          <div class="brief-name">Thomas Berger, Handwerksbetrieb</div>
+          <div class="brief-row"><div class="brief-dot"></div><span>Anfrage: Komplettlösung für 8 Mitarbeiter</span></div>
+          <div class="brief-row"><div class="brief-dot"></div><span>Problem: zu viele verpasste Anrufe nach 17 Uhr</span></div>
+          <div class="brief-row"><div class="brief-dot"></div><span>Budget-Signal: "Was kostet die Vollversion?"</span></div>
+          <div class="brief-opener">"Herr Berger, ich habe gesehen, dass Sie besonders das Thema Erreichbarkeit beschäftigt…"</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5 · BEWERTUNGEN -->
+    <div class="bcard bcard-5 rv d2">
+      <div class="bcard-title">Mehr 5-Sterne.<br>Automatisch.</div>
+      <p class="bcard-desc">Zufriedene Kunden werden zum richtigen Moment um eine Bewertung gebeten — wenn die Freude noch frisch ist. Ihr Ruf wächst, ohne dass Sie daran denken.</p>
+      <span class="bcard-chip">Google · Automatisch</span>
+      <div class="mock" style="margin-top:20px;">
+        <div class="mock-stars">
+          <div class="stars-row"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+          <div class="stars-num">4.9</div>
+          <div class="stars-label">127 Google-Bewertungen</div>
+          <div class="stars-reviews">
+            <div class="stars-rev-row"><span>5★</span><div class="stars-rev-bar"><div class="stars-rev-fill" style="width:88%"></div></div><span>112</span></div>
+            <div class="stars-rev-row"><span>4★</span><div class="stars-rev-bar"><div class="stars-rev-fill" style="width:10%;background:var(--muted)"></div></div><span>13</span></div>
+            <div class="stars-rev-row"><span>3★</span><div class="stars-rev-bar"><div class="stars-rev-fill" style="width:2%;background:var(--subtle)"></div></div><span>2</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6 · REPORTING — full width -->
+    <div class="bcard bcard-6 rv">
+      <div style="display:flex;gap:48px;align-items:center;flex-wrap:wrap;">
+        <div style="flex:0 0 auto;max-width:340px;">
+          <div class="bcard-title">Was Ihr System jeden Monat leistet.</div>
+          <p class="bcard-desc">Kein Rätselraten. Kein Vertrauen auf Bauchgefühl. Sie sehen schwarz auf weiß, wie viele Anfragen bearbeitet, Termine gebucht und Leads qualifiziert wurden — und was das wert war.</p>
+          <span class="bcard-chip">Monatlicher Report</span>
+        </div>
+        <div style="flex:1;min-width:280px;">
+          <div class="mock">
+            <div style="padding:10px 16px;border-bottom:1px solid var(--subtle);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);">Mai 2025 · Zusammenfassung</div>
+            <div class="mock-dash">
+              <div class="dash-cell highlight">
+                <div class="dash-val">247</div>
+                <div class="dash-key">Anfragen bearbeitet</div>
+                <div class="dash-delta">↑ +38 vs. Vormonat</div>
+              </div>
+              <div class="dash-cell highlight">
+                <div class="dash-val">83</div>
+                <div class="dash-key">Termine gebucht</div>
+                <div class="dash-delta">↑ +12 vs. Vormonat</div>
+              </div>
+              <div class="dash-cell">
+                <div class="dash-val">31</div>
+                <div class="dash-key">Qualifizierte Leads</div>
+                <div class="dash-delta" style="color:var(--muted);">Score ≥ 7</div>
+              </div>
+              <div class="dash-cell">
+                <div class="dash-val">15h</div>
+                <div class="dash-key">Gesparte Arbeitszeit</div>
+                <div class="dash-delta" style="color:var(--muted);">Ihr Team fokussiert</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -837,111 +1007,6 @@ footer {
   </div>
 </div>
 
-<!-- ROI RECHNER -->
-<div class="section section-border" id="roi">
-  <div class="eyebrow-tag rv">ROI-Rechner</div>
-  <h2 class="sec-h2 rv d1">Ihr Potenzial <em>berechnen</em></h2>
-  <p class="sec-p rv d2">Stellen Sie die Regler auf Ihre Situation ein — und sehen Sie, was Automatisierung für Ihr Unternehmen bedeutet.</p>
-  <div class="roi-wrap rv d1">
-    <div>
-      <div class="roi-slider-group">
-        <div class="roi-label">Stunden für Anrufe / Woche <span id="v1">8h</span></div>
-        <input type="range" min="1" max="20" value="8" id="s1" oninput="calcROI()">
-      </div>
-      <div class="roi-slider-group">
-        <div class="roi-label">Verpasste Anfragen / Monat <span id="v2">15</span></div>
-        <input type="range" min="0" max="50" value="15" id="s2" oninput="calcROI()">
-      </div>
-      <div class="roi-slider-group">
-        <div class="roi-label">Umsatz pro Neukunde <span id="v3">€ 2.000</span></div>
-        <input type="range" min="500" max="10000" step="100" value="2000" id="s3" oninput="calcROI()">
-      </div>
-      <div class="roi-slider-group">
-        <div class="roi-label">Ihr Stundensatz <span id="v4">€ 60</span></div>
-        <input type="range" min="30" max="150" step="5" value="60" id="s4" oninput="calcROI()">
-      </div>
-      <button class="btn-primary" onclick="document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">Jetzt System konfigurieren →</button>
-    </div>
-    <div class="roi-result-panel">
-      <div class="roi-main-label">Monatliche Ersparnis</div>
-      <div class="roi-amount" id="roi-main">€ 0</div>
-      <div class="roi-metrics">
-        <div class="roi-metric">
-          <div class="roi-metric-val" id="roi-time">0h</div>
-          <div class="roi-metric-lbl">Zeitersparnis/Monat</div>
-        </div>
-        <div class="roi-metric">
-          <div class="roi-metric-val" id="roi-leads">0</div>
-          <div class="roi-metric-lbl">Gewonnene Leads/Jahr</div>
-        </div>
-        <div class="roi-metric">
-          <div class="roi-metric-val" id="roi-6mo">€ 0</div>
-          <div class="roi-metric-lbl">ROI nach 6 Monaten</div>
-        </div>
-        <div class="roi-metric">
-          <div class="roi-metric-val" id="roi-amort">0 Mo</div>
-          <div class="roi-metric-lbl">Amortisationszeit</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- PAKETE -->
-<div class="section section-border" id="pakete">
-  <div class="eyebrow-tag rv">Pakete</div>
-  <h2 class="sec-h2 rv d1">Ihr <em>Einstieg</em></h2>
-  <p class="sec-p rv d2">Drei Pakete für jede Unternehmensgröße. Alle Preise auf Anfrage — damit wir fair kalkulieren können.</p>
-  <div class="pakete-grid">
-    <div class="paket-card rv">
-      <div class="paket-name">Starter</div>
-      <div class="paket-price">Auf Anfrage</div>
-      <ul class="paket-features">
-        <li>WhatsApp & Website Chatbot</li>
-        <li>Automatische Terminbuchung</li>
-        <li>WhatsApp-Integration</li>
-        <li>48h Setup-Garantie</li>
-        <li>E-Mail Support</li>
-        <li>Monatlicher Performance-Report</li>
-      </ul>
-      <button class="paket-btn" onclick="document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">Jetzt anfragen</button>
-    </div>
-    <div class="paket-card hot rv d1">
-      <div class="hot-badge">Beliebteste Wahl</div>
-      <div class="paket-name">Professional</div>
-      <div class="paket-price">Auf Anfrage</div>
-      <ul class="paket-features">
-        <li>Alles aus Starter</li>
-        <li>Lead-Scoring (BANT 1–10)</li>
-        <li>Anruf-Vorbereitung KI</li>
-        <li>Bewertungsmanagement</li>
-        <li>Priority Support</li>
-        <li>Wöchentliche Reports</li>
-        <li>Dedizierter Account Manager</li>
-      </ul>
-      <button class="paket-btn" onclick="document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">Jetzt anfragen</button>
-    </div>
-    <div class="paket-card rv d2">
-      <div class="paket-name">Enterprise</div>
-      <div class="paket-price">Auf Anfrage</div>
-      <ul class="paket-features">
-        <li>Alles aus Professional</li>
-        <li>Custom KI-Modell</li>
-        <li>CRM-Integration</li>
-        <li>SLA 99.9% Verfügbarkeit</li>
-        <li>Individuelle Entwicklung</li>
-        <li>Dedizierter Manager</li>
-      </ul>
-      <button class="paket-btn" onclick="document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">Anfragen</button>
-    </div>
-  </div>
-  <div class="guarantee-strip">
-    <div class="guarantee-item"><span class="g-check">✦</span> 30 Tage Zufriedenheitsgarantie</div>
-    <div class="guarantee-item"><span class="g-check">✦</span> 48h Setup-Garantie</div>
-    <div class="guarantee-item"><span class="g-check">✦</span> DSGVO-konform</div>
-    <div class="guarantee-item"><span class="g-check">✦</span> Monatlich kündbar</div>
-  </div>
-</div>
 
 <!-- KONTAKT FORMULAR -->
 <div class="section section-border" id="kontakt">
@@ -952,7 +1017,7 @@ footer {
     <div class="form-progress">
       <div class="prog-step active" id="ps1">01 · Kontakt</div>
       <div class="prog-step" id="ps2">02 · Unternehmen</div>
-      <div class="prog-step" id="ps3">03 · Paket</div>
+      <div class="prog-step" id="ps3">03 · Ziele</div>
     </div>
     <!-- Step 1 -->
     <div class="form-step on" id="fs1">
@@ -1037,7 +1102,7 @@ footer {
         <span class="faq-q-text">Wie schnell ist mein System live?</span>
         <span class="faq-icon">+</span>
       </div>
-      <div class="faq-a"><p class="faq-a-text">In der Regel innerhalb von 48 Stunden nach dem Erstgespräch. Wir geben Ihnen eine schriftliche Setup-Garantie — wenn es länger dauert, erhalten Sie einen Monat kostenlos.</p></div>
+      <div class="faq-a"><p class="faq-a-text">Nach dem Erstgespräch erhalten Sie ein maßgeschneidertes Angebot und einen konkreten Zeitplan. Wir geben Ihnen eine schriftliche Setup-Garantie und halten Sie laufend auf dem Stand.</p></div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">
@@ -1078,6 +1143,11 @@ footer {
     <button class="btn-primary" onclick="document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">Kostenloses Gespräch buchen →</button>
   </div>
 </section>
+
+<!-- BG TEXT -->
+<div style="display:flex;align-items:center;justify-content:center;padding:80px var(--gutter);background:var(--void);overflow:hidden;">
+  <div style="font-family:var(--serif);font-size:clamp(3.5rem,9vw,9rem);font-weight:300;letter-spacing:.12em;text-transform:uppercase;color:rgba(201,168,76,0.08);white-space:nowrap;user-select:none;">Aurion Systems</div>
+</div>
 
 <!-- FOOTER -->
 <footer>
@@ -1129,23 +1199,88 @@ footer {
 <div class="chat-panel" id="chatPanel">
   <div class="chat-head">
     <div class="chat-av">A</div>
-    <div>
+    <div style="flex:1">
       <div class="chat-head-name">Aurion Assistent</div>
       <div class="chat-head-status">● Online</div>
     </div>
+    <button onclick="toggleChat()" style="background:none;border:none;color:var(--muted);font-size:1rem;cursor:pointer;padding:4px;">✕</button>
   </div>
   <div class="chat-body" id="chatBody">
-    <div class="chat-bubble bot">Hallo! Wie kann ich Ihnen helfen?</div>
+    <div class="chat-bubble bot">Hallo! Ich bin der KI-Assistent von Aurion Systems. 👋<br><br>Wie kann ich Ihnen helfen?</div>
   </div>
   <div class="chat-opts" id="chatOpts">
-    <button class="chat-opt" onclick="chatReply('Wie schnell bin ich live?','In der Regel innerhalb von 48 Stunden nach unserem Erstgespräch. Wir geben Ihnen eine schriftliche Garantie.')">Wie schnell bin ich live?</button>
-    <button class="chat-opt" onclick="chatReply('Ist das DSGVO-konform?','Ja, alle Daten werden auf europäischen Servern verarbeitet. Wir schließen einen AVV nach Art. 28 DSGVO ab.')">Ist das DSGVO-konform?</button>
-    <button class="chat-opt" onclick="chatReply('Wie läuft der Start ab?','Kostenloser 30-Min. Audit → maßgeschneiderte Einrichtung → Go-Live in 48h. Kein technisches Vorwissen nötig.')">Wie läuft der Start ab?</button>
-    <button class="chat-opt" onclick="document.getElementById('chatPanel').classList.remove('open');document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">Termin vereinbaren →</button>
+    <button class="chat-opt" onclick="sendQuick('Was macht Aurion Systems?')">Was macht Aurion Systems?</button>
+    <button class="chat-opt" onclick="sendQuick('Für welche Branchen seid ihr tätig?')">Für welche Branchen?</button>
+    <button class="chat-opt" onclick="sendQuick('Ich möchte einen Termin vereinbaren.')">Termin vereinbaren →</button>
+  </div>
+  <div class="chat-input-wrap">
+    <input class="chat-input" id="chatInput" type="text" placeholder="Schreiben Sie hier..." maxlength="500" onkeydown="if(event.key==='Enter')sendMsg()">
+    <button class="chat-send" onclick="sendMsg()">
+      <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+    </button>
   </div>
 </div>
 
 <script>
+/* ─ THREE.JS PLANET ─ */
+(function(){
+  const script=document.createElement('script');
+  script.src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+  script.onload=function(){
+    requestAnimationFrame(function(){
+      const c=document.getElementById('threejs-planet');
+      if(!c)return;
+      const W=c.clientWidth||480, H=c.clientHeight||480;
+      const scene=new THREE.Scene();
+      const cam=new THREE.PerspectiveCamera(55,W/H,0.1,1000);
+      cam.position.z=7;
+      const ren=new THREE.WebGLRenderer({alpha:true,antialias:true});
+      ren.setSize(W,H);
+      ren.setPixelRatio(Math.min(window.devicePixelRatio,2));
+      ren.setClearColor(0x000000,0);
+      ren.domElement.style.display='block';
+      c.appendChild(ren.domElement);
+
+      const g=new THREE.IcosahedronGeometry(2,15);
+      const m=new THREE.MeshPhongMaterial({color:0xC9A84C,emissive:0xC9A84C,emissiveIntensity:0.35,wireframe:true,transparent:true,opacity:0.9});
+      const sphere=new THREE.Mesh(g,m);scene.add(sphere);
+
+      const rings=[];
+      const ringAngles=[{x:Math.PI/3,y:0.2},{x:Math.PI/2.2,y:0.9},{x:Math.PI/2.6,y:1.8}];
+      for(let i=0;i<3;i++){
+        const rg=new THREE.TorusGeometry(2.4+i*0.38,0.013,16,120);
+        const rm=new THREE.MeshBasicMaterial({color:0xC9A84C,transparent:true,opacity:0.28-i*0.07});
+        const r=new THREE.Mesh(rg,rm);
+        r.rotation.x=ringAngles[i].x;r.rotation.y=ringAngles[i].y;
+        scene.add(r);rings.push(r);
+      }
+
+      const pa=new Float32Array(200*3);for(let i=0;i<200*3;i++)pa[i]=(Math.random()-0.5)*10;
+      const pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.BufferAttribute(pa,3));
+      scene.add(new THREE.Points(pg,new THREE.PointsMaterial({size:0.022,color:0xC9A84C,transparent:true,opacity:0.6})));
+
+      scene.add(new THREE.AmbientLight(0xffffff,0.35));
+      const pl=new THREE.PointLight(0xC9A84C,1.8);pl.position.set(6,6,6);scene.add(pl);
+      const pl2=new THREE.PointLight(0xffffff,0.4);pl2.position.set(-6,-4,4);scene.add(pl2);
+
+      function animate(){
+        requestAnimationFrame(animate);
+        sphere.rotation.y+=0.003;
+        sphere.rotation.z+=0.0015;
+        rings.forEach((r,i)=>{r.rotation.x+=0.0015*(i+1);r.rotation.y+=0.0008*(i+1);});
+        ren.render(scene,cam);
+      }
+      function resize(){
+        const w=c.clientWidth||480,h=c.clientHeight||480;
+        cam.aspect=w/h;cam.updateProjectionMatrix();ren.setSize(w,h);
+      }
+      window.addEventListener('resize',resize);
+      animate();
+    });
+  };
+  document.head.appendChild(script);
+})();
+
 /* ─ PARTICLES ─ */
 (function(){
   const c=document.getElementById('hero-canvas');
@@ -1196,29 +1331,6 @@ document.getElementById('mobClose').addEventListener('click',()=>document.getEle
 function closeMob(){document.getElementById('mobMenu').classList.remove('open');}
 
 /* ─ ROI CALCULATOR ─ */
-function calcROI(){
-  const h=+document.getElementById('s1').value;
-  const m=+document.getElementById('s2').value;
-  const rev=+document.getElementById('s3').value;
-  const rate=+document.getElementById('s4').value;
-  document.getElementById('v1').textContent=h+'h';
-  document.getElementById('v2').textContent=m;
-  document.getElementById('v3').textContent='€ '+rev.toLocaleString('de-AT');
-  document.getElementById('v4').textContent='€ '+rate;
-  const timeSave=h*4*rate;
-  const leadGain=Math.round(m*.3);
-  const leadRev=leadGain*rev;
-  const monthly=timeSave+leadRev;
-  const yearly=monthly*12;
-  const cost=3000; // estimated setup
-  const amort=monthly>0?Math.max(1,Math.ceil(cost/monthly)):0;
-  document.getElementById('roi-main').textContent='€ '+Math.round(monthly).toLocaleString('de-AT');
-  document.getElementById('roi-time').textContent=Math.round(h*4)+'h';
-  document.getElementById('roi-leads').textContent=leadGain*12;
-  document.getElementById('roi-6mo').textContent='€ '+Math.round(yearly/2-cost).toLocaleString('de-AT');
-  document.getElementById('roi-amort').textContent=amort+' Mo';
-}
-calcROI();
 
 /* ─ FORM STEPS ─ */
 let selPaketVal='';
@@ -1256,23 +1368,142 @@ function toggleFaq(q){
 }
 
 /* ─ CHAT WIDGET ─ */
-let chatOpen=false;
-function toggleChat(){chatOpen=!chatOpen;document.getElementById('chatPanel').classList.toggle('open',chatOpen);}
-function chatReply(q,a){
-  const body=document.getElementById('chatBody');
-  const opts=document.getElementById('chatOpts');
-  const uMsg=document.createElement('div');uMsg.className='chat-bubble usr';uMsg.textContent=q;body.appendChild(uMsg);
-  opts.innerHTML='';
-  setTimeout(()=>{
-    const bMsg=document.createElement('div');bMsg.className='chat-bubble bot';bMsg.textContent=a;body.appendChild(bMsg);
-    body.scrollTop=9999;
-    setTimeout(()=>{
-      const cta=document.createElement('button');cta.className='chat-opt';cta.textContent='Termin vereinbaren →';
-      cta.onclick=()=>{document.getElementById('chatPanel').classList.remove('open');document.getElementById('kontakt').scrollIntoView({behavior:'smooth'});};
-      opts.appendChild(cta);
-    },400);
-  },500);
-  body.scrollTop=9999;
+const CLAUDE_KEY = localStorage.getItem('aurion_apikey') || '';
+const TG_TOKEN = '8645960987:AAEV9gmHGhEwTZ2zdKUhL4yqN_0IxTesqIw';
+const TG_CHAT  = '5560417354';
+const SYSTEM_PROMPT = `Du bist der freundliche KI-Assistent von Aurion Systems, einer KI-Automatisierungsagentur aus Wien, Österreich.
+
+ÜBER AURION SYSTEMS:
+- Wir automatisieren Kundenanfragen, Terminbuchungen und Workflows für KMUs im DACH-Raum
+- Branchen: Zahnarztpraxen, Anwaltskanzleien, Handwerksbetriebe, Immobilienmakler, Gastronomie, Fitnessstudios
+- Leistungen: KI-Chatbots (WhatsApp & Website), automatische Terminbuchung, Lead-Qualifizierung, Anruf-Vorbereitung, Bewertungsmanagement, Performance-Reporting
+- DSGVO-konform, Daten auf europäischen Servern
+- Sitz: Wien, Österreich
+- Das Erstgespräch ist kostenlos (30 Minuten)
+
+STRIKTE REGELN:
+- Nenne NIEMALS Preise, Kosten oder Pakete — sage stets: "Das besprechen wir individuell in einem persönlichen Gespräch mit Ihnen."
+- Nenne keine internen Tools (n8n, Botpress, Synthflow, Notion, Claude etc.)
+- Mache keine konkreten Zeitversprechen
+- Antworte IMMER auf Deutsch
+- Antworten kurz und klar — maximal 3 Sätze
+- Sei warm, professionell, niemals aufdringlich
+
+TERMINBUCHUNG:
+Wenn jemand einen Termin möchte, sammle schrittweise: 1) Name, 2) E-Mail, 3) Telefonnummer, 4) kurze Beschreibung des Unternehmens/Branche. Sobald du alle 4 hast, bestätige den Eingang und sage, jemand meldet sich innerhalb von 24 Stunden.`;
+
+let chatOpen = false;
+let chatHistory = [];
+let bookingState = null; // null | {step: 'name'|'email'|'phone'|'info', data: {}}
+
+function toggleChat(){
+  chatOpen = !chatOpen;
+  document.getElementById('chatPanel').classList.toggle('open', chatOpen);
+  if(chatOpen) setTimeout(()=>document.getElementById('chatInput').focus(), 300);
+}
+
+function sendQuick(text){
+  document.getElementById('chatOpts').innerHTML = '';
+  sendMsgText(text);
+}
+
+function sendMsg(){
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if(!text) return;
+  input.value = '';
+  document.getElementById('chatOpts').innerHTML = '';
+  sendMsgText(text);
+}
+
+function addBubble(text, role){
+  const body = document.getElementById('chatBody');
+  const div = document.createElement('div');
+  div.className = 'chat-bubble ' + (role === 'user' ? 'usr' : 'bot');
+  div.innerHTML = text.replace(/\n/g,'<br>');
+  body.appendChild(div);
+  body.scrollTop = 9999;
+  return div;
+}
+
+function showTyping(){
+  const body = document.getElementById('chatBody');
+  const t = document.createElement('div');
+  t.className = 'chat-bubble bot chat-typing';
+  t.id = 'typingIndicator';
+  t.innerHTML = '<span></span><span></span><span></span>';
+  body.appendChild(t);
+  body.scrollTop = 9999;
+}
+
+function hideTyping(){
+  const t = document.getElementById('typingIndicator');
+  if(t) t.remove();
+}
+
+async function tgNotify(msg){
+  try {
+    await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`,{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({chat_id: TG_CHAT, text: msg, parse_mode:'HTML'})
+    });
+  } catch(e){}
+}
+
+async function sendMsgText(userText){
+  addBubble(userText, 'user');
+  chatHistory.push({role:'user', content: userText});
+  showTyping();
+  document.getElementById('chatInput').disabled = true;
+
+  // Booking flow: detect if Claude collected all info
+  const lc = userText.toLowerCase();
+
+  try {
+    if(!CLAUDE_KEY){
+      hideTyping();
+      const fb={'was macht':'Aurion Systems automatisiert Ihre Kundenanfragen, Terminbuchungen und Workflows — damit Sie sich auf Ihr Kerngeschäft konzentrieren können.','branche':'Wir arbeiten mit Zahnarztpraxen, Anwaltskanzleien, Handwerksbetrieben, Immobilienmaklern, Gastronomie und Fitnessstudios.','termin':'Sehr gerne! Scrollen Sie zum Kontaktformular — wir melden uns persönlich bei Ihnen.','preis':'Das besprechen wir individuell in einem persönlichen Gespräch mit Ihnen.','dsgvo':'Ja, alle Daten werden auf europäischen Servern verarbeitet. Wir schließen einen AVV nach Art. 28 DSGVO ab.','funktioniert':'Wir richten alles ein — ohne technisches Vorwissen Ihrerseits. Sie müssen nichts selbst konfigurieren.'};
+      const lc2=userText.toLowerCase();
+      let reply='Danke für Ihre Frage! Am besten vereinbaren wir ein kurzes, kostenloses Gespräch — dort beantworte ich alles persönlich.';
+      for(const [k,v] of Object.entries(fb)){if(lc2.includes(k)){reply=v;break;}}
+      addBubble(reply,'bot');
+      chatHistory.push({role:'assistant',content:reply});
+      document.getElementById('chatInput').disabled=false;
+      document.getElementById('chatInput').focus();
+      return;
+    }
+    const res = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'x-api-key': CLAUDE_KEY,'anthropic-version':'2023-06-01','content-type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
+      body: JSON.stringify({
+        model:'claude-haiku-4-5-20251001',
+        max_tokens:300,
+        system: SYSTEM_PROMPT,
+        messages: chatHistory
+      })
+    });
+    const data = await res.json();
+    const reply = data.content?.[0]?.text || 'Entschuldigung, da ist etwas schiefgelaufen. Bitte versuchen Sie es nochmal.';
+    hideTyping();
+    addBubble(reply, 'bot');
+    chatHistory.push({role:'assistant', content: reply});
+
+    // Detect wenn Buchung abgeschlossen (alle 4 Felder gesammelt)
+    const collected = chatHistory.filter(m=>m.role==='user').length;
+    const hasConfirm = reply.toLowerCase().includes('24 stunden') || reply.toLowerCase().includes('melden sich');
+    if(hasConfirm && collected >= 4){
+      // Telegram notification
+      const msgs = chatHistory.filter(m=>m.role==='user').slice(-5).map(m=>m.content).join(' | ');
+      tgNotify(`🤖 <b>Neue Terminanfrage via Website-Chat</b>\n\n${msgs}`);
+    }
+
+  } catch(e){
+    hideTyping();
+    addBubble('Entschuldigung, ein Verbindungsfehler. Bitte versuchen Sie es erneut oder nutzen Sie das Kontaktformular.', 'bot');
+  }
+
+  document.getElementById('chatInput').disabled = false;
+  document.getElementById('chatInput').focus();
 }
 </script>
 </body>
