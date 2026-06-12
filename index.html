@@ -125,15 +125,15 @@ nav {
   mask-image: radial-gradient(ellipse 65% 55% at 50% 50%, black 0%, transparent 100%);
   opacity: .3;
 }
-.hero-inner { position: relative; z-index: 2; max-width: var(--max); margin: 0 auto; width: 100%; padding: 80px 0 80px; display: flex; align-items: center; gap: 48px; }
+.hero-inner { position: relative; z-index: 2; max-width: var(--max); margin: 0 auto; width: 100%; padding: 80px 0 80px; display: flex; align-items: center; gap: 48px; min-height: 100vh; box-sizing: border-box; }
 .hero-text { flex: 0 0 auto; max-width: 540px; }
-.hero-planet-wrap { flex: 1; min-height: 520px; display: flex; align-items: center; justify-content: center; }
-#threejs-planet { width: 100%; height: 520px; overflow: visible; }
+.hero-planet-wrap { position: absolute; right: 0; top: 0; bottom: 0; width: 55%; pointer-events: none; z-index: 1; display: flex; align-items: center; justify-content: center; }
+#threejs-planet { width: 100%; height: 100%; position: absolute; inset: 0; overflow: visible; }
 @media (max-width: 900px) {
-  .hero-inner { flex-direction: column-reverse; gap: 0; padding-top: 100px; }
-  .hero-text { max-width: 100%; }
-  .hero-planet-wrap { width: 100%; min-height: 280px; }
-  #threejs-planet { height: 280px; }
+  .hero-inner { flex-direction: column; gap: 0; padding-top: 120px; padding-bottom: 40px; min-height: 0; }
+  .hero-text { max-width: 100%; position: relative; z-index: 3; }
+  .hero-planet-wrap { position: relative; width: 100%; height: 280px; right: auto; top: auto; bottom: auto; }
+  #threejs-planet { position: relative; inset: auto; height: 280px; }
   .hero-h1 { font-size: clamp(3rem, 12vw, 5rem); }
 }
 .hero-eyebrow {
@@ -641,10 +641,10 @@ footer {
   .footer-top { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 900px) {
-  .hero-inner { flex-direction: column; gap: 0; padding-top: 100px; padding-bottom: 40px; }
-  .hero-text { max-width: 100%; }
-  .hero-planet-wrap { width: 100%; min-height: 280px; order: -1; }
-  #threejs-planet { height: 280px; }
+  .hero-inner { flex-direction: column; gap: 0; padding-top: 100px; padding-bottom: 40px; min-height: 0; }
+  .hero-text { max-width: 100%; position: relative; z-index: 3; }
+  .hero-planet-wrap { position: relative; width: 100%; height: 280px; right: auto; top: auto; bottom: auto; }
+  #threejs-planet { position: relative; inset: auto; height: 280px; }
   .hero-h1 { font-size: clamp(3rem, 11vw, 5.5rem); }
 }
 @media (max-width: 768px) {
@@ -1250,7 +1250,7 @@ footer {
     requestAnimationFrame(function(){
       const c=document.getElementById('threejs-planet');
       if(!c)return;
-      const W=c.clientWidth||480, H=c.clientHeight||480;
+      const W=c.clientWidth||window.innerWidth*0.55, H=c.clientHeight||window.innerHeight;
       const scene=new THREE.Scene();
       const cam=new THREE.PerspectiveCamera(55,W/H,0.1,1000);
       cam.position.z=7;
