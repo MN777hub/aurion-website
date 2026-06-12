@@ -1390,29 +1390,15 @@ const CLAUDE_KEY = localStorage.getItem('aurion_apikey') || '';
 const TG_TOKEN = '8645960987:AAEV9gmHGhEwTZ2zdKUhL4yqN_0IxTesqIw';
 const TG_CHAT  = '5560417354';
 const SYSTEM_PROMPT = `Du bist der freundliche KI-Assistent von Aurion Systems, einer KI-Automatisierungsagentur aus Wien, Österreich.
+ÜBER AURION SYSTEMS: Wir automatisieren Kundenanfragen, Terminbuchungen und Workflows für KMUs im DACH-Raum. Branchen: Zahnarztpraxen, Anwaltskanzleien, Handwerksbetriebe, Immobilienmakler, Gastronomie, Fitnessstudios. DSGVO-konform, Wien.
+STRIKTE REGELN: Nenne NIEMALS Preise — sage "Das besprechen wir individuell." Keine internen Tools nennen. Antworte IMMER auf Deutsch. Max 2-3 Sätze. Warm und professionell.
+WICHTIG: Wenn jemand einen Termin buchen möchte, sage NUR: "Sehr gerne! Ich leite Sie direkt zur Terminbuchung weiter." — das System übernimmt dann automatisch.`;
 
-ÜBER AURION SYSTEMS:
-- Wir automatisieren Kundenanfragen, Terminbuchungen und Workflows für KMUs im DACH-Raum
-- Branchen: Zahnarztpraxen, Anwaltskanzleien, Handwerksbetriebe, Immobilienmakler, Gastronomie, Fitnessstudios
-- Leistungen: KI-Chatbots (WhatsApp & Website), automatische Terminbuchung, Lead-Qualifizierung, Anruf-Vorbereitung, Bewertungsmanagement, Performance-Reporting
-- DSGVO-konform, Daten auf europäischen Servern
-- Sitz: Wien, Österreich
-- Das Erstgespräch ist kostenlos (30 Minuten)
-
-STRIKTE REGELN:
-- Nenne NIEMALS Preise, Kosten oder Pakete — sage stets: "Das besprechen wir individuell in einem persönlichen Gespräch mit Ihnen."
-- Nenne keine internen Tools (n8n, Botpress, Synthflow, Notion, Claude etc.)
-- Mache keine konkreten Zeitversprechen
-- Antworte IMMER auf Deutsch
-- Antworten kurz und klar — maximal 3 Sätze
-- Sei warm, professionell, niemals aufdringlich
-
-TERMINBUCHUNG:
-Wenn jemand einen Termin möchte, sammle schrittweise: 1) Name, 2) E-Mail, 3) Telefonnummer, 4) kurze Beschreibung des Unternehmens/Branche. Sobald du alle 4 hast, bestätige den Eingang und sage, jemand meldet sich innerhalb von 24 Stunden.`;
+const BOOKING_KEYWORDS = ['termin','buchen','buchung','gespräch','kennenlernen','anfragen','interesse','meeting','call','kontakt aufnehmen','melden','rückruf'];
 
 let chatOpen = false;
 let chatHistory = [];
-let bookingState = null; // null | {step: 'name'|'email'|'phone'|'info', data: {}}
+let booking = null; // null | {step,name,email,phone,branche}
 
 function toggleChat(){
   chatOpen = !chatOpen;
@@ -1426,10 +1412,10 @@ function sendQuick(text){
 }
 
 function sendMsg(){
-  const input = document.getElementById('chatInput');
-  const text = input.value.trim();
+  const inp = document.getElementById('chatInput');
+  const text = inp.value.trim();
   if(!text) return;
-  input.value = '';
+  inp.value = '';
   document.getElementById('chatOpts').innerHTML = '';
   sendMsgText(text);
 }
@@ -1437,91 +1423,144 @@ function sendMsg(){
 function addBubble(text, role){
   const body = document.getElementById('chatBody');
   const div = document.createElement('div');
-  div.className = 'chat-bubble ' + (role === 'user' ? 'usr' : 'bot');
+  div.className = 'chat-bubble '+(role==='user'?'usr':'bot');
   div.innerHTML = text.replace(/\n/g,'<br>');
   body.appendChild(div);
   body.scrollTop = 9999;
-  return div;
 }
 
 function showTyping(){
   const body = document.getElementById('chatBody');
   const t = document.createElement('div');
-  t.className = 'chat-bubble bot chat-typing';
-  t.id = 'typingIndicator';
+  t.className = 'chat-bubble bot chat-typing'; t.id = 'typingIndicator';
   t.innerHTML = '<span></span><span></span><span></span>';
-  body.appendChild(t);
-  body.scrollTop = 9999;
+  body.appendChild(t); body.scrollTop = 9999;
 }
+function hideTyping(){ const t=document.getElementById('typingIndicator'); if(t)t.remove(); }
 
-function hideTyping(){
-  const t = document.getElementById('typingIndicator');
-  if(t) t.remove();
+function setInput(on){
+  document.getElementById('chatInput').disabled = !on;
+  if(on) document.getElementById('chatInput').focus();
 }
 
 async function tgNotify(msg){
-  try {
-    await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`,{
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({chat_id: TG_CHAT, text: msg, parse_mode:'HTML'})
-    });
-  } catch(e){}
+  try{ await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:TG_CHAT,text:msg,parse_mode:'HTML'})}); }catch(e){}
+}
+
+function botReply(text, delay=600){
+  return new Promise(r=>{
+    showTyping();
+    setTimeout(()=>{ hideTyping(); addBubble(text,'bot'); r(); }, delay);
+  });
+}
+
+function isBookingIntent(text){
+  const lc = text.toLowerCase();
+  return BOOKING_KEYWORDS.some(k=>lc.includes(k));
+}
+
+async function runBookingStep(userInput){
+  const lc = userInput.toLowerCase();
+
+  if(booking.step === 'name'){
+    booking.name = userInput;
+    booking.step = 'email';
+    await botReply(`Danke, ${booking.name.split(' ')[0]}! 😊\n\nWie lautet Ihre E-Mail-Adresse?`);
+
+  } else if(booking.step === 'email'){
+    if(!userInput.includes('@') || !userInput.includes('.')){
+      await botReply('Das sieht nicht wie eine gültige E-Mail aus. Bitte nochmal eingeben:');
+      return;
+    }
+    booking.email = userInput;
+    booking.step = 'phone';
+    await botReply('Perfekt! Und unter welcher Telefonnummer können wir Sie erreichen?');
+
+  } else if(booking.step === 'phone'){
+    booking.phone = userInput;
+    booking.step = 'branche';
+    await botReply('Super! Letzte Frage: In welcher Branche ist Ihr Unternehmen tätig? (z.B. Handwerk, Gastronomie, Immobilien…)');
+
+  } else if(booking.step === 'branche'){
+    booking.branche = userInput;
+    booking.step = 'done';
+
+    await botReply(`✅ Alles klar, ${booking.name.split(' ')[0]}!\n\nIch habe Ihre Anfrage erfasst. Einer unserer Berater meldet sich innerhalb von 24 Stunden persönlich bei Ihnen.\n\nBis bald! 🙏`);
+
+    // Telegram notification
+    tgNotify(`📅 <b>Neue Terminanfrage — Website-Chat</b>\n\n👤 <b>Name:</b> ${booking.name}\n📧 <b>E-Mail:</b> ${booking.email}\n📞 <b>Telefon:</b> ${booking.phone}\n🏢 <b>Branche:</b> ${booking.branche}\n\n<i>Bitte innerhalb von 24h kontaktieren.</i>`);
+
+    booking = null;
+  }
+  setInput(true);
 }
 
 async function sendMsgText(userText){
   addBubble(userText, 'user');
+  setInput(false);
+
+  // Aktiver Booking-Flow
+  if(booking && booking.step !== 'done'){
+    await runBookingStep(userText);
+    return;
+  }
+
+  // Booking-Intent erkennen
+  if(isBookingIntent(userText)){
+    chatHistory.push({role:'user', content: userText});
+    booking = {step:'name', name:'', email:'', phone:'', branche:''};
+    await botReply('Sehr gerne! Ich nehme Ihre Anfrage direkt auf. 📋\n\nWie heißen Sie? (Vor- und Nachname)');
+    setInput(true);
+    return;
+  }
+
+  // Normaler Claude-Chat
   chatHistory.push({role:'user', content: userText});
   showTyping();
-  document.getElementById('chatInput').disabled = true;
-
-  // Booking flow: detect if Claude collected all info
-  const lc = userText.toLowerCase();
 
   try {
     if(!CLAUDE_KEY){
       hideTyping();
-      const fb={'was macht':'Aurion Systems automatisiert Ihre Kundenanfragen, Terminbuchungen und Workflows — damit Sie sich auf Ihr Kerngeschäft konzentrieren können.','branche':'Wir arbeiten mit Zahnarztpraxen, Anwaltskanzleien, Handwerksbetrieben, Immobilienmaklern, Gastronomie und Fitnessstudios.','termin':'Sehr gerne! Scrollen Sie zum Kontaktformular — wir melden uns persönlich bei Ihnen.','preis':'Das besprechen wir individuell in einem persönlichen Gespräch mit Ihnen.','dsgvo':'Ja, alle Daten werden auf europäischen Servern verarbeitet. Wir schließen einen AVV nach Art. 28 DSGVO ab.','funktioniert':'Wir richten alles ein — ohne technisches Vorwissen Ihrerseits. Sie müssen nichts selbst konfigurieren.'};
-      const lc2=userText.toLowerCase();
-      let reply='Danke für Ihre Frage! Am besten vereinbaren wir ein kurzes, kostenloses Gespräch — dort beantworte ich alles persönlich.';
-      for(const [k,v] of Object.entries(fb)){if(lc2.includes(k)){reply=v;break;}}
+      const fb={
+        'was macht':'Aurion Systems automatisiert Ihre Kundenanfragen, Terminbuchungen und Workflows — damit Sie sich auf Ihr Kerngeschäft konzentrieren können.',
+        'branche':'Wir arbeiten mit Zahnarztpraxen, Anwaltskanzleien, Handwerksbetrieben, Immobilienmaklern, Gastronomie und Fitnessstudios.',
+        'preis':'Das besprechen wir individuell in einem persönlichen Gespräch mit Ihnen.',
+        'dsgvo':'Ja, alle Daten auf europäischen Servern. Wir schließen einen AVV nach Art. 28 DSGVO ab.',
+        'wie lang':'Nach dem Erstgespräch erhalten Sie einen konkreten Zeitplan von uns.',
+        'funktioniert':'Wir richten alles ein — ohne technisches Vorwissen Ihrerseits.'
+      };
+      let reply = 'Danke für Ihre Frage! Gerne beantworte ich das in einem kurzen, kostenlosen Gespräch persönlich.';
+      for(const [k,v] of Object.entries(fb)){ if(userText.toLowerCase().includes(k)){reply=v;break;} }
       addBubble(reply,'bot');
       chatHistory.push({role:'assistant',content:reply});
-      document.getElementById('chatInput').disabled=false;
-      document.getElementById('chatInput').focus();
+      setInput(true);
       return;
     }
+
     const res = await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
-      headers:{'x-api-key': CLAUDE_KEY,'anthropic-version':'2023-06-01','content-type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
-      body: JSON.stringify({
-        model:'claude-haiku-4-5-20251001',
-        max_tokens:300,
-        system: SYSTEM_PROMPT,
-        messages: chatHistory
-      })
+      headers:{'x-api-key':CLAUDE_KEY,'anthropic-version':'2023-06-01','content-type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
+      body: JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:250,system:SYSTEM_PROMPT,messages:chatHistory})
     });
     const data = await res.json();
-    const reply = data.content?.[0]?.text || 'Entschuldigung, da ist etwas schiefgelaufen. Bitte versuchen Sie es nochmal.';
+    const reply = data.content?.[0]?.text || 'Entschuldigung, bitte versuchen Sie es nochmal.';
     hideTyping();
-    addBubble(reply, 'bot');
-    chatHistory.push({role:'assistant', content: reply});
+    addBubble(reply,'bot');
+    chatHistory.push({role:'assistant',content:reply});
 
-    // Detect wenn Buchung abgeschlossen (alle 4 Felder gesammelt)
-    const collected = chatHistory.filter(m=>m.role==='user').length;
-    const hasConfirm = reply.toLowerCase().includes('24 stunden') || reply.toLowerCase().includes('melden sich');
-    if(hasConfirm && collected >= 4){
-      // Telegram notification
-      const msgs = chatHistory.filter(m=>m.role==='user').slice(-5).map(m=>m.content).join(' | ');
-      tgNotify(`🤖 <b>Neue Terminanfrage via Website-Chat</b>\n\n${msgs}`);
+    // Falls Claude trotzdem Termin-Intent zurückgibt, Flow starten
+    if(isBookingIntent(reply) && reply.includes('weiter')){
+      booking = {step:'name',name:'',email:'',phone:'',branche:''};
+      setTimeout(async()=>{ await botReply('Wie heißen Sie? (Vor- und Nachname)'); setInput(true); },400);
+      return;
     }
 
   } catch(e){
     hideTyping();
-    addBubble('Entschuldigung, ein Verbindungsfehler. Bitte versuchen Sie es erneut oder nutzen Sie das Kontaktformular.', 'bot');
+    addBubble('Verbindungsfehler — bitte erneut versuchen.','bot');
   }
 
-  document.getElementById('chatInput').disabled = false;
-  document.getElementById('chatInput').focus();
+  setInput(true);
 }
 </script>
 </body>
