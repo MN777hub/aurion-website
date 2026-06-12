@@ -697,9 +697,9 @@ footer {
   <ul class="nav-links">
     <li><a href="#leistungen">Leistungen</a></li>
     <li><a href="#branchen">Branchen</a></li>
-    <li><a href="#kontakt">Kontakt</a></li>
+    <li><a href="#faq">FAQ</a></li>
   </ul>
-  <button class="nav-cta" onclick="toggleChat()">Jetzt anfragen</button>
+  <button class="nav-cta" onclick="document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">Jetzt anfragen</button>
   <button class="ham" id="ham" aria-label="Menü">
     <span></span><span></span><span></span>
   </button>
@@ -708,8 +708,8 @@ footer {
   <button class="mob-close" id="mobClose">✕</button>
   <a href="#leistungen" onclick="closeMob()">Leistungen</a>
   <a href="#branchen" onclick="closeMob()">Branchen</a>
-  <a href="#kontakt" onclick="closeMob()">Kontakt</a>
-  <a href="#" style="background:var(--gold);color:var(--void);padding:14px 36px;border-radius:4px;font-size:.85rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;" onclick="closeMob();toggleChat()">Jetzt anfragen</a>
+  <a href="#faq" onclick="closeMob()">FAQ</a>
+  <a href="#kontakt" style="background:var(--gold);color:var(--void);padding:14px 36px;border-radius:4px;font-size:.85rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;" onclick="closeMob()">Jetzt anfragen</a>
 </div>
 
 <!-- HERO -->
