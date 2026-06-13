@@ -479,11 +479,11 @@ input[type=range]::-webkit-slider-thumb {
 .fg { display: flex; flex-direction: column; gap: 7px; margin-bottom: 20px; }
 .fg label { font-size: .65rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 .fg input, .fg select, .fg textarea {
-  background: var(--void); border: 1px solid var(--subtle); border-radius: 4px;
-  padding: 13px 16px; font-family: var(--sans); font-size: .88rem; color: var(--text);
-  outline: none; transition: border-color .2s; font-weight: 300;
+  background: #0F0F1A; border: 1px solid rgba(201,168,76,0.25); border-radius: 4px;
+  padding: 14px 18px; font-family: var(--sans); font-size: .95rem; color: var(--text);
+  outline: none; transition: border-color .2s, box-shadow .2s; font-weight: 300; width: 100%;
 }
-.fg input::placeholder, .fg textarea::placeholder { color: rgba(107,103,98,.6); }
+.fg input::placeholder, .fg textarea::placeholder { color: rgba(180,175,170,0.45); }
 .fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--gold-border); box-shadow: 0 0 0 3px rgba(201,168,76,.07); }
 .fg select option { background: var(--surface); }
 .fg textarea { resize: vertical; min-height: 100px; }
@@ -509,13 +509,6 @@ input[type=range]::-webkit-slider-thumb {
 .success-icon { font-size: 2.4rem; margin-bottom: 20px; }
 .success-h { font-family: var(--serif); font-size: 2rem; font-weight: 300; color: var(--text); margin-bottom: 10px; }
 .success-p { font-size: 1rem; color: var(--muted); font-weight: 300; margin-bottom: 28px; line-height: 1.75; }
-.wa-btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(37,211,102,.1); border: 1px solid rgba(37,211,102,.25);
-  color: #4ade80; padding: 12px 24px; border-radius: 4px;
-  font-size: .82rem; font-weight: 500; transition: all .2s; text-decoration: none;
-}
-.wa-btn:hover { background: rgba(37,211,102,.18); }
 
 /* ═══════════════════════════════════
    FAQ
@@ -1102,7 +1095,6 @@ footer {
       <div class="success-icon">✦</div>
       <div class="success-h">Danke für Ihre Anfrage!</div>
       <p class="success-p">Wir melden uns innerhalb von 24 Stunden mit einem konkreten Vorschlag für Ihr Unternehmen. Kein Druck, kein Verkaufsgespräch.</p>
-      <a href="https://wa.me/43XXXXXXXXX" class="wa-btn">💬 Direkt via WhatsApp schreiben</a>
     </div>
   </div>
 </div>
