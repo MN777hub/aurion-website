@@ -22,7 +22,7 @@
   --gold-dim: rgba(201,168,76,0.12);
   --gold-border: rgba(201,168,76,0.18);
   --text: #F0EDE8;
-  --muted: #6B6762;
+  --muted: #A8A4A0;
   --subtle: #2A2926;
   --serif: 'Cormorant Garamond', Georgia, serif;
   --sans: 'Figtree', system-ui, sans-serif;
@@ -240,7 +240,7 @@ nav {
   line-height: 1.05; color: var(--text); margin-bottom: 16px;
 }
 .sec-h2 em { font-style: italic; color: var(--gold); }
-.sec-p { font-size: .95rem; color: var(--muted); max-width: 480px; line-height: 1.8; font-weight: 300; }
+.sec-p { font-size: 1.05rem; color: var(--muted); max-width: 480px; line-height: 1.8; font-weight: 300; }
 
 /* ═══════════════════════════════════
    HOW IT WORKS — 3 STEPS
@@ -259,7 +259,7 @@ nav {
 }
 .step-card:hover .step-num { color: rgba(201,168,76,.45); }
 .step-title { font-family: var(--serif); font-size: 1.5rem; font-weight: 400; color: var(--text); margin-bottom: 12px; }
-.step-desc { font-size: .85rem; color: var(--muted); line-height: 1.75; font-weight: 300; }
+.step-desc { font-size: 1rem; color: var(--muted); line-height: 1.75; font-weight: 300; }
 .step-card::after {
   content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
   background: linear-gradient(90deg, transparent, var(--gold), transparent);
@@ -290,7 +290,7 @@ nav {
 .bcard-6 { grid-column: span 12; }
 .bcard-icon { font-size: 1.6rem; margin-bottom: 20px; display: block; }
 .bcard-title { font-family: var(--serif); font-size: 1.6rem; font-weight: 400; color: var(--text); margin-bottom: 10px; line-height: 1.2; }
-.bcard-desc { font-size: .82rem; color: var(--muted); line-height: 1.75; font-weight: 300; margin-bottom: 20px; }
+.bcard-desc { font-size: .97rem; color: var(--muted); line-height: 1.75; font-weight: 300; margin-bottom: 20px; }
 .bcard-chip { display: inline-block; font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; padding: 4px 10px; border: 1px solid var(--gold-border); border-radius: 2px; color: var(--gold); }
 /* Chat mockup inside wide card */
 .chat-preview {
@@ -367,7 +367,7 @@ nav {
 .branch-card:hover { background: var(--surface); }
 .branch-emoji { font-size: 2rem; flex-shrink: 0; }
 .branch-name { font-family: var(--serif); font-size: 1.3rem; font-weight: 400; color: var(--text); margin-bottom: 4px; }
-.branch-desc { font-size: .75rem; color: var(--muted); font-weight: 300; }
+.branch-desc { font-size: .92rem; color: var(--muted); font-weight: 300; }
 
 /* ═══════════════════════════════════
    ROI RECHNER
@@ -435,7 +435,7 @@ input[type=range]::-webkit-slider-thumb {
   font-style: italic;
 }
 .paket-features { list-style: none; display: flex; flex-direction: column; gap: 10px; flex: 1; margin-bottom: 32px; }
-.paket-features li { font-size: .82rem; color: var(--muted); display: flex; gap: 10px; align-items: flex-start; font-weight: 300; }
+.paket-features li { font-size: .95rem; color: var(--muted); display: flex; gap: 10px; align-items: flex-start; font-weight: 300; }
 .paket-features li::before { content: '✦'; color: var(--gold); font-size: .55rem; flex-shrink: 0; margin-top: 4px; }
 .paket-btn {
   width: 100%; padding: 13px; border-radius: 4px;
@@ -508,7 +508,7 @@ input[type=range]::-webkit-slider-thumb {
 .form-success.on { display: block; }
 .success-icon { font-size: 2.4rem; margin-bottom: 20px; }
 .success-h { font-family: var(--serif); font-size: 2rem; font-weight: 300; color: var(--text); margin-bottom: 10px; }
-.success-p { font-size: .88rem; color: var(--muted); font-weight: 300; margin-bottom: 28px; line-height: 1.75; }
+.success-p { font-size: 1rem; color: var(--muted); font-weight: 300; margin-bottom: 28px; line-height: 1.75; }
 .wa-btn {
   display: inline-flex; align-items: center; gap: 8px;
   background: rgba(37,211,102,.1); border: 1px solid rgba(37,211,102,.25);
@@ -532,7 +532,7 @@ input[type=range]::-webkit-slider-thumb {
 .faq-item.open .faq-icon { border-color: var(--gold); color: var(--gold); transform: rotate(45deg); }
 .faq-a { max-height: 0; overflow: hidden; transition: max-height .4s ease, padding .3s; padding: 0; }
 .faq-item.open .faq-a { max-height: 200px; padding-bottom: 24px; }
-.faq-a-text { font-size: .88rem; color: var(--muted); line-height: 1.8; font-weight: 300; }
+.faq-a-text { font-size: 1rem; color: var(--muted); line-height: 1.8; font-weight: 300; }
 
 /* ═══════════════════════════════════
    CTA FINALE
@@ -582,7 +582,7 @@ footer {
 .footer-tagline { font-size: .8rem; color: var(--muted); font-weight: 300; line-height: 1.7; max-width: 260px; }
 .footer-col-h { font-size: .65rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
 .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-.footer-links a { font-size: .82rem; color: var(--muted); transition: color .2s; font-weight: 300; }
+.footer-links a { font-size: .92rem; color: var(--muted); transition: color .2s; font-weight: 300; }
 .footer-links a:hover { color: var(--text); }
 .footer-bottom { border-top: 1px solid var(--subtle); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
 .footer-copy { font-size: .72rem; color: rgba(107,103,98,.7); letter-spacing: .04em; }
