@@ -360,14 +360,34 @@ nav {
 ═══════════════════════════════════ */
 .branchen-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--gold-border); border: 1px solid var(--gold-border); margin-top: 72px; }
 .branch-card {
-  background: var(--void); padding: 44px 40px;
+  background: rgba(15,15,26,0.7); padding: 44px 40px;
   display: flex; align-items: center; gap: 20px;
-  transition: background .3s;
+  transition: background .3s, border-color .3s;
+  border: 1px solid var(--subtle);
 }
-.branch-card:hover { background: var(--surface); }
+.branch-card:hover { background: rgba(20,20,31,0.9); border-color: var(--gold-border); }
+.branch-card:hover .branch-arrow { opacity:1; transform:translateX(4px); }
+.branch-arrow { margin-left:auto; color:var(--gold); font-size:1.2rem; opacity:0; transition: all .3s; flex-shrink:0; }
 .branch-emoji { font-size: 2rem; flex-shrink: 0; }
 .branch-name { font-family: var(--serif); font-size: 1.3rem; font-weight: 400; color: var(--text); margin-bottom: 4px; }
 .branch-desc { font-size: .92rem; color: var(--muted); font-weight: 300; }
+/* Branch modal content */
+.bm-hero { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; margin-bottom:60px; }
+.bm-img { border-radius:8px; overflow:hidden; border:1px solid var(--gold-border); }
+.bm-img img { width:100%; display:block; }
+.bm-eyebrow { font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); margin-bottom:16px; }
+.bm-h1 { font-family:var(--serif); font-size:clamp(2.5rem,5vw,4rem); font-weight:300; line-height:1.1; margin-bottom:20px; }
+.bm-desc { font-size:1.05rem; color:var(--muted); line-height:1.8; margin-bottom:32px; }
+.bm-solutions { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:48px; }
+.bm-sol { background:rgba(15,15,26,0.8); border:1px solid var(--gold-border); border-radius:6px; padding:20px 24px; }
+.bm-sol-icon { font-size:1.4rem; margin-bottom:10px; }
+.bm-sol-title { font-family:var(--serif); font-size:1.1rem; color:var(--text); margin-bottom:6px; }
+.bm-sol-desc { font-size:.88rem; color:var(--muted); line-height:1.6; }
+.bm-stats { display:flex; gap:32px; margin-bottom:40px; flex-wrap:wrap; }
+.bm-stat { text-align:center; }
+.bm-stat-num { font-family:var(--serif); font-size:2.5rem; color:var(--gold); }
+.bm-stat-lbl { font-size:.72rem; color:var(--muted); letter-spacing:.1em; text-transform:uppercase; }
+@media(max-width:768px){ .bm-hero{grid-template-columns:1fr;} .bm-solutions{grid-template-columns:1fr;} }
 
 /* ═══════════════════════════════════
    ROI RECHNER
@@ -975,50 +995,64 @@ footer {
 <div class="section section-border" id="branchen">
   <div class="eyebrow-tag rv">Branchen</div>
   <h2 class="sec-h2 rv d1">Für wen wir <em>arbeiten</em></h2>
-  <p class="sec-p rv d2">Spezialisierte Lösungen für sechs Kernbranchen — mit tiefem Verständnis für die jeweiligen Herausforderungen.</p>
+  <p class="sec-p rv d2">Wählen Sie Ihre Branche — und sehen Sie, welche KI-Systeme wir konkret für Sie einsetzen.</p>
   <div class="branchen-grid">
-    <div class="branch-card rv">
+    <div class="branch-card rv" onclick="openBranch('zahnarzt')" style="cursor:pointer;">
       <span class="branch-emoji">🦷</span>
       <div>
         <div class="branch-name">Zahnarztpraxen</div>
         <div class="branch-desc">Terminverwaltung, Recall-Management, Bewertungen</div>
       </div>
+      <span class="branch-arrow">→</span>
     </div>
-    <div class="branch-card rv d1">
+    <div class="branch-card rv d1" onclick="openBranch('anwalt')" style="cursor:pointer;">
       <span class="branch-emoji">⚖️</span>
       <div>
         <div class="branch-name">Anwaltskanzleien</div>
         <div class="branch-desc">Mandantenqualifizierung, Erstgespräch-Buchung</div>
       </div>
+      <span class="branch-arrow">→</span>
     </div>
-    <div class="branch-card rv d2">
+    <div class="branch-card rv d2" onclick="openBranch('handwerk')" style="cursor:pointer;">
       <span class="branch-emoji">🔧</span>
       <div>
         <div class="branch-name">Handwerksbetriebe</div>
         <div class="branch-desc">Angebotsanfragen, Terminkoordination, Follow-up</div>
       </div>
+      <span class="branch-arrow">→</span>
     </div>
-    <div class="branch-card rv d1">
+    <div class="branch-card rv d1" onclick="openBranch('immobilien')" style="cursor:pointer;">
       <span class="branch-emoji">🏠</span>
       <div>
         <div class="branch-name">Immobilienmakler</div>
         <div class="branch-desc">Lead-Scoring, Exposé-Versand, Besichtigungen</div>
       </div>
+      <span class="branch-arrow">→</span>
     </div>
-    <div class="branch-card rv d2">
+    <div class="branch-card rv d2" onclick="openBranch('gastro')" style="cursor:pointer;">
       <span class="branch-emoji">🍽️</span>
       <div>
         <div class="branch-name">Gastronomie</div>
         <div class="branch-desc">Reservierungen, Events, Bewertungsmanagement</div>
       </div>
+      <span class="branch-arrow">→</span>
     </div>
-    <div class="branch-card rv d3">
+    <div class="branch-card rv d3" onclick="openBranch('fitness')" style="cursor:pointer;">
       <span class="branch-emoji">💪</span>
       <div>
         <div class="branch-name">Fitnessstudios</div>
         <div class="branch-desc">Probe-Termine, Mitgliedergewinnung, Churn-Prävention</div>
       </div>
+      <span class="branch-arrow">→</span>
     </div>
+  </div>
+</div>
+
+<!-- BRANCHEN MODALS -->
+<div id="branch-overlay" onclick="closeBranch(event)" style="display:none;position:fixed;inset:0;background:rgba(6,6,14,0.97);z-index:200;overflow-y:auto;">
+  <div id="branch-modal" style="max-width:1100px;margin:0 auto;padding:60px 40px 80px;" onclick="event.stopPropagation()">
+    <button onclick="closeBranch()" style="background:none;border:1px solid rgba(201,168,76,0.3);color:var(--gold);padding:8px 20px;border-radius:4px;font-size:.8rem;letter-spacing:.1em;cursor:pointer;margin-bottom:48px;">← Zurück</button>
+    <div id="branch-content"></div>
   </div>
 </div>
 
@@ -1386,6 +1420,136 @@ function submitForm(){
   fetch('https://api.telegram.org/bot8645960987:AAEV9gmHGhEwTZ2zdKUhL4yqN_0IxTesqIw/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:'5560417354',text:msg})}).catch(()=>{});
   document.getElementById('fs3').classList.remove('on');
   document.getElementById('form-success').classList.add('on');
+}
+
+/* ─ BRANCHEN MODAL ─ */
+const BRANCHEN = {
+  zahnarzt: {
+    emoji:'🦷', name:'Zahnarztpraxen',
+    eyebrow:'KI-Lösungen für Zahnarztpraxen',
+    headline:'Mehr Patienten.<br><em>Weniger Verwaltung.</em>',
+    desc:'Zahnarztpraxen verlieren täglich Patienten durch verpasste Anrufe, vergessene Recalls und manuelle Terminvergabe. Unser KI-System übernimmt diese Aufgaben vollautomatisch — 24/7, ohne Zusatzaufwand.',
+    img:'https://design.canva.ai/U96A02XnsG49nkc',
+    stats:[{n:'23%',l:'mehr Termine'},{n:'4h',l:'täglich gespart'},{n:'97%',l:'Recall-Rate'}],
+    solutions:[
+      {icon:'📅',title:'KI-Terminbuchung',desc:'Patienten buchen online rund um die Uhr — der Kalender wird automatisch befüllt ohne Telefonaufwand.'},
+      {icon:'🔁',title:'Automatischer Recall',desc:'Das System erinnert Patienten selbstständig an Kontrolltermine per SMS oder E-Mail.'},
+      {icon:'⭐',title:'Bewertungsmanagement',desc:'Nach jedem Besuch werden Patienten automatisch um eine Google-Bewertung gebeten.'},
+      {icon:'📞',title:'KI-Telefonassistent',desc:'Verpasste Anrufe werden automatisch beantwortet — mit Terminbuchung direkt im Gespräch.'},
+      {icon:'💬',title:'WhatsApp-Chatbot',desc:'Patienten stellen Fragen, buchen Termine und erhalten Infos direkt über WhatsApp.'},
+      {icon:'📊',title:'Performance-Reporting',desc:'Monatlicher Bericht: wie viele Termine gebookt, Recalls erfolgreich, Bewertungen erhalten.'}
+    ]
+  },
+  anwalt: {
+    emoji:'⚖️', name:'Anwaltskanzleien',
+    eyebrow:'KI-Lösungen für Anwaltskanzleien',
+    headline:'Mehr Mandanten.<br><em>Weniger Administration.</em>',
+    desc:'Kanzleien verlieren wertvolle Zeit durch manuelle Mandantenerfassung, unqualifizierte Anfragen und aufwändige Terminkoordination. KI qualifiziert Anfragen automatisch und bucht nur relevante Gespräche.',
+    img:'https://design.canva.ai/hEbbD8GovEW8_Ge',
+    stats:[{n:'60%',l:'weniger Admin'},{n:'3×',l:'mehr qualif. Leads'},{n:'48h',l:'schnellere Reaktion'}],
+    solutions:[
+      {icon:'🎯',title:'Lead-Qualifizierung',desc:'KI bewertet eingehende Anfragen und filtert automatisch heraus, welche Fälle relevant sind.'},
+      {icon:'📅',title:'Erstgespräch-Buchung',desc:'Interessenten buchen Erstgespräche selbstständig im Kalender — ohne Telefonrückruf.'},
+      {icon:'📋',title:'Mandantenaufnahme',desc:'Automatisches Formular sammelt alle relevanten Informationen vor dem ersten Gespräch.'},
+      {icon:'📧',title:'Automatische Follow-ups',desc:'Interessenten, die noch nicht gebucht haben, werden automatisch nachgefasst.'},
+      {icon:'📄',title:'Dokumenten-KI',desc:'KI analysiert eingesendete Dokumente und bereitet eine Ersteinschätzung vor.'},
+      {icon:'💬',title:'Website-Chatbot',desc:'24/7 Erstberatung auf der Website — beantwortet häufige Fragen und leitet weiter.'}
+    ]
+  },
+  handwerk: {
+    emoji:'🔧', name:'Handwerksbetriebe',
+    eyebrow:'KI-Lösungen für Handwerksbetriebe',
+    headline:'Mehr Aufträge.<br><em>Kein Papierchaos.</em>',
+    desc:'Handwerksbetriebe kämpfen mit verpassten Anfragen, manuell erstellten Angeboten und unorganisierter Terminplanung. KI automatisiert diese Prozesse und sorgt für vollen Auftragsbuch.',
+    img:'https://design.canva.ai/5dBpuEZOTqXIWbR',
+    stats:[{n:'35%',l:'mehr Anfragen'},{n:'80%',l:'weniger No-Shows'},{n:'2×',l:'schnellere Angebote'}],
+    solutions:[
+      {icon:'📩',title:'Anfragen-Automation',desc:'Jede Anfrage wird sofort beantwortet, kategorisiert und ins System eingetragen.'},
+      {icon:'📅',title:'Terminkoordination',desc:'Kunden buchen Vor-Ort-Termine direkt online — der Meister sieht alles im Kalender.'},
+      {icon:'📋',title:'Automatische Angebote',desc:'KI erstellt Standardangebote auf Basis der Anfrage — in Minuten statt Stunden.'},
+      {icon:'🔔',title:'Erinnerungen',desc:'Automatische Terminerinnerungen per SMS reduzieren No-Shows um bis zu 80%.'},
+      {icon:'📊',title:'Auftragsverfolgung',desc:'Alle Aufträge, Status und Kundenkommunikation an einem Ort — automatisch aktuell.'},
+      {icon:'⭐',title:'Bewertungsautomatisierung',desc:'Nach Abschluss wird der Kunde automatisch um eine Bewertung auf Google gebeten.'}
+    ]
+  },
+  immobilien: {
+    emoji:'🏠', name:'Immobilienmakler',
+    eyebrow:'KI-Lösungen für Immobilienmakler',
+    headline:'Mehr Abschlüsse.<br><em>Bessere Leads.</em>',
+    desc:'Makler verbringen zu viel Zeit mit unqualifizierten Interessenten, manuellen Exposé-Versand und endlosen Rückrufen. KI übernimmt die Vorqualifizierung und hält nur echte Käufer übrig.',
+    img:'https://design.canva.ai/jdN45mganQd_yUz',
+    stats:[{n:'5×',l:'schnellerer Erstkontakt'},{n:'40%',l:'mehr Besichtigungen'},{n:'90%',l:'Zeitersparnis'}],
+    solutions:[
+      {icon:'🎯',title:'Lead-Scoring KI',desc:'KI bewertet jeden Interessenten automatisch: Kaufbereitschaft, Budget, Zeitrahmen.'},
+      {icon:'📬',title:'Exposé-Automation',desc:'Passende Objekte werden automatisch an qualifizierte Interessenten gesendet.'},
+      {icon:'📅',title:'Besichtigungs-Buchung',desc:'Interessenten buchen Besichtigungen direkt online — inkl. automatischer Bestätigung.'},
+      {icon:'💬',title:'24/7 Objekt-Chatbot',desc:'Beantwortet Fragen zu Objekten rund um die Uhr und qualifiziert Interessenten.'},
+      {icon:'📧',title:'Follow-up Sequenzen',desc:'Automatische Nachfass-Sequenzen halten Interessenten warm bis zur Entscheidung.'},
+      {icon:'📊',title:'Pipeline-Dashboard',desc:'Alle Leads, Besichtigungen und Abschlüsse auf einen Blick — immer aktuell.'}
+    ]
+  },
+  gastro: {
+    emoji:'🍽️', name:'Gastronomie',
+    eyebrow:'KI-Lösungen für Gastronomie',
+    headline:'Mehr Gäste.<br><em>Weniger Leerstand.</em>',
+    desc:'Restaurants verlieren Buchungen durch unbesetzte Telefone, vergessene Reservierungen und mangelhafte Online-Präsenz. KI füllt Ihr Restaurant — automatisch, auch wenn Sie in der Küche stehen.',
+    img:'https://design.canva.ai/51PuhiDHL5-raAt',
+    stats:[{n:'30%',l:'mehr Reservierungen'},{n:'50%',l:'weniger No-Shows'},{n:'4,8★',l:'Bewertungsdurchschnitt'}],
+    solutions:[
+      {icon:'📅',title:'Online-Reservierung',desc:'Gäste buchen Tische rund um die Uhr — mit automatischer Bestätigung und Erinnerung.'},
+      {icon:'🎉',title:'Event-Buchungen',desc:'Geburtstage, Firmenfeiern, Gruppen — automatisch koordiniert ohne Telefonaufwand.'},
+      {icon:'⭐',title:'Bewertungsmanagement',desc:'Nach jedem Besuch wird der Gast automatisch um eine Bewertung gebeten.'},
+      {icon:'💬',title:'WhatsApp-Menü',desc:'Gäste fragen Speisekarte, Öffnungszeiten und Tagesangebote direkt per WhatsApp.'},
+      {icon:'🔔',title:'No-Show Prävention',desc:'Automatische Erinnerungen 24h und 2h vor der Reservierung reduzieren Ausfälle.'},
+      {icon:'🎁',title:'Stammkunden-Automation',desc:'Treueprogramm und personalisierte Angebote für Stammgäste — vollautomatisch.'}
+    ]
+  },
+  fitness: {
+    emoji:'💪', name:'Fitnessstudios',
+    eyebrow:'KI-Lösungen für Fitnessstudios',
+    headline:'Mehr Mitglieder.<br><em>Weniger Abgänge.</em>',
+    desc:'Fitnessstudios kämpfen mit hoher Mitgliederfluktuation, unbearbeiteten Probe-Anfragen und manuellen Kampagnen. KI gewinnt neue Mitglieder und hält bestehende — automatisch.',
+    img:'https://design.canva.ai/MI1qBKVhX7DoCB0',
+    stats:[{n:'45%',l:'mehr Probe-Abschlüsse'},{n:'60%',l:'weniger Kündigungen'},{n:'3×',l:'mehr Neumitglieder'}],
+    solutions:[
+      {icon:'🏃',title:'Probe-Termin Buchung',desc:'Interessenten buchen ihren Probe-Termin online — automatisch im Trainingsplan.'},
+      {icon:'🎯',title:'Lead-Qualifizierung',desc:'KI bewertet Anfragen und kontaktiert die vielversprechendsten Interessenten zuerst.'},
+      {icon:'🔔',title:'Churn-Prävention',desc:'KI erkennt inaktive Mitglieder früh und startet automatisch Reaktivierungskampagnen.'},
+      {icon:'💬',title:'Mitglieder-Chatbot',desc:'Fragen zu Kursen, Zeiten und Tarifen werden automatisch beantwortet — 24/7.'},
+      {icon:'📧',title:'Mitglieder-Kampagnen',desc:'Automatische E-Mail/SMS-Kampagnen für Verlängerungen, Upgrades und Angebote.'},
+      {icon:'📊',title:'Mitglieder-Analytics',desc:'Dashboard mit Churn-Risiko, Auslastung und Conversion-Rate — immer aktuell.'}
+    ]
+  }
+};
+
+function openBranch(id){
+  const b = BRANCHEN[id];
+  if(!b) return;
+  const stats = b.stats.map(s=>`<div class="bm-stat"><div class="bm-stat-num">${s.n}</div><div class="bm-stat-lbl">${s.l}</div></div>`).join('');
+  const sols = b.solutions.map(s=>`<div class="bm-sol"><div class="bm-sol-icon">${s.icon}</div><div class="bm-sol-title">${s.title}</div><div class="bm-sol-desc">${s.desc}</div></div>`).join('');
+  document.getElementById('branch-content').innerHTML = `
+    <div class="bm-hero">
+      <div>
+        <div class="bm-eyebrow">${b.eyebrow}</div>
+        <h1 class="bm-h1">${b.headline}</h1>
+        <p class="bm-desc">${b.desc}</p>
+        <div class="bm-stats">${stats}</div>
+        <button class="btn-primary" onclick="closeBranch();document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">Kostenlose Analyse anfragen →</button>
+      </div>
+      <div class="bm-img"><img src="${b.img}" alt="${b.name} KI-Lösungen" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+    </div>
+    <h2 style="font-family:var(--serif);font-size:2rem;font-weight:300;margin-bottom:28px;">Was wir für <em>${b.name}</em> bauen</h2>
+    <div class="bm-solutions">${sols}</div>
+  `;
+  const ov = document.getElementById('branch-overlay');
+  ov.style.display='block';
+  document.body.style.overflow='hidden';
+  ov.scrollTop=0;
+}
+function closeBranch(e){
+  if(e && e.target !== document.getElementById('branch-overlay')) return;
+  document.getElementById('branch-overlay').style.display='none';
+  document.body.style.overflow='';
 }
 
 /* ─ FAQ ─ */
