@@ -1037,12 +1037,11 @@ footer {
     <!-- Step 1 -->
     <div class="form-step on" id="fs1">
       <div class="form-grid-2">
-        <div class="fg"><label>Vorname</label><input type="text" id="f-vorname" placeholder="Max"></div>
-        <div class="fg"><label>Nachname</label><input type="text" id="f-nachname" placeholder="Mustermann"></div>
+        <div class="fg"><label>Vorname *</label><input type="text" id="f-vorname" placeholder="Max"></div>
+        <div class="fg"><label>Nachname *</label><input type="text" id="f-nachname" placeholder="Mustermann"></div>
       </div>
-      <div class="fg"><label>E-Mail</label><input type="email" id="f-email" placeholder="max@mustermann.at"></div>
-      <div class="fg"><label>Telefon</label><input type="tel" id="f-tel" placeholder="+43 664 ..."></div>
-      <div class="fg"><label>Website (optional)</label><input type="text" placeholder="www.mustermann.at"></div>
+      <div class="fg"><label>E-Mail *</label><input type="email" id="f-email" placeholder="max@mustermann.at"></div>
+      <div class="fg"><label>Telefon *</label><input type="tel" id="f-tel" placeholder="+43 664 ..."></div>
       <div class="form-nav">
         <span></span>
         <button class="form-next" onclick="goStep(2)">Weiter →</button>
@@ -1050,9 +1049,9 @@ footer {
     </div>
     <!-- Step 2 -->
     <div class="form-step" id="fs2">
-      <div class="fg"><label>Firmenname</label><input type="text" id="f-firma" placeholder="Mustermann GmbH"></div>
+      <div class="fg"><label>Firmenname *</label><input type="text" id="f-firma" placeholder="Mustermann GmbH"></div>
       <div class="fg">
-        <label>Branche</label>
+        <label>Branche *</label>
         <select id="f-branche">
           <option value="">Bitte wählen …</option>
           <option>Zahnarztpraxis</option><option>Anwaltskanzlei</option>
@@ -1060,8 +1059,8 @@ footer {
           <option>Gastronomie</option><option>Fitnessstudio</option><option>Andere</option>
         </select>
       </div>
-      <div class="fg"><label>Größte Herausforderung</label><textarea id="f-challenge" placeholder="Was kostet Sie aktuell am meisten Zeit oder Umsatz?"></textarea></div>
-      <div class="fg"><label>Anmerkungen (optional)</label><textarea placeholder="Weitere Infos, die wir wissen sollten …"></textarea></div>
+      <div class="fg"><label>Größte Herausforderung *</label><textarea id="f-challenge" placeholder="Was kostet Sie aktuell am meisten Zeit oder Umsatz?"></textarea></div>
+      <div class="fg"><label>Anmerkungen (optional)</label><textarea id="f-notes" placeholder="Weitere Infos, die wir wissen sollten …"></textarea></div>
       <div class="form-nav">
         <button class="form-back" onclick="goStep(1)">← Zurück</button>
         <button class="form-next" onclick="goStep(3)">Weiter →</button>
@@ -1069,22 +1068,11 @@ footer {
     </div>
     <!-- Step 3 -->
     <div class="form-step" id="fs3">
-      <div class="fg"><label>Paket wählen</label></div>
-      <div class="paket-pick">
-        <div class="paket-opt" onclick="selPaket(this,'Starter')">
-          <div class="paket-opt-name">Starter</div>
-          <div class="paket-opt-desc">Chatbot + Terminbuchung</div>
-        </div>
-        <div class="paket-opt" onclick="selPaket(this,'Professional')">
-          <div class="paket-opt-name">Professional</div>
-          <div class="paket-opt-desc">Full-Stack Automatisierung</div>
-        </div>
-        <div class="paket-opt" onclick="selPaket(this,'Enterprise')">
-          <div class="paket-opt-name">Enterprise</div>
-          <div class="paket-opt-desc">Individuelle KI-Lösung</div>
-        </div>
+      <div style="background:#0F0F1A;border:1px solid rgba(201,168,76,0.25);border-radius:6px;padding:28px 32px;margin-bottom:28px;">
+        <div style="font-family:var(--serif);font-size:1.4rem;color:var(--text);margin-bottom:8px;">Individuelle Lösung</div>
+        <div style="font-size:.95rem;color:var(--muted);line-height:1.7;">Preise werden individuell kalkuliert — basierend auf Ihrer Branche, Ihren Prozessen und dem gewünschten Automatisierungsgrad. Kein fixes Paket, kein Overhead. Sie zahlen nur für das, was Sie wirklich brauchen.</div>
       </div>
-      <div class="fg"><label>Gewünschtes Startdatum</label><input type="date" id="f-date"></div>
+      <div class="fg"><label>Gewünschtes Startdatum (optional)</label><input type="date" id="f-date"></div>
       <div class="form-nav">
         <button class="form-back" onclick="goStep(2)">← Zurück</button>
         <button class="form-next" id="submitBtn" onclick="submitForm()">Anfrage absenden ✦</button>
@@ -1347,8 +1335,36 @@ function closeMob(){document.getElementById('mobMenu').classList.remove('open');
 /* ─ ROI CALCULATOR ─ */
 
 /* ─ FORM STEPS ─ */
-let selPaketVal='';
+function markInvalid(id){
+  const el=document.getElementById(id);
+  if(!el)return;
+  el.style.borderColor='rgba(239,68,68,0.7)';
+  el.style.boxShadow='0 0 0 3px rgba(239,68,68,0.12)';
+  setTimeout(()=>{el.style.borderColor='';el.style.boxShadow='';},2500);
+}
 function goStep(n){
+  const cur=[...document.querySelectorAll('.form-step')].findIndex(s=>s.classList.contains('on'))+1;
+  // Validate before going forward
+  if(n>cur){
+    if(cur===1){
+      const v=document.getElementById('f-vorname').value.trim();
+      const na=document.getElementById('f-nachname').value.trim();
+      const em=document.getElementById('f-email').value.trim();
+      const tel=document.getElementById('f-tel').value.trim();
+      if(!v){markInvalid('f-vorname');return;}
+      if(!na){markInvalid('f-nachname');return;}
+      if(!em||!em.includes('@')){markInvalid('f-email');return;}
+      if(!tel){markInvalid('f-tel');return;}
+    }
+    if(cur===2){
+      const fi=document.getElementById('f-firma').value.trim();
+      const br=document.getElementById('f-branche').value;
+      const ch=document.getElementById('f-challenge').value.trim();
+      if(!fi){markInvalid('f-firma');return;}
+      if(!br){markInvalid('f-branche');return;}
+      if(!ch){markInvalid('f-challenge');return;}
+    }
+  }
   [1,2,3].forEach(i=>{
     document.getElementById('fs'+i).classList.toggle('on',i===n);
     const ps=document.getElementById('ps'+i);
@@ -1356,18 +1372,17 @@ function goStep(n){
     ps.classList.toggle('done',i<n);
   });
 }
-function selPaket(el,name){
-  document.querySelectorAll('.paket-opt').forEach(o=>o.classList.remove('sel'));
-  el.classList.add('sel');selPaketVal=name;
-}
 function submitForm(){
   const vorname=document.getElementById('f-vorname').value||'';
+  const nachname=document.getElementById('f-nachname').value||'';
   const email=document.getElementById('f-email').value||'';
   const tel=document.getElementById('f-tel').value||'';
   const firma=document.getElementById('f-firma').value||'';
   const branche=document.getElementById('f-branche').value||'';
   const challenge=document.getElementById('f-challenge').value||'';
-  const msg=`🔔 Neue Anfrage — Aurion Systems\n\n👤 ${vorname}\n📧 ${email}\n📞 ${tel||'—'}\n🏢 ${firma||'—'}\n🏷 ${branche||'—'}\n📦 Paket: ${selPaketVal||'—'}\n💬 ${challenge||'—'}`;
+  const notes=document.getElementById('f-notes')?.value||'';
+  const date=document.getElementById('f-date')?.value||'';
+  const msg=`🔔 Neue Anfrage — Aurion Systems\n\n👤 ${vorname} ${nachname}\n📧 ${email}\n📞 ${tel||'—'}\n🏢 ${firma||'—'}\n🏷 ${branche||'—'}\n💬 ${challenge||'—'}${notes?'\n📝 '+notes:''}${date?'\n📅 Start: '+date:''}`;
   fetch('https://api.telegram.org/bot8645960987:AAEV9gmHGhEwTZ2zdKUhL4yqN_0IxTesqIw/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:'5560417354',text:msg})}).catch(()=>{});
   document.getElementById('fs3').classList.remove('on');
   document.getElementById('form-success').classList.add('on');
