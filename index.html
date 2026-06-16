@@ -371,23 +371,78 @@ nav {
 .branch-emoji { font-size: 2rem; flex-shrink: 0; }
 .branch-name { font-family: var(--serif); font-size: 1.3rem; font-weight: 400; color: var(--text); margin-bottom: 4px; }
 .branch-desc { font-size: .92rem; color: var(--muted); font-weight: 300; }
-/* Branch modal content */
-.bm-hero { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; margin-bottom:60px; }
-.bm-img { border-radius:8px; overflow:hidden; border:1px solid var(--gold-border); }
+/* ── BRANCH MODAL OVERLAY ── */
+#branch-overlay {
+  position:fixed; inset:0; z-index:500;
+  background:rgba(4,4,10,0); backdrop-filter:blur(0px);
+  overflow-y:auto; display:none;
+  transition: background .35s ease, backdrop-filter .35s ease;
+}
+#branch-overlay.bm-open { background:rgba(4,4,10,0.96); backdrop-filter:blur(16px); }
+#branch-modal {
+  max-width:1100px; margin:0 auto; padding:0 40px 100px;
+  opacity:0; transform:translateY(36px);
+  transition: opacity .45s cubic-bezier(.16,1,.3,1), transform .45s cubic-bezier(.16,1,.3,1);
+}
+#branch-overlay.bm-open #branch-modal { opacity:1; transform:none; }
+
+/* Close bar */
+.bm-topbar {
+  position:sticky; top:0; z-index:10; display:flex; justify-content:flex-end;
+  padding:20px 0 12px;
+  background:linear-gradient(to bottom,rgba(4,4,10,1) 65%,transparent);
+}
+.bm-back {
+  background:none; border:1px solid rgba(201,168,76,.28); color:var(--muted);
+  padding:9px 22px; border-radius:40px; font-size:.74rem; letter-spacing:.1em;
+  cursor:pointer; transition:all .2s; font-family:var(--sans);
+}
+.bm-back:hover { border-color:var(--gold); color:var(--text); }
+
+/* Hero */
+.bm-hero { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center; padding:32px 0 56px; border-bottom:1px solid var(--gold-border); margin-bottom:56px; }
+.bm-eyebrow { font-size:.65rem; letter-spacing:.25em; text-transform:uppercase; color:var(--gold); margin-bottom:20px; display:flex; align-items:center; gap:10px; }
+.bm-eyebrow::before { content:''; display:block; width:20px; height:1px; background:var(--gold); }
+.bm-h1 { font-family:var(--serif); font-size:clamp(2.6rem,4.5vw,4.2rem); font-weight:300; line-height:1.08; margin-bottom:22px; }
+.bm-h1 em { color:var(--gold); font-style:italic; }
+.bm-desc { font-size:1.05rem; color:var(--muted); line-height:1.85; margin-bottom:36px; }
+
+/* Stats */
+.bm-stats { display:flex; gap:0; margin-bottom:40px; }
+.bm-stat { flex:1; text-align:center; padding:18px 12px; border:1px solid var(--gold-border); border-right:none; background:rgba(201,168,76,.04); }
+.bm-stat:first-child { border-radius:6px 0 0 6px; }
+.bm-stat:last-child { border-right:1px solid var(--gold-border); border-radius:0 6px 6px 0; }
+.bm-stat-num { font-family:var(--serif); font-size:2.4rem; color:var(--gold); line-height:1; }
+.bm-stat-lbl { font-size:.68rem; color:var(--muted); letter-spacing:.12em; text-transform:uppercase; margin-top:5px; }
+
+/* Image */
+.bm-img { border-radius:10px; overflow:hidden; border:1px solid var(--gold-border); box-shadow:0 0 60px rgba(201,168,76,.07); position:relative; }
 .bm-img img { width:100%; display:block; }
-.bm-eyebrow { font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); margin-bottom:16px; }
-.bm-h1 { font-family:var(--serif); font-size:clamp(2.5rem,5vw,4rem); font-weight:300; line-height:1.1; margin-bottom:20px; }
-.bm-desc { font-size:1.05rem; color:var(--muted); line-height:1.8; margin-bottom:32px; }
-.bm-solutions { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:48px; }
-.bm-sol { background:rgba(15,15,26,0.8); border:1px solid var(--gold-border); border-radius:6px; padding:20px 24px; }
-.bm-sol-icon { font-size:1.4rem; margin-bottom:10px; }
-.bm-sol-title { font-family:var(--serif); font-size:1.1rem; color:var(--text); margin-bottom:6px; }
-.bm-sol-desc { font-size:.88rem; color:var(--muted); line-height:1.6; }
-.bm-stats { display:flex; gap:32px; margin-bottom:40px; flex-wrap:wrap; }
-.bm-stat { text-align:center; }
-.bm-stat-num { font-family:var(--serif); font-size:2.5rem; color:var(--gold); }
-.bm-stat-lbl { font-size:.72rem; color:var(--muted); letter-spacing:.1em; text-transform:uppercase; }
-@media(max-width:768px){ .bm-hero{grid-template-columns:1fr;} .bm-solutions{grid-template-columns:1fr;} }
+.bm-img-badge { position:absolute; bottom:14px; left:14px; background:rgba(6,6,14,.88); backdrop-filter:blur(6px); border:1px solid var(--gold-border); border-radius:4px; padding:7px 14px; font-size:.66rem; color:var(--gold); letter-spacing:.12em; text-transform:uppercase; }
+
+/* Solutions grid with stagger animation */
+.bm-solutions-h { font-family:var(--serif); font-size:1.9rem; font-weight:300; margin-bottom:28px; }
+.bm-solutions-h em { color:var(--gold); font-style:italic; }
+.bm-solutions { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-bottom:48px; }
+.bm-sol {
+  background:rgba(15,15,26,.85); border:1px solid var(--gold-border); border-radius:8px; padding:24px 22px;
+  opacity:0; transform:translateY(18px);
+  transition: opacity .4s ease, transform .4s ease, background .2s, border-color .2s;
+}
+.bm-sol.sol-in { opacity:1; transform:none; }
+.bm-sol:hover { background:rgba(20,20,32,.95); border-color:rgba(201,168,76,.4); }
+.bm-sol-icon { font-size:1.5rem; margin-bottom:12px; }
+.bm-sol-title { font-family:var(--serif); font-size:1.1rem; color:var(--text); margin-bottom:7px; }
+.bm-sol-desc { font-size:.84rem; color:var(--muted); line-height:1.65; }
+
+/* CTA Strip */
+.bm-cta { margin-top:16px; padding:48px 56px; background:linear-gradient(135deg,rgba(201,168,76,.07),rgba(201,168,76,.02)); border:1px solid var(--gold-border); border-radius:10px; display:flex; align-items:center; justify-content:space-between; gap:40px; }
+.bm-cta-text h3 { font-family:var(--serif); font-size:1.8rem; font-weight:300; margin-bottom:8px; }
+.bm-cta-text h3 em { color:var(--gold); font-style:italic; }
+.bm-cta-text p { color:var(--muted); font-size:.92rem; }
+
+@media(max-width:900px){ .bm-hero{grid-template-columns:1fr; gap:36px;} .bm-solutions{grid-template-columns:1fr 1fr;} .bm-cta{flex-direction:column; text-align:center; padding:36px 24px;} #branch-modal{padding:0 20px 80px;} }
+@media(max-width:520px){ .bm-solutions{grid-template-columns:1fr;} .bm-stats{flex-wrap:wrap;} .bm-stat{flex:0 0 48%;} }
 
 /* ═══════════════════════════════════
    ROI RECHNER
@@ -1049,9 +1104,11 @@ footer {
 </div>
 
 <!-- BRANCHEN MODALS -->
-<div id="branch-overlay" onclick="closeBranch(event)" style="display:none;position:fixed;inset:0;background:rgba(6,6,14,0.97);z-index:200;overflow-y:auto;">
-  <div id="branch-modal" style="max-width:1100px;margin:0 auto;padding:60px 40px 80px;" onclick="event.stopPropagation()">
-    <button onclick="closeBranch()" style="background:none;border:1px solid rgba(201,168,76,0.3);color:var(--gold);padding:8px 20px;border-radius:4px;font-size:.8rem;letter-spacing:.1em;cursor:pointer;margin-bottom:48px;">← Zurück</button>
+<div id="branch-overlay" onclick="closeBranch(event)">
+  <div id="branch-modal" onclick="event.stopPropagation()">
+    <div class="bm-topbar">
+      <button class="bm-back" onclick="closeBranch()">✕ &nbsp;Schließen</button>
+    </div>
     <div id="branch-content"></div>
   </div>
 </div>
@@ -1525,8 +1582,20 @@ const BRANCHEN = {
 function openBranch(id){
   const b = BRANCHEN[id];
   if(!b) return;
-  const stats = b.stats.map(s=>`<div class="bm-stat"><div class="bm-stat-num">${s.n}</div><div class="bm-stat-lbl">${s.l}</div></div>`).join('');
-  const sols = b.solutions.map(s=>`<div class="bm-sol"><div class="bm-sol-icon">${s.icon}</div><div class="bm-sol-title">${s.title}</div><div class="bm-sol-desc">${s.desc}</div></div>`).join('');
+
+  const stats = b.stats.map(s=>`
+    <div class="bm-stat">
+      <div class="bm-stat-num">${s.n}</div>
+      <div class="bm-stat-lbl">${s.l}</div>
+    </div>`).join('');
+
+  const sols = b.solutions.map((s,i)=>`
+    <div class="bm-sol" style="transition-delay:${i*60}ms">
+      <div class="bm-sol-icon">${s.icon}</div>
+      <div class="bm-sol-title">${s.title}</div>
+      <div class="bm-sol-desc">${s.desc}</div>
+    </div>`).join('');
+
   document.getElementById('branch-content').innerHTML = `
     <div class="bm-hero">
       <div>
@@ -1534,23 +1603,48 @@ function openBranch(id){
         <h1 class="bm-h1">${b.headline}</h1>
         <p class="bm-desc">${b.desc}</p>
         <div class="bm-stats">${stats}</div>
-        <button class="btn-primary" onclick="closeBranch();document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">Kostenlose Analyse anfragen →</button>
+        <button class="btn-primary" onclick="closeBranch();setTimeout(()=>document.getElementById('kontakt').scrollIntoView({behavior:'smooth'}),120)">Kostenlose Analyse anfragen →</button>
       </div>
-      <div class="bm-img"><img src="${b.img}" alt="${b.name} KI-Lösungen" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+      <div class="bm-img">
+        <img src="${b.img}" alt="${b.name} KI-Lösungen" loading="lazy" onerror="this.parentElement.style.display='none'">
+        <div class="bm-img-badge">✦ KI-Automatisierung</div>
+      </div>
     </div>
-    <h2 style="font-family:var(--serif);font-size:2rem;font-weight:300;margin-bottom:28px;">Was wir für <em>${b.name}</em> bauen</h2>
+    <h2 class="bm-solutions-h">Was wir für <em>${b.name}</em> bauen</h2>
     <div class="bm-solutions">${sols}</div>
+    <div class="bm-cta">
+      <div class="bm-cta-text">
+        <h3>Bereit für Ihr <em>KI-System?</em></h3>
+        <p>Kostenlose 30-Minuten-Analyse — wir zeigen Ihnen genau was möglich ist.</p>
+      </div>
+      <button class="btn-primary" onclick="closeBranch();setTimeout(()=>document.getElementById('kontakt').scrollIntoView({behavior:'smooth'}),120)">Jetzt anfragen →</button>
+    </div>
   `;
+
   const ov = document.getElementById('branch-overlay');
-  ov.style.display='block';
-  document.body.style.overflow='hidden';
-  ov.scrollTop=0;
+  ov.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+  ov.scrollTop = 0;
+
+  // Trigger open animation
+  requestAnimationFrame(()=>{
+    ov.classList.add('bm-open');
+    // Stagger solution cards
+    setTimeout(()=>{
+      document.querySelectorAll('.bm-sol').forEach(el=>el.classList.add('sol-in'));
+    }, 300);
+  });
 }
+
 function closeBranch(e){
-  if(e && e.target !== document.getElementById('branch-overlay')) return;
-  document.getElementById('branch-overlay').style.display='none';
-  document.body.style.overflow='';
+  if(e && e.target && e.target !== document.getElementById('branch-overlay')) return;
+  const ov = document.getElementById('branch-overlay');
+  ov.classList.remove('bm-open');
+  document.body.style.overflow = '';
+  setTimeout(()=>{ if(!ov.classList.contains('bm-open')) ov.style.display='none'; }, 380);
 }
+
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeBranch(); });
 
 /* ─ FAQ ─ */
 function toggleFaq(q){
