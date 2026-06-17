@@ -432,9 +432,35 @@ nav {
 .bm-stat-lbl { font-size:.68rem; color:var(--muted); letter-spacing:.12em; text-transform:uppercase; margin-top:5px; }
 
 /* Image */
-.bm-img { border-radius:10px; overflow:hidden; border:1px solid var(--gold-border); box-shadow:0 0 60px rgba(201,168,76,.07); position:relative; }
-.bm-img img { width:100%; display:block; }
-.bm-img-badge { position:absolute; bottom:14px; left:14px; background:rgba(6,6,14,.88); backdrop-filter:blur(6px); border:1px solid var(--gold-border); border-radius:4px; padding:7px 14px; font-size:.66rem; color:var(--gold); letter-spacing:.12em; text-transform:uppercase; }
+.bm-visual {
+  border-radius:10px; overflow:hidden; border:1px solid rgba(201,168,76,.2);
+  position:relative; min-height:340px;
+  display:flex; align-items:center; justify-content:center;
+  background:radial-gradient(circle at 40% 50%, rgba(201,168,76,.16) 0%, rgba(201,168,76,.04) 45%, transparent 72%), linear-gradient(155deg, #131320 0%, #06060E 100%);
+  box-shadow:0 0 80px rgba(201,168,76,.06), inset 0 0 40px rgba(0,0,0,.4);
+}
+.bm-visual::before {
+  content:''; position:absolute; width:220px; height:220px; border-radius:50%;
+  border:1px solid rgba(201,168,76,.13); pointer-events:none;
+  animation:ringPulse 4s ease-in-out infinite;
+}
+.bm-visual::after {
+  content:''; position:absolute; width:380px; height:380px; border-radius:50%;
+  border:1px solid rgba(201,168,76,.06); pointer-events:none;
+  animation:ringPulse 4s ease-in-out 1.2s infinite;
+}
+.bm-visual-emoji {
+  font-size:5.5rem; position:relative; z-index:2;
+  filter:drop-shadow(0 0 48px rgba(201,168,76,.4));
+  animation:emojiFloat 4s ease-in-out infinite;
+}
+@keyframes emojiFloat { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-10px) scale(1.04)} }
+.bm-img-badge {
+  position:absolute; bottom:18px; right:18px; z-index:3;
+  background:rgba(6,6,14,.88); backdrop-filter:blur(8px);
+  border:1px solid rgba(201,168,76,.3); border-radius:4px;
+  padding:7px 14px; font-size:.62rem; color:var(--gold); letter-spacing:.14em; text-transform:uppercase;
+}
 
 /* Solutions grid with stagger animation */
 .bm-solutions-h { font-family:var(--serif); font-size:1.9rem; font-weight:300; margin-bottom:28px; }
@@ -1645,9 +1671,9 @@ function openBranch(id){
         <div class="bm-stats">${stats}</div>
         <button class="btn-primary" onclick="closeBranch();setTimeout(()=>document.getElementById('kontakt').scrollIntoView({behavior:'smooth'}),120)">Kostenlose Analyse anfragen →</button>
       </div>
-      <div class="bm-img">
-        <img src="${b.img}" alt="${b.name} KI-Lösungen" loading="lazy" onerror="this.parentElement.style.display='none'">
-        <div class="bm-img-badge">✦ KI-Automatisierung</div>
+      <div class="bm-visual">
+        <div class="bm-visual-emoji">${b.emoji}</div>
+        <div class="bm-img-badge">✦ KI-Automatisierung · Wien</div>
       </div>
     </div>
     <h2 class="bm-solutions-h">Was wir für <em>${b.name}</em> bauen</h2>
