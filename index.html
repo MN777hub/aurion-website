@@ -1815,24 +1815,9 @@ function toggleFaq(q){
 }
 
 /* ─ CHAT WIDGET ─ */
-const CLAUDE_KEY = localStorage.getItem('aurion_apikey') || '';
+const CHAT_PROXY = 'https://unfrustrated-gino-unacclivitously.ngrok-free.dev/webhook/aurion-chat';
 const TG_TOKEN = '8645960987:AAEV9gmHGhEwTZ2zdKUhL4yqN_0IxTesqIw';
 const TG_CHAT  = '5560417354';
-const SYSTEM_PROMPT = `Du bist Lisa, Assistentin bei Aurion Systems in Wien. Du schreibst wie ein echter Mensch — locker, direkt, ohne Floskeln.
-
-ÜBER AURION: Wir bauen KI-Systeme für kleine und mittlere Unternehmen im DACH-Raum — Chatbots, Terminbuchung, Automatisierungen. Branchen: Handwerk, Gastronomie, Zahnarzt, Immobilien, Kanzleien, Fitness. Wien, DSGVO-konform.
-
-WIE DU SCHREIBST:
-- Kurz und klar, 1-3 Sätze reichen
-- Kein "Gerne helfe ich Ihnen weiter!" — einfach helfen
-- Keine Aufzählungen, kein Marketing-Speak
-- Du = Schreibt wie jemand der das Büro kennt, nicht wie ein Callcenter
-- Manchmal eine Rückfrage stellen wenn du mehr brauchst
-
-REGELN:
-- Preise nennst du nie — "Kommt auf die Umsetzung an, das klären wir kurz im Gespräch"
-- Immer Deutsch
-- Wenn jemand Termin/Gespräch möchte: NUR "Alles klar, ich nehme das kurz auf." — dann übernimmt das System`;
 
 
 const BOOKING_KEYWORDS = ['termin','buchen','buchung','gespräch','kennenlernen','anfragen','interesse','meeting','call','kontakt aufnehmen','melden','rückruf'];
@@ -1960,33 +1945,13 @@ async function sendMsgText(userText){
   chatHistory.push({role:'user', content: userText});
 
   try {
-    if(!CLAUDE_KEY){
-      hideTyping();
-      const fb={
-        'was macht':'Wir bauen KI-Systeme die echte Arbeit abnehmen — Anfragen beantworten, Termine einbuchen, Workflows automatisieren. Für wen interessiert dich das?',
-        'branche':'Zahnarzt, Handwerk, Immobilien, Gastronomie, Kanzleien — überall wo viele Anfragen und Termine anfallen. Welche Branche hast du?',
-        'preis':'Kommt auf die Umsetzung an, das klären wir kurz im Gespräch. Geht auch recht schnell.',
-        'kosten':'Kommt auf die Umsetzung an, das klären wir kurz im Gespräch. Geht auch recht schnell.',
-        'dsgvo':'Ja, alles auf europäischen Servern und wir schließen einen Auftragsverarbeitungsvertrag ab. Kein Problem.',
-        'wie lang':'Nach dem Erstgespräch sagen wir dir konkret wie lange es dauert. Meistens 1-2 Wochen.',
-        'funktioniert':'Wir richten alles ein, du brauchst kein technisches Wissen. Du zeigst uns wie dein Betrieb läuft, wir übernehmen den Rest.',
-        'chatbot':'Genau sowas wie hier — nur auf deine Kunden angepasst. Antwortet rund um die Uhr, bucht Termine, leitet Anfragen weiter.'
-      };
-      let reply = 'Gute Frage — das beantworte ich kurz im Gespräch, da kann ich besser auf dich eingehen. Soll ich einen Termin aufnehmen?';
-      for(const [k,v] of Object.entries(fb)){ if(userText.toLowerCase().includes(k)){reply=v;break;} }
-      await botReply(reply);
-      chatHistory.push({role:'assistant',content:reply});
-      setInput(true);
-      return;
-    }
-
-    const res = await fetch('https://api.anthropic.com/v1/messages',{
+    const res = await fetch(CHAT_PROXY,{
       method:'POST',
-      headers:{'x-api-key':CLAUDE_KEY,'anthropic-version':'2023-06-01','content-type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
-      body: JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:250,system:SYSTEM_PROMPT,messages:chatHistory})
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({messages:chatHistory})
     });
     const data = await res.json();
-    const reply = data.content?.[0]?.text || 'Kurz mal nachschauen — kannst du das nochmal anders formulieren?';
+    const reply = data.text || 'Kurz mal nachschauen — kannst du das nochmal anders formulieren?';
     await botReply(reply);
     chatHistory.push({role:'assistant',content:reply});
 
