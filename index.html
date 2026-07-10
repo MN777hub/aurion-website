@@ -918,10 +918,6 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
   <div class="hero-gold-grid"></div>
   <div class="hero-inner">
     <div class="hero-text">
-      <div class="hero-eyebrow rv">
-        <span class="eyebrow-dot"></span>
-        KI-Automatisierung · Wien, Österreich
-      </div>
       <h1 class="hero-h1 rv d1">
         Ihr Betrieb.<br>
         <span class="line-gold">Automatisiert.</span>
@@ -1822,10 +1818,22 @@ function toggleFaq(q){
 const CLAUDE_KEY = localStorage.getItem('aurion_apikey') || '';
 const TG_TOKEN = '8645960987:AAEV9gmHGhEwTZ2zdKUhL4yqN_0IxTesqIw';
 const TG_CHAT  = '5560417354';
-const SYSTEM_PROMPT = `Du bist der freundliche KI-Assistent von Aurion Systems, einer KI-Automatisierungsagentur aus Wien, Österreich.
-ÜBER AURION SYSTEMS: Wir automatisieren Kundenanfragen, Terminbuchungen und Workflows für KMUs im DACH-Raum. Branchen: Zahnarztpraxen, Anwaltskanzleien, Handwerksbetriebe, Immobilienmakler, Gastronomie, Fitnessstudios. DSGVO-konform, Wien.
-STRIKTE REGELN: Nenne NIEMALS Preise — sage "Das besprechen wir individuell." Keine internen Tools nennen. Antworte IMMER auf Deutsch. Max 2-3 Sätze. Warm und professionell.
-WICHTIG: Wenn jemand einen Termin buchen möchte, sage NUR: "Sehr gerne! Ich leite Sie direkt zur Terminbuchung weiter." — das System übernimmt dann automatisch.`;
+const SYSTEM_PROMPT = `Du bist Lisa, Assistentin bei Aurion Systems in Wien. Du schreibst wie ein echter Mensch — locker, direkt, ohne Floskeln.
+
+ÜBER AURION: Wir bauen KI-Systeme für kleine und mittlere Unternehmen im DACH-Raum — Chatbots, Terminbuchung, Automatisierungen. Branchen: Handwerk, Gastronomie, Zahnarzt, Immobilien, Kanzleien, Fitness. Wien, DSGVO-konform.
+
+WIE DU SCHREIBST:
+- Kurz und klar, 1-3 Sätze reichen
+- Kein "Gerne helfe ich Ihnen weiter!" — einfach helfen
+- Keine Aufzählungen, kein Marketing-Speak
+- Du = Schreibt wie jemand der das Büro kennt, nicht wie ein Callcenter
+- Manchmal eine Rückfrage stellen wenn du mehr brauchst
+
+REGELN:
+- Preise nennst du nie — "Kommt auf die Umsetzung an, das klären wir kurz im Gespräch"
+- Immer Deutsch
+- Wenn jemand Termin/Gespräch möchte: NUR "Alles klar, ich nehme das kurz auf." — dann übernimmt das System`;
+
 
 const BOOKING_KEYWORDS = ['termin','buchen','buchung','gespräch','kennenlernen','anfragen','interesse','meeting','call','kontakt aufnehmen','melden','rückruf'];
 
@@ -1880,10 +1888,11 @@ async function tgNotify(msg){
   try{ await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:TG_CHAT,text:msg,parse_mode:'HTML'})}); }catch(e){}
 }
 
-function botReply(text, delay=600){
+function botReply(text, delay=null){
+  const ms = delay ?? (1100 + Math.random() * 900); // 1.1–2s zufällig
   return new Promise(r=>{
     showTyping();
-    setTimeout(()=>{ hideTyping(); addBubble(text,'bot'); r(); }, delay);
+    setTimeout(()=>{ hideTyping(); addBubble(text,'bot'); r(); }, ms);
   });
 }
 
@@ -1898,7 +1907,7 @@ async function runBookingStep(userInput){
   if(booking.step === 'name'){
     booking.name = userInput;
     booking.step = 'email';
-    await botReply(`Danke, ${booking.name.split(' ')[0]}! 😊\n\nWie lautet Ihre E-Mail-Adresse?`);
+    await botReply(`Danke, ${booking.name.split(' ')[0]}! Und Ihre E-Mail-Adresse?`);
 
   } else if(booking.step === 'email'){
     if(!userInput.includes('@') || !userInput.includes('.')){
@@ -1907,18 +1916,18 @@ async function runBookingStep(userInput){
     }
     booking.email = userInput;
     booking.step = 'phone';
-    await botReply('Perfekt! Und unter welcher Telefonnummer können wir Sie erreichen?');
+    await botReply('Passt. Und unter welcher Nummer können wir Sie erreichen?');
 
   } else if(booking.step === 'phone'){
     booking.phone = userInput;
     booking.step = 'branche';
-    await botReply('Super! Letzte Frage: In welcher Branche ist Ihr Unternehmen tätig? (z.B. Handwerk, Gastronomie, Immobilien…)');
+    await botReply('Letzte Frage: In welcher Branche sind Sie tätig? (z.B. Handwerk, Gastronomie, Immobilien…)');
 
   } else if(booking.step === 'branche'){
     booking.branche = userInput;
     booking.step = 'done';
 
-    await botReply(`✅ Alles klar, ${booking.name.split(' ')[0]}!\n\nIch habe Ihre Anfrage erfasst. Einer unserer Berater meldet sich innerhalb von 24 Stunden persönlich bei Ihnen.\n\nBis bald! 🙏`);
+    await botReply(`Perfekt, ${booking.name.split(' ')[0]}. Alles notiert.\n\nEiner von uns meldet sich in den nächsten 24 Stunden bei Ihnen. Bis bald!`);
 
     // Telegram notification
     tgNotify(`📅 <b>Neue Terminanfrage — Website-Chat</b>\n\n👤 <b>Name:</b> ${booking.name}\n📧 <b>E-Mail:</b> ${booking.email}\n📞 <b>Telefon:</b> ${booking.phone}\n🏢 <b>Branche:</b> ${booking.branche}\n\n<i>Bitte innerhalb von 24h kontaktieren.</i>`);
@@ -1942,29 +1951,30 @@ async function sendMsgText(userText){
   if(isBookingIntent(userText)){
     chatHistory.push({role:'user', content: userText});
     booking = {step:'name', name:'', email:'', phone:'', branche:''};
-    await botReply('Sehr gerne! Ich nehme Ihre Anfrage direkt auf. 📋\n\nWie heißen Sie? (Vor- und Nachname)');
+    await botReply('Alles klar, ich nehme das kurz auf.\n\nWie heißen Sie? (Vor- und Nachname)');
     setInput(true);
     return;
   }
 
   // Normaler Claude-Chat
   chatHistory.push({role:'user', content: userText});
-  showTyping();
 
   try {
     if(!CLAUDE_KEY){
       hideTyping();
       const fb={
-        'was macht':'Aurion Systems automatisiert Ihre Kundenanfragen, Terminbuchungen und Workflows — damit Sie sich auf Ihr Kerngeschäft konzentrieren können.',
-        'branche':'Wir arbeiten mit Zahnarztpraxen, Anwaltskanzleien, Handwerksbetrieben, Immobilienmaklern, Gastronomie und Fitnessstudios.',
-        'preis':'Das besprechen wir individuell in einem persönlichen Gespräch mit Ihnen.',
-        'dsgvo':'Ja, alle Daten auf europäischen Servern. Wir schließen einen AVV nach Art. 28 DSGVO ab.',
-        'wie lang':'Nach dem Erstgespräch erhalten Sie einen konkreten Zeitplan von uns.',
-        'funktioniert':'Wir richten alles ein — ohne technisches Vorwissen Ihrerseits.'
+        'was macht':'Wir bauen KI-Systeme die echte Arbeit abnehmen — Anfragen beantworten, Termine einbuchen, Workflows automatisieren. Für wen interessiert dich das?',
+        'branche':'Zahnarzt, Handwerk, Immobilien, Gastronomie, Kanzleien — überall wo viele Anfragen und Termine anfallen. Welche Branche hast du?',
+        'preis':'Kommt auf die Umsetzung an, das klären wir kurz im Gespräch. Geht auch recht schnell.',
+        'kosten':'Kommt auf die Umsetzung an, das klären wir kurz im Gespräch. Geht auch recht schnell.',
+        'dsgvo':'Ja, alles auf europäischen Servern und wir schließen einen Auftragsverarbeitungsvertrag ab. Kein Problem.',
+        'wie lang':'Nach dem Erstgespräch sagen wir dir konkret wie lange es dauert. Meistens 1-2 Wochen.',
+        'funktioniert':'Wir richten alles ein, du brauchst kein technisches Wissen. Du zeigst uns wie dein Betrieb läuft, wir übernehmen den Rest.',
+        'chatbot':'Genau sowas wie hier — nur auf deine Kunden angepasst. Antwortet rund um die Uhr, bucht Termine, leitet Anfragen weiter.'
       };
-      let reply = 'Danke für Ihre Frage! Gerne beantworte ich das in einem kurzen, kostenlosen Gespräch persönlich.';
+      let reply = 'Gute Frage — das beantworte ich kurz im Gespräch, da kann ich besser auf dich eingehen. Soll ich einen Termin aufnehmen?';
       for(const [k,v] of Object.entries(fb)){ if(userText.toLowerCase().includes(k)){reply=v;break;} }
-      addBubble(reply,'bot');
+      await botReply(reply);
       chatHistory.push({role:'assistant',content:reply});
       setInput(true);
       return;
@@ -1976,9 +1986,8 @@ async function sendMsgText(userText){
       body: JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:250,system:SYSTEM_PROMPT,messages:chatHistory})
     });
     const data = await res.json();
-    const reply = data.content?.[0]?.text || 'Entschuldigung, bitte versuchen Sie es nochmal.';
-    hideTyping();
-    addBubble(reply,'bot');
+    const reply = data.content?.[0]?.text || 'Kurz mal nachschauen — kannst du das nochmal anders formulieren?';
+    await botReply(reply);
     chatHistory.push({role:'assistant',content:reply});
 
     // Falls Claude trotzdem Termin-Intent zurückgibt, Flow starten
