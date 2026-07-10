@@ -895,7 +895,8 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
   <a href="#" class="nav-logo">Aurion <em>/</em> Systems</a>
   <ul class="nav-links">
     <li><a href="#leistungen">Leistungen</a></li>
-    <li><a href="#branchen">Branchen</a></li>
+    <li><a href="#preise">Preise</a></li>
+    <li><a href="#ueber-uns">Über uns</a></li>
     <li><a href="#faq">FAQ</a></li>
   </ul>
   <button class="nav-cta" onclick="document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">Jetzt anfragen</button>
@@ -1238,40 +1239,120 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
 </div>
 
 
-<!-- TESTIMONIALS -->
-<div class="section section-border" id="stimmen">
-  <div class="eyebrow-tag rv">Kundenstimmen</div>
-  <h2 class="sec-h2 rv d1">Was unsere Kunden <em>sagen</em></h2>
-  <p class="sec-p rv d2">Echte Ergebnisse von Unternehmen, die wir bereits begleiten.</p>
-  <div class="testi-grid">
-    <div class="testi-card rv d1">
-      <div class="testi-stars">
-        <span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span>
+<!-- ÜBER UNS -->
+<div class="section section-border" id="ueber-uns">
+  <div class="eyebrow-tag rv">Wer steckt dahinter</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:56px;" class="rv d1">
+    <div>
+      <h2 style="font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);font-weight:400;line-height:1.2;margin-bottom:28px;">Ich baue Systeme,<br><em style="color:var(--gold);">die wirklich funktionieren.</em></h2>
+      <p style="font-size:1.05rem;color:var(--muted);line-height:1.85;margin-bottom:20px;">Ich bin Marcel, Gründer von Aurion Systems. Ich habe Aurion 2026 in Wien gegründet — aus einer einfachen Beobachtung: Die meisten KMUs verlieren täglich Kunden, weil niemand erreichbar ist. Kein Chatbot, kein Follow-up, kein System.</p>
+      <p style="font-size:1.05rem;color:var(--muted);line-height:1.85;margin-bottom:32px;">Ich baue keine generischen Lösungen von der Stange. Jedes System das ich einrichte, ist auf den Betrieb zugeschnitten — und ich stehe persönlich dafür gerade, dass es funktioniert.</p>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:12px;"><span style="color:var(--gold);font-size:.8rem;">✦</span><span style="color:var(--text);font-size:.95rem;">Wien, Österreich — DSGVO-konform von Anfang an</span></div>
+        <div style="display:flex;align-items:center;gap:12px;"><span style="color:var(--gold);font-size:.8rem;">✦</span><span style="color:var(--text);font-size:.95rem;">Direkt erreichbar — kein Ticketsystem, kein Callcenter</span></div>
+        <div style="display:flex;align-items:center;gap:12px;"><span style="color:var(--gold);font-size:.8rem;">✦</span><span style="color:var(--text);font-size:.95rem;">Spezialisiert auf KMUs im DACH-Raum</span></div>
       </div>
-      <p class="testi-quote">„Unser KI-Assistent beantwortet inzwischen über 200 Patientenanfragen pro Monat — auch nachts und am Wochenende. Wir haben 15 Stunden Verwaltungsaufwand pro Woche eingespart. Der Unterschied ist enorm."</p>
-      <div class="testi-line"></div>
-      <div class="testi-name">Dr. Thomas Maier</div>
-      <div class="testi-role">Zahnarztpraxis · Wien, 1070</div>
     </div>
-    <div class="testi-card rv d2">
-      <div class="testi-stars">
-        <span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span>
+    <div style="display:flex;justify-content:center;">
+      <div style="width:300px;height:360px;background:linear-gradient(145deg,#111,#1a1a0f);border:1px solid rgba(201,168,76,0.25);border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;position:relative;overflow:hidden;">
+        <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 30%,rgba(201,168,76,0.06),transparent 70%);"></div>
+        <div style="width:100px;height:100px;border-radius:50%;background:linear-gradient(145deg,#1e1e0a,#2a2a10);border:2px solid rgba(201,168,76,0.4);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:2.8rem;color:var(--gold);z-index:1;">M</div>
+        <div style="text-align:center;z-index:1;">
+          <div style="font-family:var(--serif);font-size:1.3rem;color:var(--text);margin-bottom:4px;">Marcel Nika</div>
+          <div style="font-size:.8rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;">Gründer · Aurion Systems</div>
+          <div style="font-size:.75rem;color:rgba(201,168,76,0.6);margin-top:8px;">Wien, Österreich</div>
+        </div>
+        <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0.4;"></div>
       </div>
-      <p class="testi-quote">„Die Mandantenqualifizierung läuft jetzt vollautomatisch. Unser Team spricht nur noch mit Interessenten, die wirklich zu uns passen. Die Konversionsrate hat sich in zwei Monaten verdoppelt."</p>
-      <div class="testi-line"></div>
-      <div class="testi-name">Mag. Sandra Kronberger</div>
-      <div class="testi-role">Rechtsanwältin · Wien, 1010</div>
-    </div>
-    <div class="testi-card rv d3">
-      <div class="testi-stars">
-        <span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span>
-      </div>
-      <p class="testi-quote">„Angebotsanfragen kommen rein, werden automatisch kategorisiert und beantwortet. Kein Termin geht mehr verloren. Der ROI war nach sechs Wochen bereits positiv — das hätte ich nicht erwartet."</p>
-      <div class="testi-line"></div>
-      <div class="testi-name">Michael Brandner</div>
-      <div class="testi-role">Handwerksbetrieb · Niederösterreich</div>
     </div>
   </div>
+</div>
+
+<!-- PILOT ANGEBOT statt Fake-Testimonials -->
+<div class="section section-border" id="pilot">
+  <div class="eyebrow-tag rv">Pilot-Programm</div>
+  <h2 class="sec-h2 rv d1">Wir starten gerade — <em>und das ist Ihre Chance.</em></h2>
+  <p class="sec-p rv d2">Aurion Systems ist neu. Deshalb suchen wir 3 Pilotbetriebe, die unser System kostenlos testen — und uns dafür ehrlich bewerten.</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:56px;">
+    <div class="rv d1" style="background:#0f0f0f;border:1px solid rgba(201,168,76,0.15);border-radius:6px;padding:32px 28px;position:relative;">
+      <div style="font-family:var(--serif);font-size:2rem;color:var(--gold);margin-bottom:4px;">01</div>
+      <div style="font-size:1rem;font-weight:500;color:var(--text);margin-bottom:12px;">Kostenlose Einrichtung</div>
+      <div style="font-size:.9rem;color:var(--muted);line-height:1.7;">Wir richten Ihr KI-System vollständig ein — ohne Setup-Kosten. Sie zahlen nur wenn Sie zufrieden sind.</div>
+    </div>
+    <div class="rv d2" style="background:#0f0f0f;border:1px solid rgba(201,168,76,0.35);border-radius:6px;padding:32px 28px;position:relative;">
+      <div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--void);font-size:.65rem;font-weight:700;letter-spacing:.12em;padding:4px 14px;border-radius:0 0 4px 4px;text-transform:uppercase;">Beliebt</div>
+      <div style="font-family:var(--serif);font-size:2rem;color:var(--gold);margin-bottom:4px;">30 Tage</div>
+      <div style="font-size:1rem;font-weight:500;color:var(--text);margin-bottom:12px;">Echtbetrieb gratis</div>
+      <div style="font-size:.9rem;color:var(--muted);line-height:1.7;">30 Tage live — echte Anfragen, echter Betrieb. Sie sehen die Zahlen bevor Sie sich entscheiden.</div>
+    </div>
+    <div class="rv d3" style="background:#0f0f0f;border:1px solid rgba(201,168,76,0.15);border-radius:6px;padding:32px 28px;">
+      <div style="font-family:var(--serif);font-size:2rem;color:var(--gold);margin-bottom:4px;">Dann</div>
+      <div style="font-size:1rem;font-weight:500;color:var(--text);margin-bottom:12px;">Faire Weiterführung</div>
+      <div style="font-size:.9rem;color:var(--muted);line-height:1.7;">Danach ab €300/Monat — monatlich kündbar. Keine Mindestlaufzeit, kein versteckter Overhead.</div>
+    </div>
+  </div>
+  <div style="margin-top:48px;text-align:center;" class="rv d4">
+    <div style="display:inline-flex;align-items:center;gap:12px;background:#0a0a0a;border:1px solid rgba(201,168,76,0.3);border-radius:4px;padding:16px 32px;margin-bottom:32px;">
+      <span style="color:var(--gold);font-size:1.1rem;">◉</span>
+      <span style="color:var(--muted);font-size:.9rem;">Noch <strong style="color:var(--gold);">2 von 3 Plätzen</strong> verfügbar — danach reguläre Konditionen</span>
+    </div>
+    <br>
+    <button class="btn-primary" onclick="document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">Pilotplatz sichern →</button>
+  </div>
+</div>
+
+<!-- PREISE -->
+<div class="section section-border" id="preise">
+  <div class="eyebrow-tag rv">Investition</div>
+  <h2 class="sec-h2 rv d1">Transparent. <em>Keine Überraschungen.</em></h2>
+  <p class="sec-p rv d2">Alle Pakete sind monatlich kündbar. Kein Jahresvertrag, kein versteckter Overhead.</p>
+  <div class="pakete-grid" style="margin-top:56px;">
+    <div class="paket-card rv d1">
+      <div class="paket-name">Starter</div>
+      <div class="paket-price" style="font-family:var(--serif);font-size:1.1rem;color:var(--muted);margin-bottom:4px;">Einrichtung</div>
+      <div style="font-family:var(--serif);font-size:2.4rem;color:var(--text);margin-bottom:4px;">€1.500</div>
+      <div style="font-size:.8rem;color:var(--muted);margin-bottom:24px;">+ €300 / Monat</div>
+      <ul class="paket-features">
+        <li>KI-Chatbot für Ihre Website</li>
+        <li>Automatische Anfrage-Beantwortung</li>
+        <li>Telegram-Benachrichtigung bei Lead</li>
+        <li>DSGVO-konform eingerichtet</li>
+        <li>Monatlicher Report</li>
+      </ul>
+      <button class="paket-btn" onclick="document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">Anfragen →</button>
+    </div>
+    <div class="paket-card hot rv d2">
+      <div class="paket-name">Professional</div>
+      <div class="paket-price" style="font-family:var(--serif);font-size:1.1rem;color:var(--muted);margin-bottom:4px;">Einrichtung</div>
+      <div style="font-family:var(--serif);font-size:2.4rem;color:var(--text);margin-bottom:4px;">€3.000</div>
+      <div style="font-size:.8rem;color:var(--muted);margin-bottom:24px;">+ €800 / Monat</div>
+      <ul class="paket-features">
+        <li>Alles aus Starter</li>
+        <li>Automatische Terminbuchung</li>
+        <li>Lead-Scoring & Qualifizierung</li>
+        <li>WhatsApp-Integration</li>
+        <li>CRM-Anbindung (Notion)</li>
+        <li>Reaktivierungs-Kampagnen</li>
+      </ul>
+      <button class="paket-btn" onclick="document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">Anfragen →</button>
+    </div>
+    <div class="paket-card rv d3">
+      <div class="paket-name">Enterprise</div>
+      <div class="paket-price" style="font-family:var(--serif);font-size:1.1rem;color:var(--muted);margin-bottom:4px;">Einrichtung ab</div>
+      <div style="font-family:var(--serif);font-size:2.4rem;color:var(--text);margin-bottom:4px;">€8.000</div>
+      <div style="font-size:.8rem;color:var(--muted);margin-bottom:24px;">+ €2.500 / Monat</div>
+      <ul class="paket-features">
+        <li>Alles aus Professional</li>
+        <li>Voice Agent (Telefon-KI)</li>
+        <li>Vollständige Prozessautomatisierung</li>
+        <li>Dedizierter Ansprechpartner</li>
+        <li>Individuelle Integrationen</li>
+        <li>SLA & Priority Support</li>
+      </ul>
+      <button class="paket-btn" onclick="document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">Anfragen →</button>
+    </div>
+  </div>
+  <p style="text-align:center;color:var(--muted);font-size:.85rem;margin-top:28px;" class="rv d4">Alle Preise exkl. 20% MwSt. · Monatlich kündbar · Kein Jahresvertrag</p>
 </div>
 
 <!-- KONTAKT FORMULAR -->
@@ -1459,11 +1540,12 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
     <button onclick="toggleChat()" style="background:none;border:none;color:var(--muted);font-size:1rem;cursor:pointer;padding:4px;">✕</button>
   </div>
   <div class="chat-body" id="chatBody">
-    <div class="chat-bubble bot">Hallo! Ich bin der KI-Assistent von Aurion Systems. 👋<br><br>Wie kann ich Ihnen helfen?</div>
+    <div class="chat-bubble bot">Grüß Gott! Ich bin Lisa von Aurion Systems.<br><br>Ich kann Ihnen zeigen, wie ein KI-System für <em>Ihren</em> Betrieb aussehen würde — oder Fragen beantworten. Was interessiert Sie?</div>
   </div>
   <div class="chat-opts" id="chatOpts">
-    <button class="chat-opt" onclick="sendQuick('Was macht Aurion Systems?')">Was macht Aurion Systems?</button>
-    <button class="chat-opt" onclick="sendQuick('Für welche Branchen seid ihr tätig?')">Für welche Branchen?</button>
+    <button class="chat-opt" onclick="sendQuick('Zeig mir wie das für eine Zahnarztpraxis aussieht.')">Demo: Zahnarztpraxis</button>
+    <button class="chat-opt" onclick="sendQuick('Zeig mir wie das für einen Handwerksbetrieb aussieht.')">Demo: Handwerksbetrieb</button>
+    <button class="chat-opt" onclick="sendQuick('Was kostet das ungefähr?')">Kosten & Pakete</button>
     <button class="chat-opt" onclick="sendQuick('Ich möchte einen Termin vereinbaren.')">Termin vereinbaren →</button>
   </div>
   <div class="chat-input-wrap">
