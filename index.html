@@ -1886,37 +1886,30 @@ function isBookingIntent(text){
   return BOOKING_KEYWORDS.some(k=>lc.includes(k));
 }
 
+function isCancel(text){
+  const lc = text.toLowerCase();
+  return ['nein','nicht','kein','abbruch','abbrechen','egal','skip','later','später','stopp','stop','cancel','nope'].some(k=>lc.includes(k));
+}
+
 async function runBookingStep(userInput){
-  const lc = userInput.toLowerCase();
+  // Abbruch erkennen
+  if(isCancel(userInput)){
+    booking = null;
+    await botReply('Kein Problem, kein Druck. Wenn du doch Interesse hast, einfach melden.');
+    setInput(true);
+    return;
+  }
 
   if(booking.step === 'name'){
     booking.name = userInput;
-    booking.step = 'email';
-    await botReply(`Danke, ${booking.name.split(' ')[0]}! Und Ihre E-Mail-Adresse?`);
-
-  } else if(booking.step === 'email'){
-    if(!userInput.includes('@') || !userInput.includes('.')){
-      await botReply('Das sieht nicht wie eine gültige E-Mail aus. Bitte nochmal eingeben:');
-      return;
-    }
-    booking.email = userInput;
     booking.step = 'phone';
-    await botReply('Passt. Und unter welcher Nummer können wir Sie erreichen?');
+    await botReply(`Danke! Und unter welcher Nummer können wir Sie kurz erreichen?`);
 
   } else if(booking.step === 'phone'){
     booking.phone = userInput;
-    booking.step = 'branche';
-    await botReply('Letzte Frage: In welcher Branche sind Sie tätig? (z.B. Handwerk, Gastronomie, Immobilien…)');
-
-  } else if(booking.step === 'branche'){
-    booking.branche = userInput;
     booking.step = 'done';
-
-    await botReply(`Perfekt, ${booking.name.split(' ')[0]}. Alles notiert.\n\nEiner von uns meldet sich in den nächsten 24 Stunden bei Ihnen. Bis bald!`);
-
-    // Telegram notification
-    tgNotify(`📅 <b>Neue Terminanfrage — Website-Chat</b>\n\n👤 <b>Name:</b> ${booking.name}\n📧 <b>E-Mail:</b> ${booking.email}\n📞 <b>Telefon:</b> ${booking.phone}\n🏢 <b>Branche:</b> ${booking.branche}\n\n<i>Bitte innerhalb von 24h kontaktieren.</i>`);
-
+    await botReply(`Perfekt. Einer von uns meldet sich in den nächsten 24 Stunden bei Ihnen. Bis bald!`);
+    tgNotify(`📅 <b>Neue Anfrage — Website-Chat</b>\n\n👤 <b>Name:</b> ${booking.name}\n📞 <b>Telefon:</b> ${booking.phone}\n\n<i>Bitte innerhalb von 24h kontaktieren.</i>`);
     booking = null;
   }
   setInput(true);
@@ -1932,16 +1925,7 @@ async function sendMsgText(userText){
     return;
   }
 
-  // Booking-Intent erkennen
-  if(isBookingIntent(userText)){
-    chatHistory.push({role:'user', content: userText});
-    booking = {step:'name', name:'', email:'', phone:'', branche:''};
-    await botReply('Alles klar, ich nehme das kurz auf.\n\nWie heißen Sie? (Vor- und Nachname)');
-    setInput(true);
-    return;
-  }
-
-  // Normaler Claude-Chat
+  // Claude antwortet — er entscheidet selbst ob Termin sinnvoll ist
   chatHistory.push({role:'user', content: userText});
 
   try {
@@ -1951,14 +1935,14 @@ async function sendMsgText(userText){
       body: JSON.stringify({messages:chatHistory})
     });
     const data = await res.json();
-    const reply = data.text || 'Kurz mal nachschauen — kannst du das nochmal anders formulieren?';
+    const reply = data.text || 'Kannst du das nochmal anders formulieren?';
     await botReply(reply);
     chatHistory.push({role:'assistant',content:reply});
 
-    // Falls Claude trotzdem Termin-Intent zurückgibt, Flow starten
-    if(isBookingIntent(reply) && reply.includes('weiter')){
-      booking = {step:'name',name:'',email:'',phone:'',branche:''};
-      setTimeout(async()=>{ await botReply('Wie heißen Sie? (Vor- und Nachname)'); setInput(true); },400);
+    // Wenn Claude Termin-Flow einleitet
+    if(reply.toLowerCase().includes('alles klar, ich nehme das kurz auf')){
+      booking = {step:'name', name:'', phone:''};
+      setTimeout(async()=>{ await botReply('Wie heißen Sie?'); setInput(true); }, 800);
       return;
     }
 
