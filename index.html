@@ -1694,7 +1694,7 @@ function submitForm(){
   const notes=document.getElementById('f-notes')?.value||'';
   const date=document.getElementById('f-date')?.value||'';
   const msg=`🔔 Neue Anfrage — Aurion Systems\n\n👤 ${vorname} ${nachname}\n📧 ${email}\n📞 ${tel||'—'}\n🏢 ${firma||'—'}\n🏷 ${branche||'—'}\n💬 ${challenge||'—'}${notes?'\n📝 '+notes:''}${date?'\n📅 Start: '+date:''}`;
-  fetch('https://api.telegram.org/bot8645960987:AAEV9gmHGhEwTZ2zdKUhL4yqN_0IxTesqIw/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:'5560417354',text:msg})}).catch(()=>{});
+  fetch('https://unfrustrated-gino-unacclivitously.ngrok-free.dev/webhook/aurion-notify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({msg})}).catch(()=>{});
   document.getElementById('fs3').classList.remove('on');
   document.getElementById('form-success').classList.add('on');
 }
@@ -1875,9 +1875,8 @@ function toggleFaq(q){
 }
 
 /* ─ CHAT WIDGET ─ */
-const CHAT_PROXY = 'https://unfrustrated-gino-unacclivitously.ngrok-free.dev/webhook/aurion-chat';
-const TG_TOKEN = '8645960987:AAEV9gmHGhEwTZ2zdKUhL4yqN_0IxTesqIw';
-const TG_CHAT  = '5560417354';
+const CHAT_PROXY   = 'https://unfrustrated-gino-unacclivitously.ngrok-free.dev/webhook/aurion-chat';
+const NOTIFY_PROXY = 'https://unfrustrated-gino-unacclivitously.ngrok-free.dev/webhook/aurion-notify';
 
 
 const BOOKING_KEYWORDS = ['termin','buchen','buchung','gespräch','kennenlernen','anfragen','interesse','meeting','call','kontakt aufnehmen','melden','rückruf'];
@@ -1930,7 +1929,7 @@ function setInput(on){
 }
 
 async function tgNotify(msg){
-  try{ await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:TG_CHAT,text:msg,parse_mode:'HTML'})}); }catch(e){}
+  try{ await fetch(NOTIFY_PROXY,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({msg})}); }catch(e){}
 }
 
 function botReply(text, delay=null){
