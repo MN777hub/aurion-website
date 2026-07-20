@@ -926,9 +926,7 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
 .eyebrow-tag::after{content:'';flex:1;max-width:40px;height:1px;background:linear-gradient(90deg,var(--gold),transparent);}
 .bm-sol{padding:20px;background:rgba(201,168,76,.03);border:1px solid rgba(201,168,76,.12);border-radius:8px;transition:background .25s,border-color .25s,opacity .4s ease,transform .4s ease;}
 .bm-sol:hover{background:rgba(201,168,76,.07);border-color:rgba(201,168,76,.25);}
-#wa-float{position:fixed;bottom:96px;right:24px;z-index:9000;width:52px;height:52px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:transform .2s,box-shadow .2s;}
-#wa-float:hover{transform:scale(1.1);box-shadow:0 8px 28px rgba(37,211,102,.6);}
-#wa-float svg{width:28px;height:28px;}
+
 </style>
 </head>
 <body>
@@ -1901,7 +1899,6 @@ function toggleFaq(q){
 /* ─ CHAT WIDGET ─ */
 const CHAT_PROXY   = 'https://unfrustrated-gino-unacclivitously.ngrok-free.dev/webhook/aurion-chat';
 const NOTIFY_PROXY = 'https://unfrustrated-gino-unacclivitously.ngrok-free.dev/webhook/aurion-notify';
-const WA_FALLBACK  = 'https://wa.me/43XXXXXXXXXX?text=Hallo%20Aurion%20Systems%2C%20ich%20habe%20eine%20Frage.';
 
 
 const BOOKING_KEYWORDS = ['termin','buchen','buchung','gespräch','kennenlernen','anfragen','interesse','meeting','call','kontakt aufnehmen','melden','rückruf'];
@@ -2032,7 +2029,7 @@ async function sendMsgText(userText){
 
   } catch(e){
     hideTyping();
-    await botReply('Unser KI-Chat ist gerade offline. Schreiben Sie uns direkt auf <a href="'+WA_FALLBACK+'" target="_blank" rel="noopener" style="color:var(--gold)">WhatsApp</a> — wir antworten innerhalb von wenigen Stunden!');
+    addBubble('Verbindungsfehler — bitte erneut versuchen.','bot');
   }
 
   setInput(true);
@@ -2227,12 +2224,6 @@ function cookieChoice(all){
     </div>
   </div>
 </div>
-
-<!-- WHATSAPP FLOATING BUTTON -->
-<!-- TODO: Replace +43XXXXXXXXXX with actual WhatsApp number -->
-<a id="wa-float" href="https://wa.me/43XXXXXXXXXX?text=Hallo%20Aurion%20Systems%2C%20ich%20interessiere%20mich%20f%C3%BCr%20eine%20KI-L%C3%B6sung%20f%C3%BCr%20mein%20Unternehmen." target="_blank" rel="noopener" aria-label="WhatsApp">
-  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.558 4.121 1.532 5.851L.054 23.447a.75.75 0 0 0 .934.934l5.596-1.478A11.952 11.952 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.713 9.713 0 0 1-4.962-1.36l-.356-.212-3.687.974.986-3.605-.232-.371A9.713 9.713 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
-</a>
 
 <!-- DSGVO COOKIE BANNER -->
 <div id="cookie-banner">
