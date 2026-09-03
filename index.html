@@ -1702,7 +1702,7 @@ function submitForm(){
   const msg=`🔔 Neue Anfrage — Aurion Systems\n\n👤 ${vorname} ${nachname}\n📧 ${email}\n📞 ${tel||'—'}\n🏢 ${firma||'—'}\n🏷 ${branche||'—'}\n💬 ${challenge||'—'}${notes?'\n📝 '+notes:''}${date?'\n📅 Start: '+date:''}`;
   const btn=document.getElementById('submitBtn');
   if(btn){btn.disabled=true;btn.textContent='Wird gesendet …';}
-  fetch('https://formsubmit.co/ajax/nika.marcel6@gmail.com',{
+  fetch('https://formsubmit.co/ajax/office@aurion-systems.at',{
     method:'POST',
     headers:{'Content-Type':'application/json','Accept':'application/json'},
     body:JSON.stringify({
@@ -2125,7 +2125,7 @@ function cookieChoice(all){
         1220 Wien, Österreich
       </p>
       <p class="legal-p">
-        <strong>E-Mail:</strong> nika.marcel6@gmail.com<br>
+        <strong>E-Mail:</strong> office@aurion-systems.at<br>
         <strong>Unternehmensform:</strong> Einzelunternehmen (EPU)
       </p>
       <p class="legal-p">
@@ -2174,7 +2174,7 @@ function cookieChoice(all){
       <p class="legal-p">
         <strong>Aurion Systems</strong>, Inhaber: Marcel Nika<br>
         Janis Joplin Promenade 8/6/6, 1220 Wien, Österreich<br>
-        E-Mail: nika.marcel6@gmail.com
+        E-Mail: office@aurion-systems.at
       </p>
       <p class="legal-p">Diese Datenschutzerklärung gilt gemäß der EU-Datenschutz-Grundverordnung (DSGVO) und dem österreichischen Datenschutzgesetz (DSG 2018).</p>
     </div>
