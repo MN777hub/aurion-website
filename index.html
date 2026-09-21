@@ -6,6 +6,9 @@
 <title>Aurion Systems — KI-Automatisierung, Wien</title>
 <meta name="description" content="Aurion Systems automatisiert Kundenanfragen, Terminbuchungen und Workflows österreichischer Unternehmen. Maßgeschneidert für Wien und den DACH-Raum.">
 <link rel="canonical" href="https://aurion-systems.at/">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png">
+<link rel="apple-touch-icon" href="favicon-180.png">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://aurion-systems.at/">
 <meta property="og:title" content="Aurion Systems — KI-Automatisierung für Wiener KMUs">
@@ -947,7 +950,7 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
   </button>
 </nav>
 <div class="mob-menu" id="mobMenu">
-  <button class="mob-close" id="mobClose">✕</button>
+  <button class="mob-close" id="mobClose" aria-label="Menü schließen">✕</button>
   <a href="#leistungen" onclick="closeMob()">Leistungen</a>
   <a href="#branchen" onclick="closeMob()">Branchen</a>
   <a href="#faq" onclick="closeMob()">FAQ</a>
@@ -1354,11 +1357,11 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
     <!-- Step 1 -->
     <div class="form-step on" id="fs1">
       <div class="form-grid-2">
-        <div class="fg"><label>Vorname *</label><input type="text" id="f-vorname" placeholder="Max"></div>
-        <div class="fg"><label>Nachname *</label><input type="text" id="f-nachname" placeholder="Mustermann"></div>
+        <div class="fg"><label for="f-vorname">Vorname *</label><input type="text" id="f-vorname" name="vorname" autocomplete="given-name" placeholder="Max"></div>
+        <div class="fg"><label for="f-nachname">Nachname *</label><input type="text" id="f-nachname" name="nachname" autocomplete="family-name" placeholder="Mustermann"></div>
       </div>
-      <div class="fg"><label>E-Mail *</label><input type="email" id="f-email" placeholder="max@mustermann.at"></div>
-      <div class="fg"><label>Telefon *</label><input type="tel" id="f-tel" placeholder="+43 664 ..."></div>
+      <div class="fg"><label for="f-email">E-Mail *</label><input type="email" id="f-email" name="email" autocomplete="email" placeholder="max@mustermann.at"></div>
+      <div class="fg"><label for="f-tel">Telefon *</label><input type="tel" id="f-tel" name="tel" autocomplete="tel" placeholder="+43 664 ..."></div>
       <div class="form-nav">
         <span></span>
         <button class="form-next" onclick="goStep(2)">Weiter →</button>
@@ -1366,18 +1369,18 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
     </div>
     <!-- Step 2 -->
     <div class="form-step" id="fs2">
-      <div class="fg"><label>Firmenname *</label><input type="text" id="f-firma" placeholder="Mustermann GmbH"></div>
+      <div class="fg"><label for="f-firma">Firmenname *</label><input type="text" id="f-firma" name="firma" autocomplete="organization" placeholder="Mustermann GmbH"></div>
       <div class="fg">
-        <label>Branche *</label>
-        <select id="f-branche">
+        <label for="f-branche">Branche *</label>
+        <select id="f-branche" name="branche">
           <option value="">Bitte wählen …</option>
           <option>Zahnarztpraxis</option><option>Anwaltskanzlei</option>
           <option>Handwerksbetrieb</option><option>Immobilienmakler</option>
           <option>Gastronomie</option><option>Fitnessstudio</option><option>Andere</option>
         </select>
       </div>
-      <div class="fg"><label>Größte Herausforderung *</label><textarea id="f-challenge" placeholder="Was kostet Sie aktuell am meisten Zeit oder Umsatz?"></textarea></div>
-      <div class="fg"><label>Anmerkungen (optional)</label><textarea id="f-notes" placeholder="Weitere Infos, die wir wissen sollten …"></textarea></div>
+      <div class="fg"><label for="f-challenge">Größte Herausforderung *</label><textarea id="f-challenge" name="challenge" placeholder="Was kostet Sie aktuell am meisten Zeit oder Umsatz?"></textarea></div>
+      <div class="fg"><label for="f-notes">Anmerkungen (optional)</label><textarea id="f-notes" name="notes" placeholder="Weitere Infos, die wir wissen sollten …"></textarea></div>
       <div class="form-nav">
         <button class="form-back" onclick="goStep(1)">← Zurück</button>
         <button class="form-next" onclick="goStep(3)">Weiter →</button>
@@ -1389,7 +1392,8 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
         <div style="font-family:var(--serif);font-size:1.4rem;color:var(--text);margin-bottom:8px;">Individuelle Lösung</div>
         <div style="font-size:.95rem;color:var(--muted);line-height:1.7;">Jede Lösung wird individuell auf Ihren Betrieb zugeschnitten — basierend auf Ihrer Branche, Ihren Prozessen und Ihren Zielen. Kein Standardpaket, kein Overhead.</div>
       </div>
-      <div class="fg"><label>Gewünschtes Startdatum (optional)</label><input type="date" id="f-date"></div>
+      <div class="fg"><label for="f-date">Gewünschtes Startdatum (optional)</label><input type="date" id="f-date" name="date"></div>
+      <p style="font-size:.78rem;color:var(--muted);line-height:1.6;margin-bottom:20px;">Mit dem Absenden erklären Sie sich einverstanden, dass wir Ihre Angaben zur Bearbeitung Ihrer Anfrage verarbeiten. Details dazu in unserer <a href="#" onclick="openLegal('datenschutz');return false;" style="color:var(--gold);text-decoration:underline;">Datenschutzerklärung</a>.</p>
       <div class="form-nav">
         <button class="form-back" onclick="goStep(2)">← Zurück</button>
         <button class="form-next" id="submitBtn" onclick="submitForm()">Anfrage absenden ✦</button>
@@ -1503,7 +1507,7 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
         <li><a href="#" onclick="openLegal('impressum');return false;">Impressum</a></li>
         <li><a href="#" onclick="openLegal('datenschutz');return false;">Datenschutzerklärung</a></li>
         <li><a href="#kontakt">Kontakt</a></li>
-        <li><a href="#kontakt">Kontakt</a></li>
+        <li><a href="#" onclick="openCookieSettings(event)">Cookie-Einstellungen</a></li>
       </ul>
     </div>
   </div>
@@ -1514,7 +1518,7 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
 </footer>
 
 <!-- CHAT WIDGET -->
-<button class="chat-float" onclick="toggleChat()" id="chatBtn">💬</button>
+<button class="chat-float" onclick="toggleChat()" id="chatBtn" aria-label="Chat öffnen">💬</button>
 <div class="chat-panel" id="chatPanel">
   <div class="chat-head">
     <div class="chat-av">A</div>
@@ -1522,7 +1526,7 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
       <div class="chat-head-name">Aurion Assistent</div>
       <div class="chat-head-status">● Online</div>
     </div>
-    <button onclick="toggleChat()" style="background:none;border:none;color:var(--muted);font-size:1rem;cursor:pointer;padding:4px;">✕</button>
+    <button onclick="toggleChat()" aria-label="Chat schließen" style="background:none;border:none;color:var(--muted);font-size:1rem;cursor:pointer;padding:4px;">✕</button>
   </div>
   <div class="chat-body" id="chatBody">
     <div class="chat-bubble bot">Hinweis: Sie chatten hier mit einem KI-Assistenten von Aurion Systems.<br><br>Grüß Gott! Ich bin Lisa. Ich beantworte gerne Fragen zu unseren Leistungen, Kosten &amp; Paketen oder helfe bei der Terminvereinbarung. Was interessiert Sie?</div>
@@ -2069,6 +2073,14 @@ function cookieChoice(all){
   b.style.transform='translateY(100%)';
   setTimeout(function(){b.style.display='none';},450);
 }
+function openCookieSettings(e){
+  if(e)e.preventDefault();
+  var b=document.getElementById('cookie-banner');
+  if(!b)return;
+  b.style.display='flex';
+  b.style.transform='';
+  requestAnimationFrame(function(){b.classList.add('cb-show');});
+}
 
 /* ─ SCROLL PROGRESS ─ */
 (function(){
@@ -2227,7 +2239,7 @@ function cookieChoice(all){
 <!-- DSGVO COOKIE BANNER -->
 <div id="cookie-banner">
   <div class="cb-text">
-    Diese Website verwendet ausschließlich technisch notwendige Cookies (z.B. zur Speicherung dieser Einstellung). Es werden keine Tracking- oder Analyse-Cookies eingesetzt. Weitere Informationen in unserer <a href="#" onclick="cookieChoice(true);openLegal('datenschutz');return false;">Datenschutzerklärung</a>.
+    Diese Website verwendet ausschließlich technisch notwendige Cookies (z.B. zur Speicherung dieser Einstellung). Es werden keine Tracking- oder Analyse-Cookies eingesetzt. Weitere Informationen in unserer <a href="#" onclick="openLegal('datenschutz');return false;">Datenschutzerklärung</a>.
   </div>
   <div class="cb-btns">
     <button class="cb-accept" onclick="cookieChoice(true)">Verstanden</button>
