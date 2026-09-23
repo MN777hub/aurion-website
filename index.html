@@ -1097,7 +1097,7 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
       <div class="mock" style="margin-top:20px;">
         <div class="mock-cal">
           <div class="mock-cal-head">
-            <span>Juni 2025</span><span style="color:var(--muted);">12 Termine</span>
+            <span id="mockCalMonth">Diesen Monat</span><span style="color:var(--muted);">12 Termine</span>
           </div>
           <div class="mock-cal-grid">
             <div class="cal-day" style="color:var(--subtle);font-size:.55rem;">Mo</div><div class="cal-day" style="color:var(--subtle);font-size:.55rem;">Di</div><div class="cal-day" style="color:var(--subtle);font-size:.55rem;">Mi</div><div class="cal-day" style="color:var(--subtle);font-size:.55rem;">Do</div><div class="cal-day" style="color:var(--subtle);font-size:.55rem;">Fr</div><div class="cal-day" style="color:var(--subtle);font-size:.55rem;">Sa</div><div class="cal-day" style="color:var(--subtle);font-size:.55rem;">So</div>
@@ -1185,7 +1185,7 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
         </div>
         <div style="flex:1;min-width:280px;">
           <div class="mock">
-            <div style="padding:10px 16px;border-bottom:1px solid var(--subtle);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);">Mai 2025 · Zusammenfassung</div>
+            <div id="mockReportMonth" style="padding:10px 16px;border-bottom:1px solid var(--subtle);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);">Zusammenfassung</div>
             <div class="mock-dash">
               <div class="dash-cell highlight">
                 <div class="dash-val">247</div>
@@ -2075,6 +2075,19 @@ function openCookieSettings(e){
   b.style.transform='';
   requestAnimationFrame(function(){b.classList.add('cb-show');});
 }
+
+/* ─ MOCKUP-DATEN: immer aktueller Monat statt eingefrorenem Datum ─ */
+(function(){
+  var MONATE=['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+  var now=new Date();
+  var calEl=document.getElementById('mockCalMonth');
+  if(calEl)calEl.textContent=MONATE[now.getMonth()]+' '+now.getFullYear();
+  var repEl=document.getElementById('mockReportMonth');
+  if(repEl){
+    var prev=new Date(now.getFullYear(),now.getMonth()-1,1);
+    repEl.textContent=MONATE[prev.getMonth()]+' '+prev.getFullYear()+' · Zusammenfassung';
+  }
+})();
 
 /* ─ SCROLL PROGRESS ─ */
 (function(){
