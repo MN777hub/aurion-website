@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aurion Systems — KI-Automatisierung, Wien</title>
+<link rel="icon" type="image/png" href="aurion-logo.png">
 <meta name="description" content="Aurion Systems automatisiert Kundenanfragen, Terminbuchungen und Workflows österreichischer Unternehmen. Maßgeschneidert für Wien und den DACH-Raum.">
 <link rel="canonical" href="https://aurion-systems.at/">
 <meta property="og:type" content="website">
@@ -1359,6 +1360,10 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
       </div>
       <div class="fg"><label>E-Mail *</label><input type="email" id="f-email" placeholder="max@mustermann.at"></div>
       <div class="fg"><label>Telefon *</label><input type="tel" id="f-tel" placeholder="+43 664 ..."></div>
+      <div class="fg" style="display:flex;align-items:flex-start;gap:10px;">
+        <input type="checkbox" id="f-consent" style="margin-top:4px;width:16px;height:16px;flex-shrink:0;accent-color:var(--gold);">
+        <label for="f-consent" style="font-size:.82rem;color:var(--muted);line-height:1.6;font-weight:400;">Ich habe die <a href="#" onclick="openLegal('datenschutz');return false;" style="color:var(--gold);border-bottom:1px solid rgba(201,168,76,.3);">Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Daten zur Bearbeitung meiner Anfrage einverstanden. *</label>
+      </div>
       <div class="form-nav">
         <span></span>
         <button class="form-next" onclick="goStep(2)">Weiter →</button>
@@ -1525,7 +1530,7 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
     <button onclick="toggleChat()" style="background:none;border:none;color:var(--muted);font-size:1rem;cursor:pointer;padding:4px;">✕</button>
   </div>
   <div class="chat-body" id="chatBody">
-    <div class="chat-bubble bot">Hinweis: Sie chatten hier mit einem KI-Assistenten von Aurion Systems.<br><br>Grüß Gott! Ich bin Lisa. Ich beantworte gerne Fragen zu unseren Leistungen, Kosten &amp; Paketen oder helfe bei der Terminvereinbarung. Was interessiert Sie?</div>
+    <div class="chat-bubble bot">Hinweis: Sie chatten hier mit einem KI-Assistenten von Aurion Systems. Ihre Nachrichten werden zur Beantwortung verarbeitet — Details in unserer <a href="#" onclick="openLegal('datenschutz');return false;" style="color:var(--gold);border-bottom:1px solid rgba(201,168,76,.3);">Datenschutzerklärung</a>.<br><br>Grüß Gott! Ich bin Lisa. Ich beantworte gerne Fragen zu unseren Leistungen, Kosten &amp; Paketen oder helfe bei der Terminvereinbarung. Was interessiert Sie?</div>
   </div>
   <div class="chat-opts" id="chatOpts">
     <button class="chat-opt" onclick="sendQuick('Welche häufigen Fragen kann ich dir stellen?')">Häufige Fragen</button>
@@ -1672,6 +1677,14 @@ function goStep(n){
       if(!na){markInvalid('f-nachname');return;}
       if(!em||!em.includes('@')){markInvalid('f-email');return;}
       if(!tel){markInvalid('f-tel');return;}
+      const consent=document.getElementById('f-consent');
+      if(consent && !consent.checked){
+        consent.parentElement.style.outline='1px solid #e05555';
+        consent.parentElement.style.borderRadius='4px';
+        consent.focus();
+        setTimeout(()=>{consent.parentElement.style.outline='';},2500);
+        return;
+      }
     }
     if(cur===2){
       const fi=document.getElementById('f-firma').value.trim();
@@ -1690,6 +1703,13 @@ function goStep(n){
   });
 }
 function submitForm(){
+  const consent=document.getElementById('f-consent');
+  if(consent && !consent.checked){
+    consent.parentElement.style.outline='1px solid #e05555';
+    consent.parentElement.style.borderRadius='4px';
+    consent.focus();
+    return;
+  }
   const vorname=document.getElementById('f-vorname').value||'';
   const nachname=document.getElementById('f-nachname').value||'';
   const email=document.getElementById('f-email').value||'';
@@ -2183,7 +2203,8 @@ function cookieChoice(all){
 
     <div class="legal-sec">
       <h2 class="legal-h2">2. Welche Daten wir erheben</h2>
-      <p class="legal-p"><strong>Kontaktformular:</strong> Wenn Sie unser Kontaktformular ausfüllen, erheben wir: Name, E-Mail-Adresse, Telefonnummer, Firmenname, Branche sowie den Inhalt Ihrer Nachricht.</p>
+      <p class="legal-p"><strong>Kontaktformular:</strong> Wenn Sie unser Kontaktformular ausfüllen, erheben wir: Name, E-Mail-Adresse, Telefonnummer, Firmenname, Branche sowie den Inhalt Ihrer Nachricht. Die Übermittlung erfolgt nur nach Ihrer ausdrücklichen Einwilligung (Checkbox im Formular).</p>
+      <p class="legal-p"><strong>KI-Chat-Assistent:</strong> Nutzen Sie den Chat-Assistenten auf unserer Website, werden Ihre eingegebenen Nachrichten zur Beantwortung an einen KI-Dienst (Claude von Anthropic) übermittelt und verarbeitet. Der Chatverlauf wird nicht dauerhaft gespeichert und nach Schließen des Chatfensters bzw. nach Ende der Sitzung gelöscht. Geben Sie im Chat keine sensiblen Daten (z.B. Gesundheitsdaten) an.</p>
       <p class="legal-p"><strong>Server-Logs:</strong> Beim Besuch unserer Website werden technische Daten automatisch erfasst (IP-Adresse, Browsertyp, Betriebssystem, Datum/Uhrzeit, aufgerufene Seiten). Diese dienen ausschließlich der Sicherheit und werden nach 7 Tagen gelöscht.</p>
       <p class="legal-p"><strong>Cookies:</strong> Wir verwenden ausschließlich technisch notwendige Cookies (z.B. zur Speicherung Ihrer Cookie-Einstellung). Es werden keine Analyse- oder Tracking-Cookies eingesetzt.</p>
     </div>
@@ -2201,8 +2222,10 @@ function cookieChoice(all){
       <h2 class="legal-h2">4. Weitergabe an Dritte</h2>
       <p class="legal-p">Ihre Daten werden nicht an Dritte verkauft. Zur Bearbeitung Ihrer Anfrage nutzen wir folgende Dienste:</p>
       <p class="legal-p">— <strong>GitHub Pages</strong> (Hosting): GitHub, Inc., San Francisco, USA — Standardvertragsklauseln gemäß Art. 46 DSGVO.<br>
+      — <strong>Formsubmit</strong> (Kontaktformular-Zustellung): Ihre Formulardaten (Name, E-Mail, Telefon, Firma, Anfrageinhalt) werden zur Zustellung per E-Mail an office@aurion-systems.at verarbeitet, keine dauerhafte Speicherung durch den Anbieter.<br>
       — <strong>Telegram</strong> (Benachrichtigungen): Telegram Messenger Inc., interne Weiterleitung von Kontaktanfragen, keine dauerhafte Speicherung.<br>
-      — <strong>n8n</strong> (Automatisierung): Selbst gehostete Instanz auf einem Server in Wien, Österreich — keine Datenweitergabe an Dritte.<br>
+      — <strong>n8n</strong> (Automatisierung): Selbst gehostete Instanz, Betrieb in Wien, Österreich — keine Datenweitergabe an Dritte.<br>
+      — <strong>Anthropic</strong> (KI-Chat-Assistent): Anthropic PBC, USA — Verarbeitung Ihrer Chat-Eingaben zur Beantwortung, Standardvertragsklauseln gemäß Art. 46 DSGVO.<br>
       — <strong>Bunny Fonts</strong> (Schriftarten): BunnyWay d.o.o., Slovenija — DSGVO-konformes CDN, keine Übermittlung in Drittländer.</p>
     </div>
 
@@ -2227,10 +2250,11 @@ function cookieChoice(all){
 <!-- DSGVO COOKIE BANNER -->
 <div id="cookie-banner">
   <div class="cb-text">
-    Diese Website verwendet ausschließlich technisch notwendige Cookies (z.B. zur Speicherung dieser Einstellung). Es werden keine Tracking- oder Analyse-Cookies eingesetzt. Weitere Informationen in unserer <a href="#" onclick="cookieChoice(true);openLegal('datenschutz');return false;">Datenschutzerklärung</a>.
+    Diese Website verwendet ausschließlich technisch notwendige Cookies (z.B. zur Speicherung dieser Einstellung). Es werden keine Tracking- oder Analyse-Cookies eingesetzt. Details in unserer <a href="#" onclick="openLegal('datenschutz');return false;">Datenschutzerklärung</a>.
   </div>
   <div class="cb-btns">
-    <button class="cb-accept" onclick="cookieChoice(true)">Verstanden</button>
+    <button class="cb-minimal" onclick="cookieChoice(false)">Nur notwendige</button>
+    <button class="cb-accept" onclick="cookieChoice(true)">Alle akzeptieren</button>
   </div>
 </div>
 
